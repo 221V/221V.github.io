@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Shapes</title>
+  <style>
+  
+  </style>
+  <script src="atom.js"></script>
+  <script src="libcanvas.js"></script>
+
+  <script>
+  //window.declare  = atom.declare;
+  //window.Settings = atom.Settings;
+
+  //atom.patching(window);
+  //LibCanvas.extract();
+  </script>
+  
+  <script>
+    atom.dom(function(){
+
+   var canvas  = atom.dom('canvas').first;
+   var context = canvas.getContext('2d-libcanvas');
+   
+   context
+      .fillAll( '#efebe7' )
+      .fill( new LibCanvas.Shapes.Rectangle( 75, 75, 30, 30 ), 'green' )//x,y,width,height
+      .fill( new LibCanvas.Shapes.Circle( 50, 50, 20 ), '#c00' )//x,y,radius
+      .fill( new LibCanvas.Shapes.Rectangle( 120, 120, 40, 20 ), '#0080C0' )//x,y,width,height
+      
+      .stroke(new LibCanvas.Shapes.Circle( 150, 50, 20 ), 'black' )
+      .stroke(new LibCanvas.Shapes.Rectangle( 175, 75, 30, 30 ), '#008000' )
+      
+      .fill(new LibCanvas.Shapes.Ellipse({ from: [20, 120], to: [100, 150] }), '#0080C0' );
+   
+   });
+   
+  </script>
+
+</head>
+<body>
+  <canvas width="600" height="300"></canvas>
+  
+  <p><a href="/">Return to index</a></p>
+
+</body>
+</html>

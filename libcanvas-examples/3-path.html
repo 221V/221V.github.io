@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Curve, Path, Move, Rotate</title>
+  <style>
+  
+  </style>
+  <script src="atom.js"></script>
+  <script src="libcanvas.js"></script>
+
+  <script>
+  //window.declare  = atom.declare;
+  //window.Settings = atom.Settings;
+
+  //atom.patching(window);
+  //LibCanvas.extract();
+  </script>
+  
+  <script>
+   atom.dom(function(){
+
+   var canvas  = atom.dom('canvas').first;
+   var context = canvas.getContext('2d-libcanvas');
+   context.fillAll( '#efebe7' );
+   
+   
+   var pathFrom = new LibCanvas.Point(150, 200);
+   var path = new LibCanvas.Shapes.Path()
+    .moveTo ( pathFrom )
+    .curveTo([300, 200], [250, 150])
+    .curveTo([200, 280], [290, 250])
+    .curveTo( pathFrom , [220, 220]);
+   context.stroke(path, '#0080C0');
+   
+   
+   var path2 = new LibCanvas.Shapes.Path()
+    .curveTo( new LibCanvas.Point(100, 150), new LibCanvas.Point(20, 50) );
+   context.stroke(path2 , '#0080C0');
+   
+   var path3 = new LibCanvas.Shapes.Path()
+    .curveTo( new LibCanvas.Point(100, 150), new LibCanvas.Point(50, 50), new LibCanvas.Point(120, 40) );
+   context.stroke(path3, '#c00');
+   
+   
+   var path20 = path.move( new LibCanvas.Point(200, 5) );
+   context
+    .fill  (path20, 'green')
+    .stroke(path20, 'black');
+   
+   
+   var path21 = path.move( new LibCanvas.Point(100, -120) );
+   path21 = path21.rotate( atom.math.degree(-30), path21.center );
+   context
+    .fill  (path21, '#0080C0')
+    .stroke(path21, 'red');
+   
+   });
+  </script>
+
+</head>
+<body>
+  <canvas width="600" height="300"></canvas>
+  
+  <p><a href="/">Return to index</a></p>
+
+</body>
+</html>

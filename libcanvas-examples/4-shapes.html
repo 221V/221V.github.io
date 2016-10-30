@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Polygon, Triangle, Move, Rotate</title>
+  <style>
+  
+  </style>
+  <script src="atom.js"></script>
+  <script src="libcanvas.js"></script>
+
+  <script>
+  //window.declare  = atom.declare;
+  //window.Settings = atom.Settings;
+
+  //atom.patching(window);
+  //LibCanvas.extract();
+  </script>
+  
+  <script>
+   atom.dom(function(){
+
+   var canvas  = atom.dom('canvas').first;
+   var context = canvas.getContext('2d-libcanvas');
+   context.fillAll( '#efebe7' );
+   
+   var polygon = new LibCanvas.Shapes.Polygon([
+    [120,  30],
+    [200,  10],
+    [240, 120],
+    [150, 150],
+    [100, 100]
+   ]);
+   context
+    .stroke(polygon, '#6300C0');
+   
+
+   var triangle = new LibCanvas.Shapes.Polygon([
+    new LibCanvas.Point(200, 200),
+    new LibCanvas.Point(300, 200),
+    new LibCanvas.Point(220, 290)
+   ]);
+   context
+    .stroke(triangle, '#006DC0');
+   
+   
+   var triangle2 = triangle.move( new LibCanvas.Point(42, -30) );
+   context
+    .stroke(triangle2, 'red');
+   
+   
+   var triangle3 = triangle.rotate( atom.math.degree(20), triangle.center );
+   context
+    .stroke(triangle3, 'green');
+   
+   
+   var triangle4 = triangle.rotate( atom.math.degree(20), triangle.get(0) );
+   context
+    .stroke(triangle4, '#FFE100');
+   
+   
+   
+   });
+  </script>
+
+</head>
+<body>
+  <canvas width="600" height="300"></canvas>
+  
+  <p><a href="/">Return to index</a></p>
+
+</body>
+</html>

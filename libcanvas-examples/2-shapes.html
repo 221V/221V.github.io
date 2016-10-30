@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <title>Shapes</title>
+  <title>Line</title>
   <style>
   
   </style>
@@ -18,30 +18,21 @@
   </script>
   
   <script>
-    atom.dom(function(){
+   atom.dom(function(){
 
    var canvas  = atom.dom('canvas').first;
    var context = canvas.getContext('2d-libcanvas');
-   context.fillAll( '#efebe7' )
+   context.fillAll( '#efebe7' );
    
-   //LibCanvas.Shapes.Line({ from: [5,5], to: [100,10] }).processPath(context);
+   context.stroke(new LibCanvas.Shapes.Line([5, 5], [100, 10]), '#0080C0' );
    
-   //var line = new LibCanvas.Shapes.Line({
-   //   from : [10, 10],
-   //   to   : [20, 20]
-   //});
-   //console.log(line.center);
+   var line = new LibCanvas.Shapes.Line([10, 10], [50, 50]);//[from_x, from_y], [to_x, to_y]
+   context.stroke(line,'#c00');
    
-   context.stroke(new LibCanvas.Shapes.Line({ from: [5, 5], to: [100, 10] }),'#c00' );
-   context.stroke(new LibCanvas.Shapes.Line({ from: [5, 5], to: [100, 10] }),'#c00' ).processPath(context);
-   
+   console.log(line.center);//Object { Constructor: "LibCanvas.Point", x: 30, y: 30 }
+   console.log(line.length);//56.568542494923804
    
    });
-   
-   
-   
-   
-   
   </script>
 
 </head>

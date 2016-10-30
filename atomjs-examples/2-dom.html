@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>DOM</title>
+  <style>
+  
+  </style>
+  <script src="atom.js"></script>
+  
+  <script>
+  //window.declare  = atom.declare;
+  //window.Settings = atom.Settings;
+
+  //atom.patching(window);
+  </script>
+  
+  <script>
+   atom.dom(function(){
+   
+   var Create_Div = atom.dom('body').create('div');
+   var Create_Div2 = atom.dom('body').create('div', { id: "second", class: "foo"});
+   
+   atom.dom('#second')
+                .create('p', {class: "one"})
+                .create('p', {class: "two"})
+                .create('p')
+                .create('p')
+                .create('p')
+                .create('footer');
+   
+   //atom.dom('p').first.innerHTML = 'Add some text';
+   atom.dom('p').html('Add some text').first;
+   
+   //atom.dom('span').addClass('foo');
+   //atom.dom('span').removeClass('foo');
+   //atom.dom('span').toggleClass('foo');
+   //atom.dom('span').hasClass('foo');
+   
+   //add class 'foo' to 5th p -- not work now
+   //atom.dom('p').addClass('foo').get(5);
+   //atom.dom('p').get(5).addClass('foo');
+   
+   //wrap selected(all) p to new div
+   atom.dom('p').wrap( atom.dom.create('div') );
+   
+   //replace
+   atom.dom('#second').replaceWith( atom.dom.create('div',{id: "3rd"}) );
+   
+   });
+   
+  </script>
+
+</head>
+<body>
+  
+  <p><a href="/atomjs-examples/index.html">AtomJs examples</a></p>
+
+</body>
+</html>

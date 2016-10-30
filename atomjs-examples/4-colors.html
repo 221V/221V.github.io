@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Colors</title>
+  <style>
+  
+  </style>
+  <script src="atom.js"></script>
+  
+  <script>
+  //window.declare  = atom.declare;
+  //window.Settings = atom.Settings;
+
+  //atom.patching(window);
+  </script>
+  
+  <script>
+   atom.dom(function(){
+   
+   var Create_Div = atom.dom('body').create('div', { id: "second", class: "foo"});
+   
+   atom.dom('#second')
+                .create('p', {class: "p1"})
+                .create('p', {class: "p2"})
+                .create('p', {class: "p3"})
+                .create('p', {class: "p4"})
+                .create('p', {class: "p5"})
+                .create('p', {class: "p6"})
+                .create('p', {class: "p7"})
+                .create('p', {class: "p8"})
+                .create('p', {class: "p9"})
+                .create('p', {class: "p10"})
+                .create('p', {class: "p11"})
+                .create('p', {class: "p12"})
+                .create('p', {class: "p13"})
+                .create('p', {class: "p14"})
+                .create('p', {class: "p15"})
+                .create('p', {class: "p16"})
+                .create('p', {class: "p17"})
+                .create('p', {class: "p18"})
+                .create('p', {class: "p19"})
+                .create('p', {class: "p20"})
+                .create('footer');
+   
+   
+   atom.dom('body').css({background: '#efebe7', margin: 0, padding: 0});
+   
+   atom.dom('p').filter('.p1').css({background: 'white', height: '20px', margin: 0});
+   console.log('.p1' + '===' + 'white' + '===' + '#ffffff');
+   atom.dom('p').filter('.p2').css({background: 'silver', height: '20px', margin: 0});
+   console.log('.p2' + '===' + 'silver' + '===' + '#c0c0c0');
+   atom.dom('p').filter('.p3').css({background: 'gray', height: '20px', margin: 0});
+   console.log('.p3' + '===' + 'gray' + '===' + '#808080');
+   atom.dom('p').filter('.p4').css({background: 'black', height: '20px', margin: 0});
+   console.log('.p4' + '===' + 'black' + '===' + '#000000');
+   atom.dom('p').filter('.p5').css({background: 'red', height: '20px', margin: 0});
+   console.log('.p5' + '===' + 'red' + '===' + '#ff0000');
+   atom.dom('p').filter('.p6').css({background: 'maroon', height: '20px', margin: 0});
+   console.log('.p6' + '===' + 'maroon' + '===' + '#800000');
+   atom.dom('p').filter('.p7').css({background: 'yellow', height: '20px', margin: 0});
+   console.log('.p7' + '===' + 'yellow' + '===' + '#ffff00');
+   atom.dom('p').filter('.p8').css({background: 'olive', height: '20px', margin: 0});
+   console.log('.p8' + '===' + 'olive' + '===' + '#808000');
+   atom.dom('p').filter('.p9').css({background: 'lime', height: '20px', margin: 0});
+   console.log('.p9' + '===' + 'lime' + '===' + '#00ff00');
+   atom.dom('p').filter('.p10').css({background: 'green', height: '20px', margin: 0});
+   console.log('.p10' + '===' + 'green' + '===' + '#008000');
+   atom.dom('p').filter('.p11').css({background: 'aqua', height: '20px', margin: 0});
+   console.log('.p11' + '===' + 'aqua' + '===' + '#00ffff');
+   atom.dom('p').filter('.p12').css({background: 'teal', height: '20px', margin: 0});
+   console.log('.p12' + '===' + 'teal' + '===' + '#008080');
+   atom.dom('p').filter('.p13').css({background: 'blue', height: '20px', margin: 0});
+   console.log('.p13' + '===' + 'blue' + '===' + '#0000ff');
+   atom.dom('p').filter('.p14').css({background: 'navy', height: '20px', margin: 0});
+   console.log('.p14' + '===' + 'navy' + '===' + '#000080');
+   atom.dom('p').filter('.p15').css({background: 'fuchsia', height: '20px', margin: 0});
+   console.log('.p15' + '===' + 'fuchsia' + '===' + '#ff00ff');
+   atom.dom('p').filter('.p16').css({background: 'purple', height: '20px', margin: 0});
+   console.log('.p16' + '===' + 'purple' + '===' + '#800080');
+   atom.dom('p').filter('.p17').css({background: 'orange', height: '20px', margin: 0});
+   console.log('.p17' + '===' + 'orange' + '===' + '#ffa500');
+   
+   console.log('----------');
+   
+   console.log( new atom.Color('orange').toString() );
+   console.log( new atom.Color('orange').toString('hex') );
+   
+   console.log('----------');
+   
+   var rand1 = atom.Color.random().toString('hex');
+   var rand2 = atom.Color.random().toString('hex');
+   var rand3 = atom.Color.random().toString('hex');
+   atom.dom('p').filter('.p18').css({background: rand1, height: '20px', margin: 0});
+   console.log('.p18' + '===' + rand1);
+   atom.dom('p').filter('.p19').css({background: rand2, height: '20px', margin: 0});
+   console.log('.p19' + '===' + rand2);
+   atom.dom('p').filter('.p20').css({background: rand3, height: '20px', margin: 0});
+   console.log('.p20' + '===' + rand3);
+   
+   
+   });
+  </script>
+
+</head>
+<body>
+  
+  <p><a href="/atomjs-examples/index.html">AtomJs examples</a></p>
+
+</body>
+</html>

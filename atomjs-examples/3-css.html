@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>CSS</title>
+  <style>
+  
+  </style>
+  <script src="atom.js"></script>
+  
+  <script>
+  //window.declare  = atom.declare;
+  //window.Settings = atom.Settings;
+
+  //atom.patching(window);
+  </script>
+  
+  <script>
+   atom.dom(function(){
+
+   var Create_Div = atom.dom('body').create('div');
+   var Create_Div2 = atom.dom('body').create('div', { id: "second", class: "foo"});
+   
+   atom.dom('#second')
+                .create('p', {class: "one"})
+                .create('p', {class: "two"})
+                .create('p')
+                .create('p')
+                .create('p')
+                .create('footer');
+   
+   atom.dom('p').filter('.two').html('Add some text');
+   atom.dom('p').filter('.two').css({background: 'red', 'font-size': '25px'});
+   
+   
+   
+   });
+  </script>
+
+</head>
+<body>
+  
+  <p><a href="/atomjs-examples/index.html">AtomJs examples</a></p>
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Frame</title>
+  <style>
+  
+  </style>
+  <script src="atom.js"></script>
+  
+  <script>
+  //window.declare  = atom.declare;
+  //window.Settings = atom.Settings;
+
+  //atom.patching(window);
+  </script>
+  
+  <script>
+   atom.dom(function(){
+
+   atom.dom('div').css({background: 'red', width: '450px', position: 'relative'});
+   atom.dom('div').text('777');
+   
+   var element = atom.dom('div').first;
+   atom.frame.add(function animate() {
+      if(element.style.left == "") element.style.left = "1px";
+      element.style.left = (parseInt(element.style.left.substr(0, element.style.left.length - 2)) + 5) + "px";
+      console.log(element.style.left);
+      if (parseInt(element.style.left.substr(0, element.style.left.length - 2)) > 700) {
+        atom.frame.remove(animate);
+        alert("Its all, folks !");
+      }
+   });
+   
+   });
+   
+  </script>
+
+</head>
+<body>
+  <div></div>
+  
+  <p><a href="/atomjs-examples/index.html">AtomJs examples</a></p>
+
+</body>
+</html>

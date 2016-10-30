@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>DOM</title>
+  <style>
+  
+  </style>
+  <script src="atom.js"></script>
+  
+  <script>
+  //window.declare  = atom.declare;
+  //window.Settings = atom.Settings;
+
+  //atom.patching(window);
+  </script>
+  
+  <script>
+   atom.dom(function(){
+   
+   //create canvas in body
+   var Create_Canvas = atom.dom('body').create('canvas', {
+    width  : 500,
+    height : 200
+   });
+   
+   //create div in body
+   var Create_Div = atom.dom('body').create('div');
+   var Create_Div2 = atom.dom('body').create('div', { id: "second", class: "foo"});
+   
+   //create p in created div
+   var Create_P = atom.dom('div').create('p');
+   
+   //var body = atom.dom().body;
+   //atom.dom();
+   //atom.dom('tag .class');
+   //atom.dom(document.getElementsByTagName('tag'));
+   //atom.dom(selector, context);
+   
+   //select
+   //atom.dom('img').first;  // first image on a page
+   //atom.dom('img').get();  // first image on a page
+   //atom.dom('img').get(5); // fifth image on a page
+  
+   //and add text
+   atom.dom('p').first.innerHTML = 'Add some text';
+   
+   //create elements inside #second like usind operator |> in elixir 
+   atom.dom('#second')
+                .create('p', {class: "one"})
+                .create('p', {class: "two"})
+                .create('p')
+                .create('p')
+                .create('p')
+                .create('footer');
+   //delete elem from dom
+   atom.dom('footer').destroy();
+   
+   //set and get html
+   atom.dom('p').filter('.one').html("12345");
+   atom.dom('p').filter('.two').html("777");
+   console.log(atom.dom('p').filter('.two').html());
+   
+   //move p.two from 2nd div to 1st div
+   atom.dom('p').filter('.two').appendTo('div');
+   
+   //html and text difference
+   console.log(atom.dom('div').html());
+   console.log(atom.dom('div').text());
+   
+   //set text to 5th p
+   atom.dom('p').text('<test>').get(5);
+   
+   });
+   
+  </script>
+
+</head>
+<body>
+  
+  <p><a href="/atomjs-examples/index.html">AtomJs examples</a></p>
+
+</body>
+</html>

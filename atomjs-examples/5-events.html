@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Events</title>
+  <style>
+  
+  </style>
+  <script src="atom.js"></script>
+  
+  <script>
+  //window.declare  = atom.declare;
+  //window.Settings = atom.Settings;
+
+  //atom.patching(window);
+  </script>
+  
+  <script>
+   atom.dom(function(){
+
+   atom.dom('div').filter('.first').css({background: 'red', width: '450px', position: 'relative', left: '0px'});
+   atom.dom('div').filter('.first').text('777');
+
+   atom.dom('div').filter('.first').addEvent({click: function () {
+     alert('div clicked');
+     var element = atom.dom('div').filter('.first');
+     var movepx = (parseInt(element.elems[0].style.left.substr(0, element.elems[0].style.left.length - 2)) + 15) + "px"
+     atom.dom('div').filter('.first').css({left: movepx});
+   }});
+   
+   //atom.dom('div').addEvent(..)
+   //atom.dom('div').removeEvent(..)
+   
+   atom.dom('div').filter('.second').css({background: 'green', width: '450px'});
+   atom.dom('div').filter('.second').text('999');
+   atom.dom("div").filter('.second').addEvent("click", function listener (event) {
+     alert('div .second clicked')
+     atom.dom("div").filter('.second').removeEvent("click", listener);
+   });
+   
+   });
+   
+  </script>
+
+</head>
+<body>
+  <div class="first"></div>
+  <div class="second"></div>
+  <p><a href="/atomjs-examples/index.html">AtomJs examples</a></p>
+
+</body>
+</html>

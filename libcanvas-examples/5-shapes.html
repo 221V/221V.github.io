@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Rounded Rectangle</title>
+  <style>
+  
+  </style>
+  <script src="atom.js"></script>
+  <script src="libcanvas.js"></script>
+
+  <script>
+  //window.declare  = atom.declare;
+  //window.Settings = atom.Settings;
+
+  //atom.patching(window);
+  //LibCanvas.extract();
+  </script>
+  
+  <script>
+   atom.dom(function(){
+
+   var canvas  = atom.dom('canvas').first;
+   var context = canvas.getContext('2d-libcanvas');
+   context.fillAll( '#efebe7' );
+   
+   var RoundedRectangle = new LibCanvas.Shapes.RoundedRectangle(20, 20, 50, 60).setRadius( 5 );
+   context
+    .stroke(RoundedRectangle, '#6300C0');
+   
+   var RoundedRectangle2 = new LibCanvas.Shapes.RoundedRectangle(20, 120, 50, 160).setRadius( 15 );
+   context
+    .stroke(RoundedRectangle2, 'green');
+   
+   });
+  </script>
+
+</head>
+<body>
+  <canvas width="600" height="300"></canvas>
+  
+  <p><a href="/">Return to index</a></p>
+
+</body>
+</html>

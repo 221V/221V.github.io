@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Array</title>
+  <style>
+  
+  </style>
+  <script src="atom.js"></script>
+  
+  <script>
+  //window.declare  = atom.declare;
+  //window.Settings = atom.Settings;
+
+  //atom.patching(window);
+  </script>
+  
+  <script>
+   atom.dom(function(){
+   
+   console.log('range===');
+   console.log(atom.array.range(5, 8));// [5,6,7,8]
+   console.log(atom.array.range(5, 15, 3));// [5,8,11,14]); 
+   
+   
+   console.log('from===');
+   (function () {
+    console.log(atom.array.from(arguments));// [1,2,3]
+    console.log(atom.array.from( 'foo' ));// ['foo']
+    console.log(atom.array.from(['zzz']));// ['zzz'] 
+   })(1,2,3);
+   
+   
+   function foo () {
+    return atom.array.pickFrom(arguments);
+   }
+   foo( 1,2,3 );
+   // equals to
+   foo([1,2,3]);
+   console.log(foo( 1,2,3 ), foo([1,2,3]));//[1,2,3],[1,2,3]
+   
+   
+   console.log('fill===');
+   console.log(atom.array.fill(3, null));// [null, null, null]
+   
+   
+   console.log('fill Matrix===');
+   console.log(atom.array.fillMatrix(3, 2, null));
+   //result is [
+   // [null, null, null],
+   // [null, null, null]
+   //]
+   
+   
+   console.log('collect===');
+   
+   var object = { a: 5, b: 8, c: 13 };
+   console.log(
+     atom.array.collect(object, ['a', 'x', 'c'], -1)
+   );
+   //Collect properties from object (or set defaultValue if empty)
+   //result: [5, -1, 13]
+   
+   
+   console.log('create===');//not works
+   //var array = atom.array.create(5, function (i) {
+   //  atom.number.random(i, 10);
+   //});
+   //console.log(array);//[ undefined, undefined, undefined, undefined, undefined ]//not works
+   
+   
+   console.log('toHash===');//array to object
+   console.log(atom.array.toHash([1, 5, null])); // { 0: 1, 1: 5, 2: null }
+   
+   
+   console.log('last===');
+   console.log(atom.array.last([0,1,2,3,4])); // 4
+   console.log(atom.array.last([])); // null
+   
+   
+   console.log('randomIndex===');
+   console.log(atom.array.randomIndex([1,2,3,4,5,6])); // 3 or other from 0-1-2-3-4-5
+   console.log(atom.array.randomIndex([])); // null
+   
+   
+   console.log('random===');
+   console.log(atom.array.random([1,2,3,4,5,6])); // 4 or other
+
+   var array = [1,2,3,4];
+   console.log(atom.array.random(array, true)); // 3
+   console.log(array); // [1,2,4]
+   
+   
+   console.log('property===');
+   //Returns all values of property name of each element of array
+   var arr = [ { foo: 1, bar: 3 }
+   , { foo: 3, bar: 1 }
+   , { foo: 2, bar: 2 }
+   , { foo: 4, bar: 6 } ];
+   
+   console.log(atom.array.property(arr, 'foo')); // [1,3,2,4]
+   
+   
+   console.log('contains===');
+   //Tests an array for the presence of an item.
+   //array, item, Number fromIndex = 0
+   console.log(atom.array.contains([1,2,3,4], 1   )); // true
+   console.log(atom.array.contains([1,2,3,4], 1, 2)); // false
+   
+   
+   console.log('include===');
+   //Push element to array, if it doesn't contains such element
+   console.log(atom.array.include([1,2,3], 1)); // [1,2,3]
+   console.log(atom.array.include([1,2,3], 4)); // [1,2,3,4]
+   
+   
+   console.log('erase===');
+   //Removes all occurrences of an item from the array.
+   console.log(atom.array.erase([1,2,3,1], 1)); // [2,3]
+   
+   
+   console.log('append===');
+   //Appends the passed array to the end of the current array
+   var arr = ['green', 'yellow'];
+   console.log(atom.array.append(arr, ['red', 'blue'])); //['red', 'blue', 'green', 'yellow'];
+   console.log(atom.array.append([0, 1, 2], [3, [4]], [6, 7])); // [0, 1, 2, 3, [4], 6, 7]
+   
+   
+   console.log('combine===');
+   //Array atom.array.combine(Array target, Array source)
+   //Includes to target all items from source excluding those already contained in target
+   console.log(atom.array.combine([1, 2, 3], [2, 3, 4])); //[1, 2, 3, 4]
+   
+   
+   console.log('pick===');
+   //Returns first not an undefined item from array or null.
+   console.log(atom.array.pick([null, undefined, 1, 2])); // 1
+   console.log(atom.array.pick([])); // null
+   
+   
+   console.log('invoke===');
+   //If methodName is string then applies method with name methodName of every item in array to item. Else apply every item in array to context.
+
+   var zz = atom.array.invoke([ [2,3,4], [35, 23, 4] ], 'sort', function (a, b) {
+     return a > b ? 1 : a < b ? -1 : 0
+   });
+   // [ [2,3,4], [4, 23, 35] ]
+   console.log(zz);
+   
+   
+   console.log('shuffle===');
+   //Shuffles items in array
+   console.log(atom.array.shuffle([1,2,3,4]));//[4,1,3,2] or other
+   
+   
+   console.log('sortBy===');
+   //atom.array.sortBy(Array array, String property, Boolean reverse = false)
+   //Sort array by property property value or method property returns value
+   var array = [
+    { a: 15 },
+    { a: 32 },
+    { a: 10 }
+   ];
+   console.log(atom.array.sortBy(array, 'a'));// [{ a: 32 }, { a: 15 }, { a: 10 }]
+   console.log(atom.array.sortBy(array, 'a', true));// [{ a: 10 }, { a: 15 }, { a: 32 }]
+   
+   
+   console.log('min===');
+   //Returns minimum item in array, if array contain at least one not a number item then returns NaN.
+   console.log(atom.array.min([2, 7, 5, 3])); // 2
+   console.log(atom.array.min(["foo", 23 ])); // NaN
+   
+   
+   console.log('max===');
+   //Returns maximum item in array, if array contain at least one not a number item then returns NaN.
+   console.log(atom.array.max([2, 7, 5, 3])); // 7
+   console.log(atom.array.max(["foo", 23 ])); // NaN
+   
+   
+   console.log('mul===');
+   //Array atom.array.mul(Array array, Number factor)
+   //Multiply all items of array to factor
+   console.log(atom.array.mul([1, 2, 3], 3)); // [3,6,9]
+   
+   
+   console.log('add===');
+   //Add number to all items of array
+   console.log(atom.array.add([1, 2, 3], 3)); // [4,5,6]
+   
+   
+   console.log('sum===');
+   //Count sum of all items in array, if array contain not a number then returns NaN,
+   //if array is empty then returns 0.
+   console.log(atom.array.sum([1, 2, 3, 4])); // 10
+   
+   
+   console.log('product===');
+   //Returns result of multiplying of all items in array,
+   //if array contain not a number then returns NaN, if array is empty then returns 1.
+   console.log(atom.array.product([1, 2, 2, 4])); // 16
+   
+   
+   console.log('average===');
+   //Returns average value from all items from array,
+   //if array contain not a number then returns NaN, if array is empty then returns 0.
+   console.log(atom.array.average([1, 2, 3, 4, 5 ])); // 3
+   console.log(atom.array.average([1, 2, 3, "foo"])); // NaN
+   console.log(atom.array.average([              ])); // 0
+   
+   
+   console.log('unique===');
+   //Returns array with only unique values
+   console.log(atom.array.unique([1,2,3,3,4,4,5])); // [1,2,3,4,5]
+   
+   
+   console.log('associate===');
+   //Array atom.array.associate(Array array, Function|Array keys)
+   //Associate array values with keys if keys is Array it used as keys names,
+   //and array used as values if keys if Function it used as function,
+   //generated values & array used as keys
+   console.log(atom.array.associate([1,2,3], ['a','b','c'])); // {a:1,b:2,c:3}
+   console.log(atom.array.associate([1,2,3], function (item) {
+     return item * 2;
+   })); // {1:2,2:4,3:6}
+   
+   
+   console.log('clean===');
+   //Clean array from empty values & returns clear array
+   console.log(atom.array.clean([1,2,3,null,undefined,4])); // [1,2,3,4]
+   
+   
+   console.log('empty===');
+   //Quickly erase all values from array
+   var array = [1,2,3];
+   atom.array.empty(array);
+   console.log(array); // []
+   
+   
+   console.log('hexToRgb===');
+   //Map array of hex strings to rgb values
+   var hex = [ 'ff', '00', 'ff' ];
+   console.log(atom.array.hexToRgb( hex )); // 'rgb(255,0,255)'
+   console.log(atom.array.hexToRgb( hex, true )); // [255,0,255]
+   
+   
+   console.log('rgbToHex===');
+   //Map array of rgb numbers to hex string
+   var rgb = [ 255, 0, 255 ];
+   console.log(atom.array.rgbToHex( rgb )); // '#ff00ff'
+   console.log(atom.array.rgbToHex( rgb, true )); // ['ff', '00', 'ff']
+   console.log(atom.array.rgbToHex( [0,0,0,0] )); // 'transparent'
+   console.log(atom.array.rgbToHex( [200,100,50,1] )); // '#c86432'
+   console.log(atom.array.rgbToHex( [200,100,50,0.5] )); // '#c86432'
+   
+   
+   });
+   
+  </script>
+
+</head>
+<body>
+  
+  <p><a href="/atomjs-examples/index.html">AtomJs examples</a></p>
+
+</body>
+</html>

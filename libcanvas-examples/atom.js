@@ -4113,7 +4113,7 @@ atom.array = {
 	fillMatrix: function (width, height, fill) {
 		var array = new Array(height);
 		while (height--) {
-			array[height] = Array.fill(width, fill);
+			array[height] = atom.array.fill(width, fill);
 		}
 		return array;
 	},

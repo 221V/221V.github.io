@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Animate</title>
+  <style>
+  
+  </style>
+  <script src="atom.js"></script>
+  
+  <script>
+  //window.declare  = atom.declare;
+  //window.Settings = atom.Settings;
+
+  //atom.patching(window);
+  </script>
+  
+  <script>
+   atom.dom(function(){
+   
+   //var animatable = new atom.Animatable('div');
+   //animatable.animate({ time: 3, props:{width: 500} });
+   
+   atom.dom('div').addEvent({click: function () {
+   atom.dom('div').animate({ width: 500 });
+   }});
+   
+   });
+   
+  </script>
+
+</head>
+<body>
+  <div style="position:relative;width:100px;background:#f00;">777</div>
+  <p><a href="/atomjs-examples/index.html">AtomJs examples</a></p>
+
+</body>
+</html>

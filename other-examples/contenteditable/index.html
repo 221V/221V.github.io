@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Contenteditable insert img</title>
+  <style>
+  div#wrap{
+  width: 600px;
+  margin:0 auto;
+  margin-top:50px;
+  }
+  div#content { 
+	padding: 10px; 
+	border: 1px dashed #aaa;
+	outline: 0;
+    margin-top:10px;
+  }
+  div#content:hover {
+	background-color: #FF9;
+  	border: 1px dashed #aaa;
+  }
+  </style>
+
+  <script>
+    function insertImage(image) {
+    //var sel = document.selection;
+    //console.log(sel);
+    //if (sel) {
+    //    var textRange = sel.createRange();
+    //    document.execCommand('insertImage', false, "logo.png");
+    //    textRange.collapse(false);
+    //    textRange.select();
+    //} else {
+        //document.execCommand('insertImage', false, "logo.png");
+        document.execCommand('insertImage', false, image);
+    //}
+}
+  </script>
+</head>
+<body>
+  <div id="wrap">
+    <input type="button" onmousedown="insertImage('dance.gif'); return false" value="insert smile" unselectable="on">
+    <input type="button" onmousedown="insertImage('logo.png'); return false" value="insert logo" unselectable="on">
+    <div id="content" contenteditable="true">Click somewhere in here and press the button</div>
+  </div>
+  
+  <p>---</p>
+  <p><a href="/other-examples/index.html">Back</a></p>
+  <p><a href="/">Return to index</a></p>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Recursion</title>
+  <style>
+  
+  </style>
+  
+  <script>
+  //base^exponent
+  </script>
+  
+  <script>
+   //window.onload = function() {
+     
+     function power1(base, exp){
+       if(exp == 0){
+         return 1;
+       }else{
+         return base * power1(base, exp - 1);
+       }
+     }
+     
+     function power2(base, exp, result){
+       if(result == undefined){
+         result = 1;
+       }
+       if(exp == 0){
+         return result;
+       }else{
+         result = result * base;
+         return power2(base, exp - 1, result);
+       }
+     }
+     
+     console.log(power1(2, 3));
+     console.log(power2(3, 4));
+     
+   //};
+  </script>
+
+</head>
+<body>
+  
+  <p><a href="/purejs-examples/index.html">Pure Js examples</a></p>
+
+</body>
+</html>

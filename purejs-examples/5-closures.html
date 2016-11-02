@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Closures</title>
+  <style>
+  
+  </style>
+  
+  <script>
+  </script>
+  
+  <script>
+   //window.onload = function() {
+     
+     function multi(fact){
+       return function(number){
+         return number * fact;
+       };
+     }
+     
+     var twice = multi(2);
+     console.log(twice(5));
+     
+   //};
+  </script>
+
+</head>
+<body>
+  
+  <p><a href="/purejs-examples/index.html">Pure Js examples</a></p>
+
+</body>
+</html>

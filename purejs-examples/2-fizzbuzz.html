@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>FizzBuzz</title>
+  <style>
+  
+  </style>
+  
+  <script>
+    //lesson
+    //
+    //1. needs send to sonsole all numbers from 1 to 100 --
+    //The modular operator (%) returns the division remainder
+    //send "Buzz" for all numbers that returns the division remainder 0 on division by 3 ,
+    //send "Fizz" for all numbers that returns the division remainder 0 on division by 5 (but not by 3)
+    //
+    //2. after that - the same program,
+    //but send to console "FizzBuzz" for all numbers that returns the division remainder 0 on division by 5 and by 3
+  </script>
+  
+  <script>
+   //window.onload = function() {
+     
+     function FizzBuzz1(){
+       for(var i=1;i<=100;i++){
+         if(i % 3 == 0){
+           console.log("Fizz");
+         }else if(i % 5 == 0){
+           console.log("Buzz");
+         }else{
+           console.log(i);
+         }
+         
+         if(i==100){
+           console.log("=====");
+         }
+       }
+     }
+      
+     function FizzBuzz2(){
+       var i = 0;
+       while(true){
+         i++;
+         if(i % 3 == 0){
+           console.log("Fizz");
+         }else if(i % 5 == 0){
+           console.log("Buzz");
+         }else{
+           console.log(i);
+         }
+         
+         if(i==100){
+           console.log("===================");
+           break;
+         }
+       }
+     }
+     
+     
+     function FizzBuzz3(){
+       for(var i=1;i<=100;i++){
+         if((i % 3 == 0)&&(i % 5 == 0)){
+           console.log("FizzBuzz");
+         }else{
+           console.log(i);
+         }
+         
+         if(i==100){
+           console.log("=====");
+         }
+       }
+     }
+     
+     
+     function FizzBuzz4(){
+       var i = 0;
+       while(true){
+         i++;
+         if((i % 3 == 0)&&(i % 5 == 0)){
+           console.log("FizzBuzz");
+         }else{
+           console.log(i);
+         }
+         
+         if(i==100){
+           console.log("===================");
+           break;
+         }
+       }
+     }
+     
+     FizzBuzz1();
+     FizzBuzz2();
+     
+     FizzBuzz3();
+     FizzBuzz4();
+     
+   //};
+  </script>
+
+</head>
+<body>
+  
+  <p><a href="/purejs-examples/index.html">Pure Js examples</a></p>
+
+</body>
+</html>

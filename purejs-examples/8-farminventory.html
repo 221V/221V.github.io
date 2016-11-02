@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Farm inventory</title>
+  <style>
+  
+  </style>
+  
+  <script>
+  //Farm inventory - add 0 before number for fixed length
+  //like : 55 -> 0055; 5 -> 0005; 555 -> 0555;
+  </script>
+  
+  <script>
+   //window.onload = function() {
+     
+     function zeroPad(number, width){
+       var str = String(number);
+       while(str.length < width){
+         str = "0" + str;
+       }
+       return str;
+     }
+     
+     function farmInventory(cows, chickens, pigs){
+       console.log(zeroPad(cows, 4) + " Cows");
+       console.log(zeroPad(chickens, 4) + " Chickens");
+       console.log(zeroPad(pigs, 4) + " Pigs");
+     }
+     
+     farmInventory(24, 376, 9);
+     
+   //};
+  </script>
+
+</head>
+<body>
+  
+  <p><a href="/purejs-examples/index.html">Pure Js examples</a></p>
+
+</body>
+</html>

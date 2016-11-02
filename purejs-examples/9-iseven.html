@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Is even</title>
+  <style>
+  
+  </style>
+  
+  <script>
+  //0 is even, 1 is not even, N is even if N-2 is even.
+  //write func that input number and check is_even and return true or false (with recursion, not use % operator)
+  //like:
+  //console.log(isEven(50));//true
+  //console.log(isEven(75));//false
+  //console.log(isEven(-1));//??
+  </script>
+  
+  <script>
+   //window.onload = function() {
+     
+     function isEven(number, step){
+       if(number < 0){
+         return "??";
+       }else if((number === 0)||(step === 0)){
+         return true;
+       }else if((number === 1)||(step === 1)){
+         return false;
+       }else{
+         if(step === undefined){
+           return isEven(number, number - 2);
+         }else{
+           return isEven(number, step - 2);
+         }
+       }
+     }
+     
+     console.log(isEven(50));//true
+     console.log(isEven(75));//false
+     console.log(isEven(-1));//??
+     
+   //};
+  </script>
+
+</head>
+<body>
+  
+  <p><a href="/purejs-examples/index.html">Pure Js examples</a></p>
+
+</body>
+</html>

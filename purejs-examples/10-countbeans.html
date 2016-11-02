@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Count beans, count chars</title>
+  <style>
+  
+  </style>
+  
+  <script>
+  //write 2 functions:
+  //get count of "B" in string,
+  //get count of any char in string
+  </script>
+  
+  <script>
+   //window.onload = function() {
+     
+     function countBeans(str){
+       var count = 0;
+       var strl1 = str.length - 1;
+       for(var i=0;i<strl1;i++){
+         if(str.charAt(i) == "B"){count++;}
+       }
+       return count;
+     }
+     
+     function countChar(str, Char){
+       var count = 0;
+       var strl1 = str.length - 1;
+       for(var i=0;i<strl1;i++){
+         if(str.charAt(i) == Char){count++;}
+       }
+       return count;
+     }
+     
+     console.log(countBeans("ByftyfBBrertBseBBBereewBo87r5tfdBeeBB"));
+     console.log(countChar("ByftyfBBrertBseBBBereewBo87r5tfdBeeBBB", "B"));
+     
+   //};
+  </script>
+
+</head>
+<body>
+  
+  <p><a href="/purejs-examples/index.html">Pure Js examples</a></p>
+
+</body>
+</html>

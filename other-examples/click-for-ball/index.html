@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Click for ball fly</title>
+  
+  <style>
+    #field {
+      width: 200px;
+      height: 150px;
+      border: 10px groove black;
+      background-color: #00FF00;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    
+    #ball {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 40px;
+      height: 40px;
+      -webkit-transition: all 1s;
+      -moz-transition: all 1s;
+      -o-transition: all 1s;
+      -ms-transition: all 1s;
+      transition: all 1s;
+    }
+  </style>
+</head>
+<body style="height:2000px">
+  Click at field for ball fly to that place
+  <br>
+  
+  <div id="field">
+    <img src="ball.svg" id="ball"> . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+    . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+  </div>
+  
+  <script>
+    var field = document.getElementById('field');
+    var ball = document.getElementById('ball');
+
+
+    field.onclick = function(event) {
+
+      // field's coodinates relatively window
+      var fieldCoords = this.getBoundingClientRect();
+
+      // left top inside field corner's coodinates
+      var fieldInnerCoords = {
+        top: fieldCoords.top + field.clientTop,
+        left: fieldCoords.left + field.clientLeft
+      };
+
+      // move by click,
+      // but move relatively field (position:relative) 
+      // and move at 1/2 of width/heigh
+      // (!) use coodinates relatively window clientX/Y, as in fieldCoords
+      var ballCoords = {
+        top: event.clientY - fieldInnerCoords.top - ball.clientHeight / 2,
+        left: event.clientX - fieldInnerCoords.left - ball.clientWidth / 2
+      };
+
+      // if go out top border - set on it
+      if (ballCoords.top < 0) ballCoords.top = 0;
+
+      // if go out left border - set on it
+      if (ballCoords.left < 0) ballCoords.left = 0;
+
+
+      // if go out right border - set on it
+      if (ballCoords.left + ball.clientWidth > field.clientWidth) {
+        ballCoords.left = field.clientWidth - ball.clientWidth;
+      }
+
+      // if go out bottom border - set on it
+      if (ballCoords.top + ball.clientHeight > field.clientHeight) {
+        ballCoords.top = field.clientHeight - ball.clientHeight;
+      }
+
+      ball.style.left = ballCoords.left + 'px';
+      ball.style.top = ballCoords.top + 'px';
+    }
+  </script>
+  
+  
+  <p>---</p>
+  <p><a href="/other-examples/index.html">Back</a></p>
+  <p><a href="/">Return to index</a></p>
+</body>
+</html>

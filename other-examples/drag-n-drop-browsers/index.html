@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Drag-n-drop browsers</title>
+  
+  <script src="DragManager.js"></script>
+  <style>
+  .computer {
+    width: 93px;
+    height: 98px;
+    background: url(computer.gif) no-repeat;
+    padding: 5px;
+    font-style: italic;
+  }
+  .computer-smile {
+    background: url(computer-smile.gif) no-repeat;
+  }
+  .draggable {
+    cursor: pointer;
+  }
+  </style>
+</head>
+<body>
+  <script>
+    DragManager.onDragCancel = function(dragObject) {
+      dragObject.avatar.rollback();
+    };
+
+    DragManager.onDragEnd = function(dragObject, dropElem) {
+      dragObject.elem.style.display = 'none';
+      dropElem.classList.add('computer-smile');
+      setTimeout(function() {
+        dropElem.classList.remove('computer-smile');
+      }, 200);
+    };
+  </script>
+
+  <div style="height:64px">
+    <img src="chrome.svg" class="draggable">
+    <img src="firefox.svg" class="draggable">
+    <img src="ie.svg" class="draggable">
+    <img src="opera.svg" class="draggable">
+    <img src="safari.svg" class="draggable">
+  </div>
+
+  <p>Move browsers to the computer</p>
+
+  <div class="computer droppable">
+  </div>
+  
+  
+  <p>---</p>
+  <p><a href="/other-examples/index.html">Back</a></p>
+  <p><a href="/">Return to index</a></p>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>String</title>
+  <style>
+  
+  </style>
+  <script src="atom.js"></script>
+  
+  <script>
+  //window.declare  = atom.declare;
+  //window.Settings = atom.Settings;
+
+  //atom.patching(window);
+  </script>
+  
+  <script>
+   atom.dom(function(){
+   
+   console.log('uniqueID===');// Returns unique for sessiong string id
+   console.log(atom.string.uniqueID());// "h3biq3tz"
+   console.log(atom.string.uniqueID());// "h3biq3u0"
+   
+   
+   console.log('safeHtml===');// Returns escaped string, safe to insert as html
+   console.log(atom.string.safeHtml('<b>Hello "World"</b>'));// "&lt;b&gt;Hello &quot;World&quot;&lt;/b&gt;"
+   
+   
+   console.log('repeat===');// Repeat string times times
+   console.log(atom.string.repeat('bar*', 3));// bar*bar*bar*
+   
+   
+   console.log('substitute===');// Append values to string from object
+   console.log(
+   atom.string.substitute(
+  'Hello, {name}! How are you? Are you {type}? "{name}" is your real name?',
+  {name: 't800', type: 'destroyer'}));// "Hello, t800! How are you? Are you destroyer? "t800" is your real name?"
+   
+   
+   console.log('replaceAll===');// Replace all source substrings with target
+   console.log(atom.string.replaceAll('Hi--my--dear--friend!', { '--': '+', '!': '?' }));// "Hi+my+dear+friend?"
+   
+   
+   console.log('contains===');// Checks if string contains substring
+   console.log(atom.string.contains( 'Hello, World!', 'World'  )); // true
+   console.log(atom.string.contains( 'Hello, World!', 'Heaven' )); // false
+   
+   
+   console.log('begins===');// Checks if string begins with substring
+   console.log(atom.string.contains( 'Hello, World!', 'World'  )); // true
+   console.log(atom.string.contains( 'Hello, World!', 'Heaven' )); // false
+   
+   
+   console.log('ends===');// Checks if string ends with substring
+   console.log(atom.string.ends( 'Hello, World!', 'Hello'  )); // false
+   console.log(atom.string.ends( 'Hello, World!', 'World!' )); // true
+   
+   
+   console.log('ucfirst===');// Uppercase first character
+   console.log(atom.string.ucfirst( 'hello, World!', 'Hello'  )); // 'Hello, World!'
+   
+   
+   console.log('lcfirst===');// Lowercase first character
+   console.log(atom.string.lcfirst( 'Hello, World!', 'Hello'  )); // 'hello, World!'
+   
+   });
+   
+  </script>
+
+</head>
+<body>
+  
+  <p><a href="/atomjs-examples/index.html">AtomJs examples</a></p>
+
+</body>
+</html>

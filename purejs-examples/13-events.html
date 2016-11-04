@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Events descriptions</title>
+  <style>
+  
+  </style>
+  
+  <script>
+  //mouse
+  // onclick === The event occurs when the user clicks on an element
+  // onmousedown === The event occurs when the user presses a mouse button over an element
+  // onmouseenter === The event occurs when the pointer is moved onto an element
+  // onmousemove === The event occurs when the pointer is moving while it is over an element
+  // onmouseover === The event occurs when the pointer is moved onto an element, or onto one of its children
+  // onmouseleave === The event occurs when the pointer is moved out of an element
+  // onmouseout === The event occurs when a user moves the mouse pointer out of an element, or out of one of its children
+  // onmouseup === The event occurs when a user releases a mouse button over an element
+  // ondblclick === The event occurs when the user double-clicks on an element
+  // oncontextmenu === The event occurs when the user right-clicks on an element to open a context menu
+  //
+  //
+  //keyboard
+  // onkeydown === The event occurs when the user is pressing a key
+  // onkeypress === The event occurs when the user presses a key
+  // onkeyup === The event occurs when the user releases a key
+  //
+  //
+  //form
+  // onblur === The event occurs when an element loses focus
+  // onchange === The event occurs when the content of a form element, the selection, or the checked state have changed (for <input>, <keygen>, <select>, and <textarea>)
+  // onfocus === The event occurs when an element gets focus
+  // onfocusin === The event occurs when an element is about to get focus
+  // onfocusout === The event occurs when an element is about to lose focus
+  // oninput === The event occurs when an element gets user input
+  // oninvalid === The event occurs when an element is invalid
+  // onreset === The event occurs when a form is reset
+  // onsearch === The event occurs when the user writes something in a search field (for <input="search">)
+  // onselect === The event occurs after the user selects some text (for <input> and <textarea>)
+  // onsubmit === The event occurs when a form is submitted
+  //
+  //
+  //grag
+  // ondrag === The event occurs when an element is being dragged
+  // ondragend === The event occurs when the user has finished dragging an element
+  // ondragenter === The event occurs when the dragged element enters the drop target
+  // ondragleave === The event occurs when the dragged element leaves the drop target
+  // ondragover === The event occurs when the dragged element is over the drop target
+  // ondragstart === The event occurs when the user starts to drag an element
+  // ondrop === The event occurs when the dragged element is dropped on the drop target
+  //
+  //
+  //frame\object
+  // onload === The event occurs when an object has loaded
+  // onresize === The event occurs when the document view is resized
+  // onscroll === The event occurs when an element's scrollbar is being scrolled
+  // onbeforeunload === The event occurs before the document is about to be unloaded
+  // onunload === The event occurs once a page has unloaded (for <body>)
+  // onerror === The event occurs when an error occurs while loading an external file
+  // onabort === The event occurs when the loading of a resource has been aborted
+  // onhashchange === The event occurs when there has been changes to the anchor part of a URL
+  // onpageshow === The event occurs when the user navigates to a webpage
+  // onpagehide === The event occurs when the user navigates away from a webpage
+  //
+  //
+  //clipboard
+  // oncopy === The event occurs when the user copies the content of an element
+  // oncut === The event occurs when the user cuts the content of an element
+  // onpaste === The event occurs when the user pastes some content in an element
+  //
+  //
+  //print
+  // onafterprint === The event occurs when a page has started printing, or if the print dialogue box has been closed
+  // onbeforeprint ===  	The event occurs when a page is about to be printed
+  //
+  //
+  //media
+  // onabort === The event occurs when the loading of a media is aborted
+  // oncanplay === The event occurs when the browser can start playing the media (when it has buffered enough to begin)
+  // oncanplaythrough === The event occurs when the browser can play through the media without stopping for buffering
+  // ondurationchange === The event occurs when the duration of the media is changed
+  // onemptied === The event occurs when something bad happens and the media file is suddenly unavailable (like unexpectedly disconnects)
+  // onended === The event occurs when the media has reach the end (useful for messages like "thanks for listening")
+  // onerror === The event occurs when an error occurred during the loading of a media file
+  // onloadeddata === The event occurs when media data is loaded
+  // onloadedmetadata === The event occurs when meta data (like dimensions and duration) are loaded
+  // onloadstart === The event occurs when the browser starts looking for the specified media
+  // onpause === The event occurs when the media is paused either by the user or programmatically
+  // onplay === The event occurs when the media has been started or is no longer paused
+  // onplaying === The event occurs when the media is playing after having been paused or stopped for buffering
+  // onprogress === The event occurs when the browser is in the process of getting the media data (downloading the media)
+  // onratechange === The event occurs when the playing speed of the media is changed
+  // onseeked === The event occurs when the user is finished moving/skipping to a new position in the media
+  // onseeking === The event occurs when the user starts moving/skipping to a new position in the media
+  // onstalled === The event occurs when the browser is trying to get media data, but data is not available
+  // onsuspend === The event occurs when the browser is intentionally not getting media data
+  // ontimeupdate === The event occurs when the playing position has changed (like when the user fast forwards to a different point in the media)
+  // onvolumechange === The event occurs when the volume of the media has changed (includes setting the volume to "mute")
+  // onwaiting === The event occurs when the media has paused but is expected to resume (like when the media pauses to buffer more data)
+  //
+  //
+  //animation
+  // animationend === The event occurs when a CSS animation has completed
+  // animationiteration === The event occurs when a CSS animation is repeated
+  // animationstart === The event occurs when a CSS animation has started
+  //
+  //
+  //transition
+  // transitionend === The event occurs when a CSS transition has completed
+  //
+  //
+  //server-sent
+  // onerror === The event occurs when an error occurs with the event source
+  // onmessage === The event occurs when a message is received through the event source
+  // onopen === The event occurs when a connection with the event source is opened
+  //
+  //
+  //misc
+  // onmessage === The event occurs when a message is received through or from an object (WebSocket, Web Worker, Event Source or a child frame or a parent window)
+  // onmousewheel === Deprecated. Use the onwheel event instead
+  // ononline === The event occurs when the browser starts to work online
+  // onoffline === The event occurs when the browser starts to work offline
+  // onpopstate === The event occurs when the window's history changes
+  // onshow === The event occurs when a <menu> element is shown as a context menu
+  // onstorage === The event occurs when a Web Storage area is updated
+  // ontoggle === The event occurs when the user opens or closes the <details> element
+  // onwheel === The event occurs when the mouse wheel rolls up or down over an element
+  //
+  //
+  //touch
+  // ontouchcancel === The event occurs when the touch is interrupted
+  // ontouchend === The event occurs when a finger is removed from a touch screen
+  // ontouchmove === The event occurs when a finger is dragged across the screen
+  // ontouchstart === The event occurs when a finger is placed on a touch screen
+  //
+  //
+  //constants
+  // CAPTURING_PHASE === The current event phase is the capture phase (1)
+  // AT_TARGET === The current event is in the target phase, i.e. it is being evaluated at the event target (2)
+  // BUBBLING_PHASE === The current event phase is the bubbling phase (3)
+  //
+  //
+  //properties
+  // bubbles === Returns whether or not a specific event is a bubbling event
+  // cancelable === Returns whether or not an event can have its default action prevented
+  // currentTarget === Returns the element whose event listeners triggered the event
+  // defaultPrevented === Returns whether or not the preventDefault() method was called for the event
+  // eventPhase === Returns which phase of the event flow is currently being evaluated
+  // isTrusted === Returns whether or not an event is trusted
+  // target === Returns the element that triggered the event
+  // timeStamp === Returns the time (in milliseconds relative to the epoch) at which the event was created
+  // type === Returns the name of the event
+  // view === Returns a reference to the Window object where the event occured
+  //
+  //
+  //methods
+  // preventDefault() === Cancels the event if it is cancelable, meaning that the default action that belongs to the event will not occur
+  // stopImmediatePropagation() === Prevents other listeners of the same event from being called
+  // stopPropagation() === Prevents further propagation of an event during event flow
+  //
+  //
+  //mouseEvent object
+  // altKey === Returns whether the "ALT" key was pressed when the mouse event was triggered
+  // button === Returns which mouse button was pressed when the mouse event was triggered
+  // buttons === Returns which mouse buttons were pressed when the mouse event was triggered
+  // clientX === Returns the horizontal coordinate of the mouse pointer, relative to the current window, when the mouse event was triggered
+  // clientY === Returns the vertical coordinate of the mouse pointer, relative to the current window, when the mouse event was triggered
+  // ctrlKey === Returns whether the "CTRL" key was pressed when the mouse event was triggered
+  // detail === Returns a number that indicates how many times the mouse was clicked
+  // metaKey === Returns whether the "META" key was pressed when an event was triggered
+  // pageX === Returns the horizontal coordinate of the mouse pointer, relative to the document, when the mouse event was triggered
+  // pageY === Returns the vertical coordinate of the mouse pointer, relative to the document, when the mouse event was triggered
+  // relatedTarget === Returns the element related to the element that triggered the mouse event
+  // screenX === Returns the horizontal coordinate of the mouse pointer, relative to the screen, when an event was triggered
+  // screenY === Returns the vertical coordinate of the mouse pointer, relative to the screen, when an event was triggered
+  // shiftKey === Returns whether the "SHIFT" key was pressed when an event was triggered
+  // which === Returns which mouse button was pressed when the mouse event was triggered
+  //
+  //
+  //keyboardEvent object
+  // altKey === Returns whether the "ALT" key was pressed when the key event was triggered
+  // ctrlKey === Returns whether the "CTRL" key was pressed when the key event was triggered
+  // charCode === Returns the Unicode character code of the key that triggered the onkeypress event
+  // key === Returns the key value of the key represented by the event
+  // keyCode === Returns the Unicode character code of the key that triggered the onkeypress event, or the Unicode key code of the key that triggered the onkeydown or onkeyup event
+  // location === Returns the location of a key on the keyboard or device
+  // metaKey === Returns whether the "meta" key was pressed when the key event was triggered
+  // shiftKey === Returns whether the "SHIFT" key was pressed when the key event was triggered
+  // which === Returns the Unicode character code of the key that triggered the onkeypress event, or the Unicode key code of the key that triggered the onkeydown or onkeyup event
+  //
+  //
+  //hashChangeEvent object
+  // newURL === Returns the URL of the document, after the hash has been changed
+  // oldURL === Returns the URL of the document, before the hash was changed
+  //
+  //
+  //pageTransitionEvent object
+  // persisted === Returns whether the webpage was cached by the browser
+  //
+  //
+  //focusEvent object
+  // relatedTarget === Returns the element related to the element that triggered the event
+  //
+  //
+  //animationEvent object
+  // animationName === Returns the name of the animation
+  // elapsedTime === Returns the number of seconds an animation has been running
+  //
+  //
+  //transitionEvent object
+  // propertyName === Returns the name of the CSS property associated with the transition
+  // elapsedTime === Returns the number of seconds a transition has been running
+  //
+  //
+  //wheelEvent object
+  // deltaX === Returns the horizontal scroll amount of a mouse wheel (x-axis)
+  // deltaY === Returns the vertical scroll amount of a mouse wheel (y-axis)
+  // deltaZ === Returns the scroll amount of a mouse wheel for the z-axis
+  // deltaMode === Returns a number that represents the unit of measurements for delta values (pixels, lines or pages)
+  //
+  //
+  //http://www.w3schools.com/jsref/dom_obj_event.asp
+  //
+  </script>
+  
+  <script>
+   //window.onload = function() {
+     
+     
+     
+   //};
+  </script>
+
+</head>
+<body>
+  
+  <p><a href="/purejs-examples/index.html">Pure Js examples</a></p>
+
+</body>
+</html>

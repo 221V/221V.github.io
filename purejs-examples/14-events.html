@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Events - ways to connect</title>
+  <style>
+  
+  </style>
+  
+  <script>
+  //<button onclick="alert('Tick!');">The time is?</button>
+  //<button onclick="displayDate()">The time is?</button>
+  //<button onclick="this.innerHTML=Date()">The time is?</button>
+  
+  //<input id="elem" type="button" value="Click here!" />
+  //
+  //elem.onclick = function() {
+  //  alert( 'Thanks!' );
+  //};
+  
+  //<input type="button" id="elem" onclick="alert('one')" value="Click!" />
+  //
+  //elem.onclick = function() { // rewrite 'one'
+  //  alert( 'two' ); // show just this
+  //};
+  
+  //function sayThanks() {
+  //alert( 'Thanks!' );
+  //}
+  //elem.onclick = sayThanks; //sayThanks -- not sayThanks() , onclick -- not ONCLICK
+  
+  //<button onclick="alert(this.innerHTML)">Click here!</button>
+  
+  //do not use setAttribute
+  //document.body.setAttribute('onclick', function() { alert(1) }); //not works
+  
+  //function handler() {
+  //alert( 'Thanks!' );
+  //}
+  //input.addEventListener("click", handler);
+  //input.removeEventListener("click", handler);
+  // //that works good
+  
+  //elem.addEventListener( "click" , function() {alert('Thanks!')});
+  //elem.removeEventListener( "click", function() {alert('Thanks!')});
+  //  //that removeEventListener not works
+  
+  //<input id="elem" type="button" value="Click!"/>
+  //
+  //function handler1() {
+  //  alert('Thanks!');
+  //};
+  //function handler2() {
+  //  alert('Thanks again!');
+  //}
+  //elem.onclick = function() { alert("Hello"); };
+  //elem.addEventListener("click", handler1); // Thanks!
+  //elem.addEventListener("click", handler2); // Thanks again!
+  // //you can add more than one func for addEventListener - and it works
+  
+  //addEventListener works always, DOM-properties - not --- look example for transitionend
+  //<style>button {
+  //  transition: width 1s;
+  //  width: 100px;
+  //}
+  //.wide {
+  //  width: 300px;
+  //}
+  //</style>
+  //<button id="elem" onclick="this.classList.toggle('wide');">
+  //Click me
+  //</button>
+  //elem.ontransitionend = function() {
+  //  alert( "ontransitionend" ); // not work
+  //};
+  //elem.addEventListener("transitionend", function() {
+  //  alert( "addEventListener" ); // work
+  //});
+
+  // //the sequence of events
+  //<textarea rows="8" cols="40" id="area">Click here</textarea>
+  //area.onmousedown = function(e) { this.value += "mousedown\n"; this.scrollTop = this.scrollHeight; };
+  //area.onmouseup = function(e) { this.value += "mouseup\n"; this.scrollTop = this.scrollHeight; };
+  //area.onclick = function(e) { this.value += "click\n"; this.scrollTop = this.scrollHeight; };
+
+  //<input type="text" id="elem" onfocus="this.value = 'Focus!'" value="Click here">
+  
+  //<input type="text" id="elem" onfocus="this.value = 'Focus!'" value="Click here">
+  //elem.focus();
+  
+  // // ->in onclick  !focus!  out onclick->
+  //<input type="button" id="button" value="Click here">
+  //<input type="text" id="text" size="60">
+  //button.onclick = function() {
+  //  text.value += ' ->in onclick ';
+  //  text.focus(); // call onfocus
+  //  text.value += ' out onclick-> ';
+  //};
+  //text.onfocus = function() {
+  //  text.value += ' !focus! ';
+  //};
+  
+  // // ->в onclick  из onclick->  !focus!
+  //<input type="button" id="button" value="Click here">
+  //<input type="text" id="text" size="60">
+  //button.onclick = function() {
+  //  text.value += ' ->in onclick ';
+  //setTimeout(function() {
+  //    text.focus(); // onfocus works after onclick
+  //  }, 0);
+  //  text.value += ' out onclick-> ';
+  //};
+  //text.onfocus = function() {
+  //  text.value += ' !focus! ';
+  //};
+  
+  // //event object properties
+  //<input type="button" value="Click here" id="elem">
+  //elem.onclick = function(event) {
+  //  // alert type of event, elem and click coordinates
+  //  alert(event.type + " on " + event.currentTarget);
+  //  alert(event.clientX + ":" + event.clientY);
+  //}
+
+  // //available in html too
+  //<input type="button" onclick="alert(event.type)" value="Event type">
+  
+  // //event-bubbling
+  //<style>
+  //body * {
+  //  margin: 10px;
+  //  border: 1px solid blue;
+  //}
+  //</style>
+  //<form onclick="alert('form')">FORM
+  //  <div onclick="alert('div')">DIV
+  //    <p onclick="alert('p')">P</p>
+  //  </div>
+  //</form>
+  
+  // //alert event.target and this
+  //<style>
+  //form {
+  //background-color: green;
+  //position: relative;
+  //width: 150px;
+  //height: 150px;
+  //text-align: center;
+  //cursor: pointer;
+  //}
+  //div {
+  //background-color: blue;
+  //position: absolute;
+  //top: 25px;
+  //left: 25px;
+  //width: 100px;
+  //height: 100px;
+  //}
+  //p {
+  //background-color: red;
+  //position: absolute;
+  //top: 25px;
+  //left: 25px;
+  //width: 50px;
+  //height: 50px;
+  //line-height: 50px;
+  //margin: 0;
+  //}
+  //body {
+  //line-height: 25px;
+  //font-size: 16px;
+  //}
+  //</style>
+  //<form id="form">FORM
+  //  <div>DIV
+  //    <p>P</p>
+  //  </div>
+  //</form>
+  //var form = document.querySelector('form');
+  //form.onclick = function(event) {
+  //  event.target.style.backgroundColor = 'yellow';
+  //  alert("target = " + event.target.tagName + ", this=" + this.tagName);
+  //  event.target.style.backgroundColor = '';
+  //};
+  
+  //  //stop event-bubbling
+  //<body onclick="alert('never bubbling')">
+  //<button onclick="event.stopPropagation()">Click here</button>
+  //</body>
+  // // use event.stopImmediatePropagation() for stop event-bubbling and all events at event-elem
+  
+  // //event-bubbling backside
+  //<style>
+  //form {
+  //background-color: green;
+  //position: relative;
+  //width: 150px;
+  //height: 150px;
+  //text-align: center;
+  //cursor: pointer;
+  //}
+  //div {
+  //background-color: blue;
+  //position: absolute;
+  //top: 25px;
+  //left: 25px;
+  //width: 100px;
+  //height: 100px;
+  //}
+  //p {
+  //background-color: red;
+  //position: absolute;
+  //top: 25px;
+  //left: 25px;
+  //width: 50px;
+  //height: 50px;
+  //line-height: 50px;
+  //margin: 0;
+  //}
+  //body {
+  //line-height: 25px;
+  //font-size: 16px;
+  //}
+  //</style>
+  //<form id="form">FORM
+  //  <div>DIV
+  //    <p>P</p>
+  //  </div>
+  //</form>
+  //var elems = document.querySelectorAll('form,div,p');
+  //for (var i = 0; i < elems.length; i++) {
+  //  elems[i].addEventListener("click", highlightThis, true);
+  //  // for all side == elems[i].addEventListener("click", highlightThis, false);
+  //}
+  //function highlightThis() {
+  //  this.style.backgroundColor = 'yellow';
+  //  alert(this.tagName);
+  //  this.style.backgroundColor = '';
+  //}
+  
+  //<div id="menu">
+  //<button data-action="save">Сохранить</button>
+  //<button data-action="load">Загрузить</button>
+  //<button data-action="search">Поиск</button>
+  //</div>
+  //function Menu(elem) {
+  //  this.save = function() {
+  //    alert( 'Save' );
+  //  };
+  //  this.load = function() {
+  //    alert( 'Load' );
+  //  };
+  //  this.search = function() {
+  //    alert( 'Search' );
+  //  };
+  //  var self = this;
+  //  elem.onclick = function(e) {
+  //    var target = e.target;
+  //    var action = target.getAttribute('data-action');
+  //    if (action) {
+  //      self[action]();
+  //    }
+  //  };
+  //}
+  //new Menu(menu);
+
+  //Counter:
+  //<button data-counter>1</button>
+  //2nd counter:
+  //<button data-counter>2</button>
+  //document.onclick = function(event) {
+  //  if (!event.target.hasAttribute('data-counter')) return;
+  //  var counter = event.target;
+  //  counter.innerHTML++;
+  //};
+  
+  //<button data-toggle-id="subscribe-mail">
+  //Show subscribe form
+  //</button>
+  //<form id="subscribe-mail" hidden>
+  // Your email: <input type="email">
+  //</form>
+  //document.onclick = function(event) {
+  //  var target = event.target;
+  //  var id = target.getAttribute('data-toggle-id');
+  //  if (!id) return;
+  //  var elem = document.getElementById(id);
+  //  elem.hidden = !elem.hidden;
+  //};
+
+  //<a href="/" onclick="return false">Click here</a>
+  //or
+  //<a href="/" onclick="event.preventDefault()">here</a>
+  
+  //<input value="Focus works" onfocus="this.value=''">
+  //<input onmousedown="return false" onfocus="this.value=''" value="Click here">
+  // //can not click -- but can go to by tab
+  
+  //function handler() {
+  //  alert("...");
+  //  return false;
+  //}
+  //<a href="http://w3.org" onclick="return handler()">w3.org</a>
+  // //or
+  //function handler() {
+  //  alert("...");
+  //  event.preventDefault();
+  //}
+  //<a href="http://w3.org" onclick="handler(event)">w3.org</a>
+  
+  //<button id="elem" onclick="alert('Click');">Autoclick</button>
+  //var event = new Event("click");
+  //elem.dispatchEvent(event);
+
+  // // how we can know -- is this click by user or by script? === event.isTrusted
+  // // isTrusted: false --- means event is generated by script
+  
+  //<h1 id="elem">hello from script!</h1>
+  //document.addEventListener("hello", function(event) { // (1)
+  //  alert(event.isTrusted);
+  //  alert("hello");
+  //  event.preventDefault();  // (2)
+  //}, false);
+  //var event = new Event("hello", {bubbles: true, cancelable: true}); // (3)
+  //if (elem.dispatchEvent(event) === false) {
+  //  alert('event was canseled by preventDefault');
+  //}
+
+  //var e = new MouseEvent("click", {
+  //  bubbles: true,
+  //  cancelable: true,
+  //  clientX: 100,
+  //  clientY: 100
+  //});
+  //alert( e.clientX ); // 100
+  // //but
+  //var e = new Event("click", {
+  //  bubbles: true,
+  //  cancelable: true,
+  //  clientX: 100,
+  //  clientY: 100
+  //});
+  //alert( e.clientX ); // undefined, property not defined!
+  
+  // //CustomEvent
+  //<h1 id="elem">Hello for Vasia!</h1>
+  //elem.addEventListener("hello", function(event) {
+  //  alert( event.detail.name );
+  //}, false);
+  //var event = new CustomEvent("hello", {
+  //  detail: { name: "Vasia" }
+  //});
+  //elem.dispatchEvent(event);
+
+  // //mouse click
+  //<button id="elem">Autoclick</button>
+  //elem.onclick = function(e) {
+  //  alert( 'Click at coordinates ' + e.clientX + ':' + e.clientY );
+  //};
+  //var event = document.createEvent("MouseEvent");
+  //event.initMouseEvent("click", true, true, null, 0, 0, 0, 100, 100, true, true, true, null, 1, null);
+  //elem.dispatchEvent(event);
+  
+  //<p><input onmousedown="return logMouse(event)" onmouseup="return logMouse(event)" onclick="return logMouse(event)" oncontextmenu="return logMouse(event)" ondblclick="return logMouse(event)" value="Click here left or right mouse button" type="button">
+  //<input onclick="logClear('test')" value="Clear" type="button"></p>
+  //<form id="testform" name="testform">
+  //  <textarea style="font-size: 12px; height: 95px; width: 499px;"></textarea>
+  //</form>
+  //function logMouse(e) {
+  // var evt = e.type
+  // while (evt.length < 11) evt += ' '
+  // showmesg(evt+" which="+e.which+" button="+e.button, 'test')
+  // return false
+  //}
+  //function logClear(form) {
+  //  timer = 0
+  //  document.forms[form+'form'].getElementsByTagName('textarea')[0].value ='';
+  //  lines=0
+  //}
+  //function showmesg(t, form) {
+  // if (timer==0) timer = new Date()
+  // var tm = new Date()
+  // if (tm-timer > 300) {
+  // t = '------------------------------\n'+t
+  // }
+  // var area = document.forms[form+'form'].getElementsByTagName('textarea')[0]
+  // area.value += t + '\n';
+  // area.scrollTop = area.scrollHeight
+  // timer = tm
+  //}
+  //window.logClear = logClear;
+  //window.logMouse = logMouse;
+  
+  // //mouse button - detect --
+  // //event.which == 1 – left
+  // //event.which == 2 – middle
+  // //event.which == 3 – right
+  // //or
+  //<button oncontextmenu="alert('Click!');">Click here with right mouse button</button>
+  // //with no menu
+  //<button oncontextmenu="alert('Click!');return false">Click here with right mouse button</button>
+  
+  // //shiftKey, altKey, ctrlKey, metaKey(mac)
+  //<button>Alt+Shift+Click here!</button>
+  //document.body.children[0].onclick = function(e) {
+  //  if (!e.altKey || !e.shiftKey) return;
+  //  alert( 'Hooray!' );
+  //}
+  
+  // //mouse clientX/clientY in input relatively window --- first move on input
+  //<input onmousemove="this.value = event.clientX+':'+event.clientY">
+  
+  // //mouse pageX/pageY in input relatively document --- first move on input
+  //<input onmousemove="this.value = event.pageX+':'+event.pageY">
+  
+  //<div ondblclick="alert('Тест')" onselectstart="return false" onmousedown="return false">
+  //Двойной клик сюда выведет "Тест", без выделения
+  //</div>
+  // //или elem.onmousedown = elem.onselectstart = function() {return false;};
+  // //также при установке на родителя --
+  //Элементы списка не выделяются при клике:
+  //<ul onmousedown="return false" onselectstart="return false">
+  //  <li>Винни-Пух</li>
+  //  <li>Ослик Иа</li>
+  //  <li>Мудрая Сова</li>
+  //  <li>Кролик. Просто кролик.</li>
+  //</ul>
+  // //с помощью css
+  //<style>
+  //  b {
+  //    -webkit-user-select: none;
+  //    -moz-user-select: none;
+  //    -ms-user-select: none;
+  //  }
+  //</style>
+  //Строка до..
+  //<div ondblclick="alert('Тест')">
+  //  <b>Этот текст нельзя выделить (кроме IE9-)</b>
+  //</div>
+  //.. Строка после
+  
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  //
+  </script>
+  
+  <script>
+   //window.onload = function() {
+     
+     
+     
+   //};
+  </script>
+
+</head>
+<body>
+  
+  <p><a href="/purejs-examples/index.html">Pure Js examples</a></p>
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Handle link click</title>
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <p><img id="largeImg" src="img1-lg.jpg" alt="Large image"></p>
+
+  <ul id="thumbs">
+    <li>
+      <a href="img2-lg.jpg" title="Image 2"><img src="img2-thumb.jpg"></a>
+    </li>
+    <li>
+      <a href="img3-lg.jpg" title="Image 3"><img src="img3-thumb.jpg"></a>
+    </li>
+    <li>
+      <a href="img4-lg.jpg" title="Image 4"><img src="img4-thumb.jpg"></a>
+    </li>
+    <li>
+      <a href="img5-lg.jpg" title="Image 5"><img src="img5-thumb.jpg"></a>
+    </li>
+    <li>
+      <a href="img6-lg.jpg" title="Image 6"><img src="img6-thumb.jpg"></a>
+    </li>
+  </ul>
+
+  <script>
+    var largeImg = document.getElementById('largeImg');
+
+    var thumbs = document.getElementById('thumbs');
+
+    thumbs.onclick = function(e) {
+      var target = e.target;
+
+      while (target != this) {
+
+        if (target.nodeName == 'A') {
+          showThumbnail(target.href, target.title);
+          return false;
+        }
+
+        target = target.parentNode;
+      }
+
+    }
+
+    function showThumbnail(href, title) {
+      largeImg.src = href;
+      largeImg.alt = title;
+    }
+
+
+    /* preload */
+    var imgs = thumbs.getElementsByTagName('img');
+    for (var i = 0; i < imgs.length; i++) {
+      var url = imgs[i].parentNode.href;
+      var img = document.createElement('img');
+      img.src = url;
+    }
+  </script>
+  
+  <br><br><br><br><br><br><br><br>
+  
+  <p>---</p>
+  <p><a href="/other-examples/index.html">Back</a></p>
+  <p><a href="/">Return to index</a></p>
+</body>
+</html>

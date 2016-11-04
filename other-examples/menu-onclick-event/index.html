@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Menu onclick event</title>
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <ul id="menu" class="menu">
+    <li><a href="/php">PHP</a></li>
+    <li><a href="/html">HTML</a></li>
+    <li><a href="/javascript">JavaScript</a></li>
+    <li><a href="/flash">Flash</a></li>
+  </ul>
+  
+  <script>
+menu.onclick = function(event) {
+  if (event.target.nodeName != 'A') return;
+
+  var href = event.target.getAttribute('href');
+  alert(href);
+
+  return false; // prevent url change
+};
+  </script>
+  
+  
+  <p>---</p>
+  <p><a href="/other-examples/index.html">Back</a></p>
+  <p><a href="/">Return to index</a></p>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Extended Core</title>
+  <style>
+  
+  </style>
+  <script src="atom.js"></script>
+  
+  <script>
+  //window.declare  = atom.declare;
+  //window.Settings = atom.Settings;
+
+  //atom.patching(window);
+  </script>
+  
+  <script>
+   atom.dom(function(){
+   
+   
+   console.log('extend(object = atom, from)===');
+   // Extend object with from properties
+   var config;
+   config = atom.core.extend({
+     // default values for config
+     a : 15,
+     b : 20
+   }, config);
+   atom.core.extend({
+     value: 123
+   });
+   console.log(atom.value); // 123
+   
+   
+   console.log('core.implement(object = atom, from)===');
+   // Extend object.prototype with from properties
+   //atom.core.implement(child, parent);
+   atom.core.implement({
+     test: function () {
+        console.log(123);
+     }
+   });
+   //var a = atom();
+   var a = new atom();
+   console.log(a.test()); // 123 // undefined
+   
+   
+   console.log('clone(object)===');
+   //Returns clone of object
+   //var cloneArray = atom.core.clone(oldArray);
+   
+   
+   console.log('typeOf(object)===');
+   //Returns type of object
+   console.log(atom.core.typeOf( document.body ) == 'element');// true
+   console.log(atom.core.typeOf(  function(){} ) == 'function');// true
+   console.log(atom.core.typeOf(    new Date() ) == 'date');// true
+   console.log(atom.core.typeOf(          null ) == 'null');// true
+   console.log(atom.core.typeOf(     arguments ) == 'arguments');// true
+   console.log(atom.core.typeOf(        /abc/i ) == 'regexp');// true
+   console.log(atom.core.typeOf(            [] ) == 'array');// true
+   console.log(atom.core.typeOf(            {} ) == 'object');// true
+   console.log(atom.core.typeOf(            15 ) == 'number');// true
+   console.log(atom.core.typeOf(          true ) == 'boolean');// true
+
+   var MyClass = atom.Class({});
+   console.log(atom.core.typeOf( new MyClass() ) == 'class');// true
+   
+   
+   
+   });
+   
+  </script>
+
+</head>
+<body>
+  
+  <p><a href="/atomjs-examples/index.html">AtomJs examples</a></p>
+
+</body>
+</html>

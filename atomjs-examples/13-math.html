@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Math</title>
+  <style>
+  
+  </style>
+  <script src="atom.js"></script>
+  
+  <script>
+  //window.declare  = atom.declare;
+  //window.Settings = atom.Settings;
+
+  //atom.patching(window);
+  </script>
+  
+  <script>
+   atom.dom(function(){
+   
+   console.log('degree( degrees )===');// Cast degrees to radians
+   console.log(atom.math.degree(90)); // 1.5707963267948966 // Math.PI/2
+   
+   
+   console.log('getDegree( radians )===');// Cast radians to degrees. If second argument is true - result will be rounded
+   console.log(atom.math.getDegree(Math.PI/2)); // 90
+   console.log(atom.math.getDegree(1.5707963267948967)); // 90.00000000000001
+   console.log(atom.math.getDegree(1.5707963267948967, true)); // 90
+   
+   
+   console.log('normalizeAngle( radians )===');// Ensure, angle is between 0 & 360 degrees
+   var angle  = atom.math.degree( 1000 );
+   console.log(angle);
+   var normal = atom.math.normalizeAngle( angle );
+   console.log(normal);
+   console.log( atom.math.getDegree( normal, true ) ); // 280
+   
+   
+   console.log('hypotenuse( cathetus1, cathetus2 )===');// Returns hypotenuse of right triangle from two cathetus
+   console.log(atom.math.hypotenuse( 5, 12 )); // 13
+   
+   
+   console.log('cathetus( hypotenuse, cathetus2 )===');// Returns cathetus of right triangle from hypotenuse & cathetus
+   console.log(atom.math.cathetus( 13, 12 )); // 5
+   
+   
+
+   });
+   
+  </script>
+
+</head>
+<body>
+  
+  <p><a href="/atomjs-examples/index.html">AtomJs examples</a></p>
+
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Accessors</title>
+  <style>
+  
+  </style>
+  <script src="atom.js"></script>
+  
+  <script>
+  //window.declare  = atom.declare;
+  //window.Settings = atom.Settings;
+
+  //atom.patching(window);
+  </script>
+  
+  <script>
+   atom.dom(function(){
+   
+   console.log('has(object, prop)===');
+   // Checks if object has getter or setter for property prop as own property, or in prototype chain
+   var object = {
+     set foo(ff){return ff;}
+   };
+   console.log(atom.accessors.has(object, 'foo')); // true
+   console.log(atom.accessors.has(object, 'bar')); // false
+   
+   
+   console.log('define(object, prop, value)===');
+   // Defines setter or getter of object with name prop
+   var object = {};
+
+   atom.accessors.define(object, 'foo', {
+     set: function (value) { console.log('object.foo Setter'); },
+     get: function ()      { console.log('object.foo Getter'); }
+   });
+   object.foo = 123; // object.foo Setter
+   object.foo + 123; // object.foo Getter
+   
+   
+   console.log('lookup(object, prop)===');
+   // Get accessors from object with name prop
+   var object = {
+     set foo (value) { console.log('object.foo Setter'); },
+     get foo ()      { console.log('object.foo Getter'); },
+     bar: 123
+   };
+   console.log(atom.accessors.lookup(object, 'bar')); // null
+   var accessors = atom.accessors.lookup(object, 'foo');
+   console.log(accessors);
+   /* accessors equals to object:
+   * {
+   *   set: function (value) { console.log('object.foo Setter'); )
+   *   get: function ()      { console.log('object.foo Getter'); )
+   * }
+   */
+   
+   
+   console.log('inherit(from, to, prop)===');
+   //Inherit accessors from from to to with name prop and return true, or return false
+   var Parent = {
+     get foo() { return 'Parent.foo'; },
+     bar: 'Parent.bar'
+   };
+   var Child = {};
+   console.log(atom.accessors.inherit(Parent, Child, 'foo')); // true
+   console.log(atom.accessors.inherit(Parent, Child, 'bar')); // false
+   /* accessors equals to:
+   * {
+   *   get foo() { return 'Parent.foo'; }
+   * }
+   */
+   
+   
+   });
+   
+  </script>
+
+</head>
+<body>
+  
+  <p><a href="/atomjs-examples/index.html">AtomJs examples</a></p>
+
+</body>
+</html>

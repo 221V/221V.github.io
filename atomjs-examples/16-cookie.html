@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Cookie</title>
+  <style>
+  
+  </style>
+  <script src="atom.js"></script>
+  
+  <script>
+  //window.declare  = atom.declare;
+  //window.Settings = atom.Settings;
+
+  //atom.patching(window);
+  </script>
+  
+  <script>
+   atom.dom(function(){
+   
+   console.log('set(name, value, options)===');// Sets value of cookie
+    //name (string) cookie title
+    //value (string) cookie value
+    //options (mixed) additional options for cookie:
+    //    expires (number|date) Cookie expires, can be time in seconds, left to expire, or Date object
+    //    path (string) cookie path
+    //    domain (string) cookie domain
+    //    secure (boolean) secure connection
+   atom.cookie
+    .set('first' , 1)
+    .set('second', 2)
+    .set('test3', "3", {path : "/", expires : 60*60*24*365});
+   
+   
+   console.log('get(name)===');// Returns value of cookie name or null if not exists
+   console.log(atom.cookie.get('test'));// null
+   console.log(atom.cookie.get('first'));// 1
+   console.log(atom.cookie.get('test3'));// "3"
+   
+   
+   console.log('del(name,options)===');// Delete cookie with name name
+   atom.cookie
+    .del('first')
+    .del('second');
+   atom.cookie.del('test3',{path: "/"});//delete cookie that was created with set path
+   console.log( atom.cookie.get('test3'), atom.cookie.get('first') ); //null,null
+   
+
+   });
+   
+  </script>
+
+</head>
+<body>
+  
+  <p><a href="/atomjs-examples/index.html">AtomJs examples</a></p>
+
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>fn</title>
+  <style>
+  
+  </style>
+  <script src="atom.js"></script>
+  
+  <script>
+  //window.declare  = atom.declare;
+  //window.Settings = atom.Settings;
+
+  //atom.patching(window);
+  </script>
+  
+  <script>
+   atom.dom(function(){
+   
+   console.log('lambda(value)===');// Returns function, which returns value.
+   var zz = atom.fn.lambda(false);
+   var zz1 = atom.fn.lambda(true);
+   var zz2 = atom.fn.lambda(5);
+   var zz3 = atom.fn.lambda("zz3");
+   //window.onclick = atom.fn.lambda(false);
+   console.log(zz(), zz1(), zz2(), zz3()); // false, true, 5, "zz3"
+   
+   
+   console.log('after(onReady, fnName)===');// Returns hash of functions, which should be invoked before onReady will be invoked. Can be used for parallel invoking of several async callbacks.
+   var callbacks = atom.fn.after(function (args) {
+     console.log(
+        args.fileReaded, // data from file
+        args.dbQuery,    // data from database
+        args.userInput   // data from user
+     );
+   }, 'fileReaded', 'dbQuery', 'userInput' );
+   // here we subscribe to async events:
+   //new My.File.Read.Async( 'filename.txt', callbacks.fileReaded );
+   //new My.Db.Query.Async( 'SELECT * from `db`', callbacks.dbQuery );
+   //document.onclick = callbacks.userInput;
+   
+
+   });
+   
+  </script>
+
+</head>
+<body>
+  
+  <p><a href="/atomjs-examples/index.html">AtomJs examples</a></p>
+
+</body>
+</html>

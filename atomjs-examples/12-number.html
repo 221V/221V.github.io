@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Number</title>
+  <style>
+  
+  </style>
+  <script src="atom.js"></script>
+  
+  <script>
+  //window.declare  = atom.declare;
+  //window.Settings = atom.Settings;
+
+  //atom.patching(window);
+  </script>
+  
+  <script>
+   atom.dom(function(){
+   
+   console.log('random(min, max)===');// Returns random number between min & max inclusive
+   console.log(atom.number.random(1, 3)); // returns 1 or 2 or 3
+   
+   
+   console.log('randomFloat(min, max)===');// Returns random float number between min & max
+   console.log(atom.number.randomFloat(1, 3.5)); // returns 1.4463250657228626 or 2.292297152133436, or other
+   
+   
+   console.log('between(number, left, right, equals)===');// Checks if number is greater than left & less than right. Equals can be used if number can be equals to one or both of sides
+   //Equals can be:
+   //false or '' - not equals to anyone number => (left, right)
+   //'L' - can be equals to left side, but not equals right number => [left, right)
+   //'R' - can be equals to right side, but not equals left number => (left, right]
+   //true or 'LR' - can be equals to both side number => [left, right]
+
+   console.log(atom.number.between( 5, 3, 7       )); // true
+   console.log(atom.number.between( 5, 3, 7, 'L'  )); // true
+   console.log(atom.number.between( 5, 3, 7, 'R'  )); // true
+   console.log(atom.number.between( 5, 3, 7, true )); // true
+   
+   console.log(atom.number.between( 7, 3, 7       )); // false
+   console.log(atom.number.between( 7, 3, 7, 'L'  )); // false
+   console.log(atom.number.between( 7, 3, 7, 'R'  )); // true
+   console.log(atom.number.between( 7, 3, 7, true )); // true
+   
+   console.log(atom.number.between( 3, 3, 7       )); // false
+   console.log(atom.number.between( 3, 3, 7, 'L'  )); // true
+   console.log(atom.number.between( 3, 3, 7, 'R'  )); // false
+   console.log(atom.number.between( 3, 3, 7, true )); // true
+   
+   console.log(atom.number.between( 0, 3, 7       )); // false
+   console.log(atom.number.between( 0, 3, 7, 'L'  )); // false
+   console.log(atom.number.between( 0, 3, 7, 'R'  )); // false
+   console.log(atom.number.between( 0, 3, 7, true )); // false
+   
+   
+   console.log('equals(left, right, accuracy = 8)===');//Allows to compare two float numbers (which can't be done with ==) with accuracy digits after dot
+   console.log((0.7 + 0.1) * 10 == 8); // false
+   console.log(atom.number.equals((0.7 + 0.1) * 10, 8)); // true
+   console.log(atom.number.equals(1.15177354, 1.1517, 2)); // true (1.152 == 1.152)
+   
+   
+   console.log('limit(number, min, max)===');//Returns number limited by min & max values. max can be null & only min will be used
+   console.log(atom.number.limit(  42, 0, 100 )); // 42
+   console.log(atom.number.limit( 666, 0, 100 )); // 100
+   console.log(atom.number.limit( -13, 0, 100 )); // 0
+
+   console.log(atom.number.limit( -13, 0 )); // 0
+   console.log(atom.number.limit( 183, 0 )); // 183
+   
+   
+   console.log('round(number, precision = 0)===');//Rounds number to precision digits after dots if precision > 0 Rounds number to precision digits before dots if precision < 0
+   console.log(atom.number.round( 84139.234567    )); // 84139
+   console.log(atom.number.round( 84139.234567, 1 )); // 84139.2
+   console.log(atom.number.round( 84139.234567, 3 )); // 84139.235
+   console.log(atom.number.round( 84139.234567, 9 )); // 84139.234567
+
+   console.log(atom.number.round( 84139.234567, -1 )); // 84140
+   console.log(atom.number.round( 84139.234567, -3 )); // 84000
+   console.log(atom.number.round( 84139.234567, -9 )); // 0
+   
+
+   });
+   
+  </script>
+
+</head>
+<body>
+  
+  <p><a href="/atomjs-examples/index.html">AtomJs examples</a></p>
+
+</body>
+</html>

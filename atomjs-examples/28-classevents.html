@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Atom Class Events</title>
+  <style>
+  
+  </style>
+  <script src="atom.js"></script>
+  
+  <script>
+  //window.declare  = atom.declare;
+  //window.Settings = atom.Settings;
+
+  //atom.patching(window);
+  </script>
+  
+  <script>
+   atom.dom(function(){
+   
+   //atom.Class.Events
+   //Let you add and fire event, linked with current object
+   
+   //method addEvent
+   //addEvent(string name, function fn)
+   //Using this method you can add events to eventable object
+
+   //method removeEvent
+   //removeEvent(string name, function fn)
+   //Using this method you can remove events from eventable object
+
+   //method fireEvent
+   //fireEvent(string name, array arguments)
+   //Using this method you can fire events in eventable object
+
+   //method readyEvent
+   //readyEvent(string name, array arguments)
+   //Using this method you can fire event in eventable object and automaticaly fire it on during all next "addEvent" (as image.onload)
+   
+   //error TypeError: Object.ifEmpty is not a function  atom.js:1671:6
+   //var MyClass = atom.Class({
+   //  Implements: [ atom.Class.Events ]
+   //});
+
+   //var my = new MyClass;
+   //  // We listen 2 events:
+   //my.addEvent('foo', function ( firstArg ) {
+   //  console.log(firstArg);
+   //});
+   //my.addEvent('bar', console.log('bar'));
+
+   // event `foo` fired
+   //my.fireEvent('foo');
+   //  // event `bar` fired
+   //my.fireEvent('bar');
+
+   //  // we don't listen `bar` event now
+   //me.removeEvent('bar', console.log('bar'));
+   
+   console.log('===');
+   
+   //readyEvent examples
+   //readyEvent used for once runable events. E.g. it can be application initialize or image loaded
+
+   var Application = atom.Class({
+     Implements: [ atom.Class.Events ],
+     initialize: function (src) {
+        this.image = new Image;
+        this.image.onload = function () {
+            this.readyEvent('ready');
+        }.bind(this);
+        this.image.src = src;
+     }
+   });
+
+   var app = new Application('test');
+   app.addEvent('ready', function () {
+     cosole.log('image loaded and application is ready');
+   });
+
+   
+   });
+   
+  </script>
+
+</head>
+<body>
+  
+  <p><a href="/atomjs-examples/index.html">AtomJs examples</a></p>
+
+</body>
+</html>

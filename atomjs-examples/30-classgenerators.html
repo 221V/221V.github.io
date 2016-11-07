@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Atom Class Mutators Generators</title>
+  <style>
+  
+  </style>
+  <script src="atom.js"></script>
+  
+  <script>
+  //window.declare  = atom.declare;
+  //window.Settings = atom.Settings;
+
+  //atom.patching(window);
+  </script>
+  
+  <script>
+   atom.dom(function(){
+   
+   //atom.Class.Mutators.Generators
+   //Used to DRY such pattern:
+
+   var MyClass = atom.Class({
+     _property: null,
+     get property () {
+        if (this._property == null) {
+            this._property = countValue();
+        }
+        return this._property;
+     }
+   });
+
+   //You can use Generators mutators instead (it will be counted only once):
+
+   var MyClass1 = atom.Class({
+     Generators: {
+        property: function () {
+            return countValue();
+        }
+     }
+   });
+
+
+   
+   });
+   
+  </script>
+
+</head>
+<body>
+  
+  <p><a href="/atomjs-examples/index.html">AtomJs examples</a></p>
+
+</body>
+</html>

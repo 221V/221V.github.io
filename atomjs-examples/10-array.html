@@ -62,11 +62,11 @@
    //result: [5, -1, 13]
    
    
-   console.log('create===');//not works
-   //var array = atom.array.create(5, function (i) {
-   //  atom.number.random(i, 10);
-   //});
-   //console.log(array);//[ undefined, undefined, undefined, undefined, undefined ]//not works
+   console.log('create===');//Make array of length length by function fn
+   var array = atom.array.create(5, function (i) {
+     return atom.number.random(i, 10);
+   });
+   console.log(array);//[ undefined, undefined, undefined, undefined, undefined ]//not works
    
    
    console.log('toHash===');//array to object

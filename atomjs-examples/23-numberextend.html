@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Extend Number</title>
+  <style>
+  
+  </style>
+  <script src="atom.js"></script>
+  
+  <script>
+  //window.declare  = atom.declare;
+  //window.Settings = atom.Settings;
+
+  //atom.patching(window);
+  </script>
+  
+  <script>
+   atom.dom(function(){
+   
+   //Own properties
+   // Number.random
+   // Number.randomFloat
+
+   //console.log(Number.random(5, 100));
+   // equals to
+   //console.log(atom.number.random(5, 100));
+
+   //console.log(Number.randomFloat(5, 100));
+   // equals to
+   //console.log(atom.number.randomFloat(5, 100));
+
+   //prototype extending
+   //Next properties mixed into prototype from atom.number, where first property is this array:
+   // between
+   // equals
+   // limit
+   // round
+   // stop
+
+   //Next properties mixed into prototype from atom.math, where first property is this array:
+   // degree
+   // getDegree
+   // normalizeAngle
+
+   //var myNumber = 10;
+   //console.log(myNumber.between( 5, 15 ));
+   // equals to:
+   //console.log(atom.number.between( myNumber, 5, 15 ));
+   // and
+   //console.log(myNumber.degree())
+   // equals to:
+   //console.log(atom.math.degree( myNumber ));
+   
+   //Next properties mixed into prototype from javascript build-in Math, where first property is this array:
+   // abs
+   // acos
+   // asin
+   // atan
+   // atan2
+   // ceil
+   // cos
+   // exp
+   // floor
+   // log
+   // max
+   // min
+   // pow
+   // sin
+   // sqrt
+   // tan
+
+   //var myNumber = -5.123;
+   //console.log(myNumber.abs());
+   // equals to
+   //console.log(Math.abs( myNumber ));
+   // and
+   //console.log(myNumber.pow(3));
+   // equals to:
+   //console.log(Math.pow( myNumber, 3 ));
+   
+   
+   });
+   
+  </script>
+
+</head>
+<body>
+  
+  <p><a href="/atomjs-examples/index.html">AtomJs examples</a></p>
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Callback</title>
+  <style>
+  
+  </style>
+  
+  <script>
+  //
+  </script>
+  
+  <script>
+   //window.onload = function() {
+   
+   function forEach(array, action){
+     for(var i=0;i<array.length;i++){
+       action(array[i]);
+     }
+   }
+   
+   function log(num){
+     console.log(num);
+   }
+   forEach([1,2,3], log);
+   
+   var numbers = [1,2,3,4,5], sum = 0;
+   forEach(numbers, function(number){
+     sum += number;
+   });
+   console.log(sum);
+   
+   //};
+  </script>
+
+</head>
+<body>
+  
+  <p><a href="/purejs-examples/index.html">Pure Js examples</a></p>
+
+</body>
+</html>

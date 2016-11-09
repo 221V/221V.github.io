@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Object rabbits</title>
+  <style>
+  
+  </style>
+  
+  <script>
+  //
+  </script>
+  
+  <script>
+   //window.onload = function() {
+   
+   function speak(str){
+     console.log(this.type + " rabbit says '" + str + "'");
+   }
+   
+   var whiteRabbit = {type: "White", speak: speak};
+   var fatRabbit = {type: "Fat", speak: speak};
+   
+   whiteRabbit.speak("Hello!");// White rabbit says 'Hello!'
+   fatRabbit.speak("Feed me!");// Fat rabbit says 'Feed me!'
+   
+   speak.apply(fatRabbit, ["Omnomnom!"]);// Fat rabbit says 'Omnomnom!'
+   speak.call({type: "Old"}, "Bye!");// Old rabbit says 'Bye!'
+   
+   console.log('=====');
+   
+   function Rabbit(type){
+     this.type = type;
+   }
+   var grayRabbit = new Rabbit("Gray");
+   var blackRabbit = new Rabbit("Black");
+   console.log(blackRabbit.type);// Black
+   
+   Rabbit.prototype.speak = function(str){
+     console.log(this.type + " rabbit says '" + str + "'");
+   };
+   blackRabbit.speak("Bububu...");// Black rabbit says 'Bububu...'
+   
+   
+   console.log('=====');
+   
+   Rabbit.prototype.teeth = "little";
+   console.log(grayRabbit.teeth);// little
+   
+   grayRabbit.teeth = "long big";
+   console.log(grayRabbit.teeth);// long big
+   console.log(blackRabbit.teeth);// little
+   console.log(Rabbit.prototype.teeth);// little
+   
+   console.log('=====');
+   
+   Rabbit.prototype.dance = function(){
+     return console.log(this.type + " rabbit dance now.");
+   };
+   grayRabbit.dance();// Gray rabbit dance now.
+   
+   
+   //};
+  </script>
+
+</head>
+<body>
+  
+  <p><a href="/purejs-examples/index.html">Pure Js examples</a></p>
+
+</body>
+</html>

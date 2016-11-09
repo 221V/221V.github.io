@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Even Callback</title>
+  <style>
+  
+  </style>
+  
+  <script>
+  //
+  </script>
+  
+  <script>
+   //window.onload = function() {
+   
+   function unless(test, then){
+     if(!test) then();
+   }
+   
+   function repeat(times, body){
+     for(var i=0;i<times;i++)body(i);
+   }
+   
+   repeat(7, function(n){
+     unless(n % 2, function(){
+       console.log(n, "is even");
+     });
+   });
+   //0,2,4,6
+   
+   
+   //};
+  </script>
+
+</head>
+<body>
+  
+  <p><a href="/purejs-examples/index.html">Pure Js examples</a></p>
+
+</body>
+</html>

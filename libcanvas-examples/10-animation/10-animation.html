@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Animation</title>
+  <style>
+  
+  </style>
+  <script src="../atom.js"></script>
+  <script src="../libcanvas.js"></script>
+
+  <script>
+  //window.declare  = atom.declare;
+  //window.Settings = atom.Settings;
+
+  //atom.patching(window);
+  //LibCanvas.extract();
+  </script>
+  
+  <script>
+   atom.dom(function(){
+
+   var canvas  = atom.dom('canvas').first;
+   var context = canvas.getContext('2d-libcanvas');
+   context.fillAll( '#efebe7' );
+   
+   //Plugins.Animation
+   //class for one-time-play animation on base Plugins.Animation.Sheet
+   //new Animation( object settings )
+   //settings : sheet (Animation.Sheet) - animation's prototype
+   
+   //animation = new Animation({
+   //  sheet   : this.animationSheet,
+   //  onUpdate: this.redraw,
+   //  onStop  : this.destroy,
+   //});
+   
+   //Events
+   // update - calls when animation's frame change or at animation starts
+   // stop - calls when animation stop by last frame or when animation stop by call method stop
+   //Methods
+   // stop - stop animation
+   // animation.stop();
+   // run - run animation
+   // animation.run();
+   // synchronize - synchronize animation start with other animation
+   //  fooAnimation.synchronize( coreAnimation );
+   //  barAnimation.synchronize( coreAnimation );
+   //  coreAnimation.run();
+   //  // fooAnimation.startTime == barAnimation.startTime == coreAnimation.startTime
+   // get - get animation's active frame or null(if animation stopped or not starts)
+   //  var frame = animation.get();
+   //
+   
+/*
+//base Libcanvas.App example
+atom.declare( 'ExplosionLauncher', {
+    initialize: function (layer, images) {
+        this.layer = layer;
+
+        this.animationSheet = new Animation.Sheet({
+            frames: new Animation.Frames( images.get('explosion'), 50, 50 ),
+            delay : 40
+        })
+    },
+
+    explode: function (coordinates) {
+        new Explosion( this.layer, {
+            sheet: this.animationSheet,
+            shape: new Circle(coordinates, 50)
+        });
+    }
+});
+
+atom.declare( 'Explosion', App.Element, {
+
+    configure: function () {
+        this.animation = new Animation({
+            sheet   : this.settings.get('sheet'),
+            onUpdate: this.redraw,
+            onStop  : this.destroy,
+        });
+    },
+
+    renderTo: function (ctx) {
+        ctx.drawImage({
+            image : this.animation.get(),
+            center: this.shape.center
+        });
+    }
+
+});
+*/
+   
+/*   atom.declare( 'ExplosionLauncher', {
+    initialize: function (context){
+        var exp = new Image();
+        exp.src = 'explosion.png';
+        
+        this.layer = context;
+        console.log(new LibCanvas.Plugins.Animation.Frames( exp, 50, 50 ));
+        this.animationSheet = new LibCanvas.Plugins.Animation.Sheet({
+            frames: new LibCanvas.Plugins.Animation.Frames( exp, 50, 50 ),
+            delay : 40
+        })
+    },
+    explode: function (coorX,coorY){
+        console.log(this.animationSheet);
+        new Explosion( this.layer, {
+            sheet: this.animationSheet,
+            shape: new LibCanvas.Shapes.Circle(coorX,coorY, 50)
+        });
+    }
+});
+atom.declare( 'Explosion', {
+    configure: function () {
+        this.animation = new LibCanvas.Plugins.Animation({
+            sheet   : this.settings.get('sheet'),
+            onUpdate: this.redraw,
+            onStop  : this.destroy,
+        });
+        console.log(this.animation);
+    },
+    renderTo: function (ctx) {
+        console.log(this.animation.get());
+        ctx.drawImage({
+            image : this.animation.get(),
+            center: this.shape.center
+        });
+    }
+});
+var zz = new ExplosionLauncher(context);
+var zz = new ExplosionLauncher(context);
+zz.explode(150,150);
+*/
+
+
+   var img = new Image();
+   img.src = "frames-demo.png";
+   var frames = new LibCanvas.Plugins.Animation.Frames(img, 50, 40);
+   var sheet = new LibCanvas.Plugins.Animation.Sheet({
+     frames: frames,
+     delay : 40,
+     looped: true
+   });
+   
+   var circle = new LibCanvas.Shapes.Circle(150,150,50);
+   //function draw_animation(context,circle){
+   function draw_animation(animation,context,circle){
+     context.drawImage({
+      image : animation.get(),
+      center: circle.center
+     });
+   }
+   
+   var animation = new LibCanvas.Plugins.Animation({
+     sheet   : sheet,
+     //onUpdate: draw_animation(context,circle),
+     onUpdate: draw_animation(animation,context,circle),
+     onStop  : this.destroy,
+   });
+   
+   console.log(animation);
+   animation.run();
+
+   
+   });
+  </script>
+
+</head>
+<body>
+  <canvas width="600" height="400"></canvas>
+  
+  <p><a href="/libcanvas-examples/index.html">Libcanvas examples</a></p>
+
+</body>
+</html>

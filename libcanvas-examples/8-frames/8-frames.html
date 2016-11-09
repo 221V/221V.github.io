@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Animation.Frames</title>
+  <style>
+  
+  </style>
+  <script src="../atom.js"></script>
+  <script src="../libcanvas.js"></script>
+
+  <script>
+  //window.declare  = atom.declare;
+  //window.Settings = atom.Settings;
+
+  //atom.patching(window);
+  //LibCanvas.extract();
+  </script>
+  
+  <script>
+   atom.dom(function(){
+
+   var canvas  = atom.dom('canvas').first;
+   var context = canvas.getContext('2d-libcanvas');
+   context.fillAll( '#efebe7' );
+   
+   //Plugins.Animation.Frames
+   //class needs for cut images-frames from tile img(css-sprites) -
+   //if we have animation 50x40px, 15 frames -- we can save it in 3 rows in 250*120 img  
+   
+   //new Animation.Frames( Image image, int width = null, int height = null )
+   // image (Image) - картинка-источник для нарезки
+   // width (int) - ширина кадра. Равен ширине картинки, если null
+   // height (int) - высота кадра. Равен высоте картинки, если null
+   
+   //var frames = new Animation.Frames( images.get('ship'), 100 );
+   
+   //Methods
+   //length - количество кадров в массиве
+   // console.log( frames.length );
+   //get - Возвращает картинку-кадр, часть исходной картинки.
+   // canvasElement get( int index );
+   // var frame = frames.get( 5 );
+   
+   var img = new Image();
+   img.src = "../10-animation/frames-demo.png";
+   var frames = new LibCanvas.Plugins.Animation.Frames(img, 50, 40);
+   console.log(frames);
+   
+   });
+  </script>
+
+</head>
+<body>
+  <canvas width="600" height="400"></canvas>
+  
+  <p><a href="/libcanvas-examples/index.html">Libcanvas examples</a></p>
+
+</body>
+</html>

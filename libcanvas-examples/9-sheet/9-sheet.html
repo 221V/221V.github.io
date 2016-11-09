@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Animation.Sheet</title>
+  <style>
+  
+  </style>
+  <script src="../atom.js"></script>
+  <script src="../libcanvas.js"></script>
+
+  <script>
+  //window.declare  = atom.declare;
+  //window.Settings = atom.Settings;
+
+  //atom.patching(window);
+  //LibCanvas.extract();
+  </script>
+  
+  <script>
+   atom.dom(function(){
+
+   var canvas  = atom.dom('canvas').first;
+   var context = canvas.getContext('2d-libcanvas');
+   context.fillAll( '#efebe7' );
+   
+   //Plugins.Animation.Sheet
+   //Класс для описания анимации, её прототипа от которого будут отталкиваться все объекты. Описывает задержку между фреймами, их зацикленность и порядок воспроизведения. Является технических классом, сущности которого используются только для передачи настроек в класс анимации.
+   
+   //new Animation.Sheet( object settings )
+   // frames (Animation.Frames) - список исходных кадров, которые необходимо объеденить в анимацию
+   // delay (int) - задержка между кадрами в миллисекундах
+   // looped (bool) - зациклена ли анимация или заканчивается с посленим кадром
+   // sequence (int[]) - порядок кадров (по-умолчанию - с первого до последнего кадра анимации)
+
+   
+   //new Animation.Sheet({
+   // frames: new Animation.Frames( sourceImage ),
+   // delay : 40,
+   // looped: true,
+   // sequence: [ 0,1,1,2,1,2,2,3,4,5,4,5 ]
+   //})
+   
+   var img = new Image();
+   img.src = "../10-animation/frames-demo.png";
+   var frames = new LibCanvas.Plugins.Animation.Frames(img, 50, 40);
+   var sheet = new LibCanvas.Plugins.Animation.Sheet({
+    frames: frames,
+    delay : 40,
+    looped: true
+   });
+   console.log(sheet);
+   
+   
+   });
+  </script>
+
+</head>
+<body>
+  <canvas width="600" height="400"></canvas>
+  
+  <p><a href="/libcanvas-examples/index.html">Libcanvas examples</a></p>
+
+</body>
+</html>

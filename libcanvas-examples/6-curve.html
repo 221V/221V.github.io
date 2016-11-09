@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Curve</title>
+  <style>
+  
+  </style>
+  <script src="atom.js"></script>
+  <script src="libcanvas.js"></script>
+
+  <script>
+  //window.declare  = atom.declare;
+  //window.Settings = atom.Settings;
+
+  //atom.patching(window);
+  //LibCanvas.extract();
+  </script>
+  
+  <script>
+   atom.dom(function(){
+
+   var canvas  = atom.dom('canvas').first;
+   var context = canvas.getContext('2d-libcanvas');
+   context.fillAll( '#efebe7' );
+   
+   //Plugins.Curve
+   //Math basic for Bezier curve
+   
+   // from (LibCanvas.Point) - begin point
+   // to (LibCanvas.Point) - end point
+   // points (LibCanvas.Point[]) - array control points
+   
+   //getPoint
+   //LibCanvas.Point getPoint(float t)
+   // t - число между 0 и 1. Возвращает координаты точки прямой.
+   // var point = curve.getPoint( 0.45 )
+   //getAngle
+   //float getAngle(float t)
+   // t - число между 0 и 1. Возвращает угол кривой в соответствующем месте
+   // var angle = curve.getAngle( 0.45 )
+   
+   
+   // Quadratic curve, one control point
+   var curve = new LibCanvas.Plugins.Curve({
+     from: new LibCanvas.Point(100, 100),
+     to  : new LibCanvas.Point(200, 300),
+     points: [
+        new LibCanvas.Point(200, 100)
+     ]
+   });
+
+   // Qubic curve, two control points
+   var curve2 = new LibCanvas.Plugins.Curve({
+     from: new LibCanvas.Point(100, 100),
+     to  : new LibCanvas.Point(200, 300),
+     points: [
+        new LibCanvas.Point(200, 100),
+        new LibCanvas.Point(100, 200)
+     ]
+   });
+   
+   context.stroke(curve, '#0080C0');
+   context.stroke(curve2, '#ff0000');
+   
+   
+   });
+  </script>
+
+</head>
+<body>
+  <canvas width="600" height="400"></canvas>
+  
+  <p><a href="/libcanvas-examples/index.html">Libcanvas examples</a></p>
+
+</body>
+</html>

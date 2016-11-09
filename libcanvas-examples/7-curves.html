@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Curve</title>
+  <style>
+  
+  </style>
+  <script src="atom.js"></script>
+  <script src="libcanvas.js"></script>
+
+  <script>
+  //window.declare  = atom.declare;
+  //window.Settings = atom.Settings;
+
+  //atom.patching(window);
+  //LibCanvas.extract();
+  </script>
+  
+  <script>
+   atom.dom(function(){
+
+   var canvas  = atom.dom('canvas').first;
+   var context = canvas.getContext('2d-libcanvas');
+   context.fillAll( '#efebe7' );
+   
+   //Plugins.Curves
+   //Context2D drawCurve(object params)
+   // from (Point) - точка начала кривой
+   // to (Point) - точка окончания кривой
+   // points (Point[]) - массив контрольный точек. Может содержать 0, 1 или 2 точки
+   // inverted (Boolean) - добавляет "ленточность" (см. пример)
+   // gradient (object) - описывает плавное изменение цвета кривой
+   //     from (string) - начальный цвет
+   //     to (string) - окончательный цвет
+   //     fn (string) - функция изменения цвета (см. atom.Transition)
+   // width (object) - описывает плавное изменение цвета кривой
+   //     from (number) - начальная ширина
+   //     to (number) - начальная ширина
+   //     fn (string) - функция изменения ширины (см. atom.Transition)
+   
+   
+   context.drawCurve({
+     from  : new LibCanvas.Point(100, 250),
+     to    : new LibCanvas.Point(200, 100),
+     points: [ new LibCanvas.Point(100, 100), new LibCanvas.Point(250, 250) ],
+     inverted: true,
+     gradient:{
+         from: '#ff0',
+         to  : '#f00',
+         fn  : 'linear'
+     },
+     width:{
+         from: 30,
+         to  : 1,
+         fn  : 'sine-in'
+     }
+   });
+
+   context.drawCurve({
+     from  : new LibCanvas.Point(250, 250),
+     to    : new LibCanvas.Point(350, 100),
+     points: [ new LibCanvas.Point(250, 100), new LibCanvas.Point(400, 250) ],
+     inverted: false,
+     gradient:{
+         from: '#ff0',
+         to  : '#f00',
+         fn  : 'linear'
+     },
+     width:{
+         from: 30,
+         to  : 1,
+         fn  : 'sine-in'
+     }
+   });
+   
+   
+   });
+  </script>
+
+</head>
+<body>
+  <canvas width="600" height="400"></canvas>
+  
+  <p><a href="/libcanvas-examples/index.html">Libcanvas examples</a></p>
+
+</body>
+</html>

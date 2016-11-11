@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Vector construct</title>
+  <style>
+  
+  </style>
+  
+  <script>
+  //
+  </script>
+  
+  <script>
+   //window.onload = function() {
+   
+   function Vector(x,y){
+     this.x = x;
+     this.y = y;
+   }
+   
+   Vector.prototype.plus = function(n){
+     return new Vector(this.x + n.x, this.y + n.y);
+   }
+   
+   Vector.prototype.minus = function(n){
+     return new Vector(this.x - n.x, this.y - n.y);
+   }
+   
+   Object.defineProperty(Vector.prototype, "length",{
+     get: function(){
+       return Math.sqrt(this.x * this.x + this.y * this.y);
+     }
+   });
+   
+   console.log(new Vector(1,2).plus(new Vector(2,3)));// Object { x: 3, y: 5 }
+   console.log(new Vector(1,2).minus(new Vector(2,3)));// Object { x: -1, y: -1 }
+   console.log(new Vector(3,4).length);// 5
+   
+   //};
+  </script>
+
+</head>
+<body>
+  
+  <p><a href="/purejs-examples/index.html">Pure Js examples</a></p>
+
+</body>
+</html>

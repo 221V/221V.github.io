@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Getter, Setter</title>
+  <style>
+  
+  </style>
+  
+  <script>
+  //
+  </script>
+  
+  <script>
+   //window.onload = function() {
+   
+   var example = {
+     elements: ["one", "two", "three"],
+     get height(){
+       return this.elements.length;
+     },
+     set height(value){
+       console.log("We ignore ", value);
+     }
+   };
+   
+   console.log(example.height);
+   example.height = 100;
+   console.log(example.height);
+   
+   //};
+  </script>
+
+</head>
+<body>
+  
+  <p><a href="/purejs-examples/index.html">Pure Js examples</a></p>
+
+</body>
+</html>

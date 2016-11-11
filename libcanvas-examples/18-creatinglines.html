@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Creating lines</title>
+  <style>
+  canvas{background-color: #000;}
+  </style>
+  <script src="atom.js"></script>
+  <script src="libcanvas.js"></script>
+
+  <script>
+  //window.declare  = atom.declare;
+  //window.Settings = atom.Settings;
+
+  //atom.patching(window);
+  //LibCanvas.extract();
+  </script>
+  
+  <script>
+   atom.dom(function(){
+
+   //var canvas  = atom.dom('canvas').first;
+   //var context = canvas.getContext('2d-libcanvas');
+   //context.fillAll( '#efebe7' );
+   
+   
+   var helper = new LibCanvas.App.Light(new LibCanvas.Size(600, 400));
+   var count, last;
+   helper.mouse.events.add( 'dblclick', function () {
+        var point = helper.mouse.point.clone();
+
+        var vector = helper.createVector(new LibCanvas.Shapes.Circle(point, 5), { zIndex: ++count })
+            .setStyle(               { fill: '#300', stroke: '#600' })
+            .setStyle( 'hover' ,     { fill: '#600', stroke: '#900' })
+            .setStyle( 'active',     { fill: '#060', stroke: '#090' });
+
+        vector.clickable.start();
+        vector.draggable.start();
+
+        if (last) {
+            helper
+                .createVector(new LibCanvas.Shapes.Line(point, last), { zIndex: 0 })
+                .setStyle({ stroke: '#600' });
+        }
+
+        last = point;
+   });
+
+   
+   
+   });
+  </script>
+
+</head>
+<body>
+  <!--<canvas width="600" height="400"></canvas>-->
+  
+  <p><a href="/libcanvas-examples/index.html">Libcanvas examples</a></p>
+  <p>dblClick on the canvas</p>
+
+</body>
+</html>

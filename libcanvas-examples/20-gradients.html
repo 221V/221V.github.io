@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Gradients</title>
+  <style>
+  //canvas{background-color: #000;}
+  
+body.chess .libcanvas-app,
+body.chess .libcanvas-app-simple {
+    border: 1px dashed green;
+    background: #333 url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAAAXNSR0IArs4c6QAAAAZQTFRFIiIiMzMzM69ZzAAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQfbDA8HExBQqfxoAAAAGXRFWHRDb21tZW50AENyZWF0ZWQgd2l0aCBHSU1QV4EOFwAAABVJREFUCNdj+P+fgYGBigRVDfv/HwDtvT/BRFwEIAAAAABJRU5ErkJggg==');
+}
+  </style>
+  <script src="atom.js"></script>
+  <script src="libcanvas.js"></script>
+
+  <script>
+  //window.declare  = atom.declare;
+  //window.Settings = atom.Settings;
+
+  //atom.patching(window);
+  //LibCanvas.extract();
+  </script>
+  
+  <script>
+   atom.dom(function(){
+
+   //var canvas  = atom.dom('canvas').first;
+   //var context = canvas.getContext('2d-libcanvas');
+   //context.fillAll( '#efebe7' );
+   
+   
+   var helper = new LibCanvas.App.Light(new LibCanvas.Size(600, 400));
+
+   var Gradient = atom.declare(LibCanvas.App.Element, {
+        configure: function () {
+            new LibCanvas.App.Draggable(this, this.redraw).start();
+            new LibCanvas.App.Clickable(this, this.redraw).start();
+        },
+
+        move: function (point) {
+            this.shape.move(point);
+        }
+    });
+
+    var Gradient;
+    var LinearGradient = atom.declare(Gradient, {
+        get method () {
+            return this.settings.get('method');
+        },
+
+        renderTo: function (ctx) {
+            var gradient = ctx[this.method]( this.shape ).addColorStop({
+                '0.0' : 'white',
+                '0.3' : 'blue',
+                '0.5' : 'yellow',
+                '0.7' : 'green',
+                '1.0' : 'red'
+            });
+
+            ctx.fill( this.shape, gradient );
+        }
+    });
+
+    var RadialGradient = atom.declare(Gradient, {
+        configure: function method () {
+            method.previous.call(this);
+            this.inner = new LibCanvas.Shapes.Circle(
+                this.shape.center,
+                this.settings.get('inner')
+            );
+        },
+
+        renderTo: function (ctx) {
+            var gradient = ctx.createRadialGradient( this.inner, this.shape ).addColorStop({
+                '0.0' : 'rgba(0,0,0,0.5)',
+                '0.3' : 'blue',
+                '0.5' : 'rgba(0,255,0,0.5)',
+                '0.8' : 'rgba(255,0,0,0.7)',
+                '1.0' : 'rgba(255,0,0,0.0)'
+            });
+
+            ctx.fill( this.shape, gradient );
+        }
+    });
+
+
+    var linear = new LinearGradient( helper.layer, {
+        shape : new LibCanvas.Shapes.Rectangle(20, 20, 200, 100),
+        method: 'createLinearGradient',
+        zIndex: 1
+    });
+
+    var rectangle = new LinearGradient( helper.layer, {
+        shape : new LibCanvas.Shapes.Rectangle(80, 140, 200, 100),
+        method: 'createRectangleGradient',
+        zIndex: 2
+    });
+
+    var circle = new RadialGradient( helper.layer, {
+        shape : new LibCanvas.Shapes.Circle(340, 170, 50),
+        inner : 10,
+        zIndex: 3
+    });
+
+    [linear, rectangle, circle].forEach(function (grad) {
+        helper.app.resources.get('mouseHandler').subscribe(grad);
+    });
+
+    [linear.shape.from, linear.shape.to, rectangle.shape.from, rectangle.shape.to]
+        .forEach(function (point) {
+            var vector = helper.createVector( new LibCanvas.Shapes.Circle(point, 4), { zIndex: 4 })
+                .setStyle({ stroke: 'white', lineWidth: 2 });
+
+            vector.draggable.start();
+        });
+
+
+   
+   });
+  </script>
+
+</head>
+<body class="chess">
+  <!--<canvas width="600" height="400"></canvas>-->
+  
+  <p><a href="/libcanvas-examples/index.html">Libcanvas examples</a></p>
+
+</body>
+</html>

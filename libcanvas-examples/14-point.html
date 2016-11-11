@@ -37,21 +37,21 @@
     });
    
    helper.mouse.events.add({
-		move: function () {
-			cursor.set(this.point);
-			text.content = [
-				'angleTo : ' + Math.floor(atom.math.getDegree(cursor.angleTo(center))) + '°',
-				'distance: ' + atom.number.round(cursor.distanceTo(center)),
-				'diff.x  : ' + (cursor.diff(center).x * -1),
-				'diff.y  : ' + cursor.diff(center).y
-			].join('\n');
-			atom.array.invoke(vectors,'redraw');
-		},
-		out: function () {
-			cursor.set(center);
-			atom.array.invoke(vectors,'redraw');
-		}
-	});
+        move: function () {
+            cursor.set(this.point);
+            text.content = [
+                'angleTo : ' + Math.floor(atom.math.getDegree(cursor.angleTo(center))) + '°',
+                'distance: ' + atom.number.round(cursor.distanceTo(center)),
+                'diff.x  : ' + (cursor.diff(center).x * -1),
+                'diff.y  : ' + cursor.diff(center).y
+            ].join('\n');
+            atom.array.invoke(vectors,'redraw');
+        },
+        out: function () {
+            cursor.set(center);
+            atom.array.invoke(vectors,'redraw');
+        }
+   });
    
    
    

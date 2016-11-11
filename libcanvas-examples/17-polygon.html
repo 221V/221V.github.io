@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Polygon</title>
+  <style>
+  canvas{background-color: #000;}
+  </style>
+  <script src="atom.js"></script>
+  <script src="libcanvas.js"></script>
+
+  <script>
+  //window.declare  = atom.declare;
+  //window.Settings = atom.Settings;
+
+  //atom.patching(window);
+  //LibCanvas.extract();
+  </script>
+  
+  <script>
+   atom.dom(function(){
+
+   //var canvas  = atom.dom('canvas').first;
+   //var context = canvas.getContext('2d-libcanvas');
+   //context.fillAll( '#efebe7' );
+   
+   var keyboard = new atom.Keyboard();
+   var helper = new LibCanvas.App.Light(new LibCanvas.Size(600, 400));
+   var first = new LibCanvas.Shapes.Polygon([
+        [120,  30],
+        [200,  10],
+        [240, 120],
+        [150, 150],
+        [100, 100]
+    ]);
+    var second = new LibCanvas.Shapes.Polygon([
+        [420,  50],
+        [500,  10],
+        [440, 120],
+        [550, 150],
+        [400, 200],
+        [300,  10]
+    ]);
+
+    var pathFrom = new LibCanvas.Point(150, 200);
+
+    var path = new LibCanvas.Shapes.Path()
+        .moveTo ( pathFrom )
+        .curveTo([300, 200], [250, 150])
+        .curveTo([200, 280], [290, 250])
+        .curveTo( pathFrom , [220, 220]);
+
+    [first, second, path].forEach(function (poly, i) {
+		var vector = helper.createVector(poly)
+			.setStyle({ opacity: 0.65, fill: '#300', stroke: '#600' })
+			.setStyle( 'hover' ,     { fill: '#600', stroke: '#900' })
+			.setStyle( 'active',     { fill: '#060', stroke: '#090' });
+		
+		vector.zIndex = i;
+		vector.clickable.start();
+		vector.draggable.start();
+		vector.events.add( 'wheel', function (e) {
+			if (keyboard.key('z')) {
+				poly.scale( e.delta < 0 ? 1.3 : 0.7, helper.mouse.point );
+			} else {
+				poly.rotate( e.delta * atom.math.degree(6), helper.mouse.point );
+			}
+			vector.redraw();
+			e.preventDefault();
+		});
+	});
+
+	atom.array.append([], first.points, second.points, path.points).forEach(function (point, i) {
+		var vector = helper.createVector(new LibCanvas.Shapes.Circle(point, 5))
+			.setStyle({opacity: 0.1, stroke: '#f66' })
+			.setStyle('hover' , { opacity: 1 })
+			.setStyle('active', { stroke : '#0f0' });
+
+		vector.zIndex = i+4;
+		vector.clickable.start();
+		vector.draggable.start();
+	});
+
+   
+   
+   });
+  </script>
+
+</head>
+<body>
+  <!--<canvas width="600" height="400"></canvas>-->
+  
+  <p><a href="/libcanvas-examples/index.html">Libcanvas examples</a></p>
+  <p>Mouse Wheel - rotating</p>
+  <p>Z + Mouse Wheel - scaling</p>
+
+</body>
+</html>

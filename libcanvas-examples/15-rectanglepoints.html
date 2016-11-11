@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Rectangle - Points</title>
+  <style>
+  canvas{background-color: #000;}
+  </style>
+  <script src="atom.js"></script>
+  <script src="libcanvas.js"></script>
+
+  <script>
+  //window.declare  = atom.declare;
+  //window.Settings = atom.Settings;
+
+  //atom.patching(window);
+  //LibCanvas.extract();
+  </script>
+  
+  <script>
+   atom.dom(function(){
+
+   //var canvas  = atom.dom('canvas').first;
+   //var context = canvas.getContext('2d-libcanvas');
+   //context.fillAll( '#efebe7' );
+   
+   var helper = new LibCanvas.App.Light(new LibCanvas.Size(512, 256));
+   // creating text block with data about rectangle
+   var text = helper.createText(new LibCanvas.Shapes.Rectangle(16, 8, 200, 80), {
+        family: 'monospace', color : '#eda'
+    });
+   
+   function updateTextContent () {
+        text.content = [
+            'Size : ' + rectangle.width  + '×' + rectangle.height,
+            'From : ' + rectangle.from.x + '×' + rectangle.from.y,
+            'To   : ' + rectangle. to .x + '×' + rectangle. to .y
+        ];
+    }
+   
+   // creating rectangle
+   var rectangle = new LibCanvas.Shapes.Rectangle(100.5, 100.5, 150, 100);
+   var vector = helper.createVector(rectangle, { zIndex: 1 }).setStyle({
+        fill   : 'rgba(153, 0, 0, 0.4)',
+        stroke : 'rgba(255, 0, 0, 0.4)'
+   });
+   
+   vector.draggable.start(updateTextContent);
+   updateTextContent();
+   
+   // creating draggable vectors to change rectangle size
+   [rectangle.from, rectangle.to].forEach(function (point, i) {
+		var vector = helper.createVector(new LibCanvas.Shapes.Circle(point, 5))
+			.setStyle(          { fill : "#300", stroke : "#f00"})
+			.setStyle('hover' , { fill : "#900", stroke : "#f00"})
+			.setStyle('active', { fill : "#090", stroke : "#0f0"});
+
+		vector.zIndex = i+2;
+		vector.clickable.start();
+		vector.draggable.start(updateTextContent);
+	});
+   
+   
+   
+   
+   });
+  </script>
+
+</head>
+<body>
+  <!--<canvas width="600" height="400"></canvas>-->
+  
+  <p><a href="/libcanvas-examples/index.html">Libcanvas examples</a></p>
+
+</body>
+</html>

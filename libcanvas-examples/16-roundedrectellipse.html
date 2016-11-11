@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Rounded Rectangle - Ellipse</title>
+  <style>
+  canvas{background-color: #000;}
+  </style>
+  <script src="atom.js"></script>
+  <script src="libcanvas.js"></script>
+
+  <script>
+  //window.declare  = atom.declare;
+  //window.Settings = atom.Settings;
+
+  //atom.patching(window);
+  //LibCanvas.extract();
+  </script>
+  
+  <script>
+   atom.dom(function(){
+
+   //var canvas  = atom.dom('canvas').first;
+   //var context = canvas.getContext('2d-libcanvas');
+   //context.fillAll( '#efebe7' );
+   
+   var helper = new LibCanvas.App.Light([512, 256]);
+   [ new LibCanvas.Shapes.RoundedRectangle(50, 50, 150, 40).setRadius(15)
+    , new LibCanvas.Shapes.Ellipse(120, 130, 150, 60)
+    ].forEach(function (shape, i) {
+        var vector = helper.createVector(shape, { zIndex: i })
+            .setStyle(          { stroke: '#900', fill: '#300' })
+            .setStyle('hover' , { stroke: '#f00', fill: '#900' })
+            .setStyle('active', { stroke: '#0f0', fill: '#090' });
+
+        vector.clickable.start();
+        vector.draggable.start();
+    });
+   
+   
+   
+   });
+  </script>
+
+</head>
+<body>
+  <!--<canvas width="600" height="400"></canvas>-->
+  
+  <p><a href="/libcanvas-examples/index.html">Libcanvas examples</a></p>
+
+</body>
+</html>

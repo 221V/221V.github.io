@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Moving</title>
+  <style>
+  canvas{background-color: #000;}
+  </style>
+  <script src="atom.js"></script>
+  <script src="libcanvas.js"></script>
+
+  <script>
+  //window.declare  = atom.declare;
+  //window.Settings = atom.Settings;
+
+  //atom.patching(window);
+  //LibCanvas.extract();
+  </script>
+  
+  <script>
+   atom.dom(function(){
+
+   //var canvas  = atom.dom('canvas').first;
+   //var context = canvas.getContext('2d-libcanvas');
+   //context.fillAll( '#efebe7' );
+   
+   
+   var helper = new LibCanvas.App.Light(new LibCanvas.Size(600, 400));
+   var target = helper.mouse.point;
+
+   var vector = helper.createVector( new LibCanvas.Shapes.Circle(100, 100, 20), { zIndex: 2 })
+        .setStyle({ stroke: '#900', fill: '#300' });
+
+    helper.mouse.events.add('click', function () {
+        var targetVector = helper
+            .createVector( new LibCanvas.Shapes.Circle(target.clone(), 2) )
+            .setStyle({ fill: '#0f0' });
+
+        vector.animate({
+            props: {
+                'shape.center.x': target.x,
+                'shape.center.y': target.y
+            },
+            fn: 'elastic-out',
+            time: 1000,
+            onTick: vector.redraw,
+            onComplete: function () {
+                targetVector.destroy();
+            }
+        });
+    });
+
+
+   
+   
+   });
+  </script>
+
+</head>
+<body>
+  <!--<canvas width="600" height="400"></canvas>-->
+  
+  <p><a href="/libcanvas-examples/index.html">Libcanvas examples</a></p>
+  <p>dblClick on the canvas</p>
+
+</body>
+</html>

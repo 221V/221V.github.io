@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Point</title>
+  <style>
+  canvas{background-color: #000;}
+  </style>
+  <script src="atom.js"></script>
+  <script src="libcanvas.js"></script>
+
+  <script>
+  //window.declare  = atom.declare;
+  //window.Settings = atom.Settings;
+
+  //atom.patching(window);
+  //LibCanvas.extract();
+  </script>
+  
+  <script>
+   atom.dom(function(){
+
+   //var canvas  = atom.dom('canvas').first;
+   //var context = canvas.getContext('2d-libcanvas');
+   //context.fillAll( '#efebe7' );
+   
+   var helper = new LibCanvas.App.Light(new LibCanvas.Size(600, 400));
+   var center = helper.app.rectangle.center;
+   var cursor = center.clone();
+   var vectors = [
+    helper.createVector(new LibCanvas.Shapes.Circle( center, 5 )   ).setStyle({ fill  : '#876' }),
+    helper.createVector(new LibCanvas.Shapes.Circle( cursor, 3 )   ).setStyle({ fill  : '#876' }),
+    helper.createVector(new LibCanvas.Shapes.Line( center, cursor )).setStyle({ stroke: '#543' })
+   ];
+   var text = helper.createText(new LibCanvas.Shapes.Rectangle(16, 8, 150, 80), {
+    family: 'monospace', color : '#eda'
+    });
+   
+   helper.mouse.events.add({
+		move: function () {
+			cursor.set(this.point);
+			text.content = [
+				'angleTo : ' + Math.floor(atom.math.getDegree(cursor.angleTo(center))) + '°',
+				'distance: ' + atom.number.round(cursor.distanceTo(center)),
+				'diff.x  : ' + (cursor.diff(center).x * -1),
+				'diff.y  : ' + cursor.diff(center).y
+			].join('\n');
+			atom.array.invoke(vectors,'redraw');
+		},
+		out: function () {
+			cursor.set(center);
+			atom.array.invoke(vectors,'redraw');
+		}
+	});
+   
+   
+   
+   
+   
+   });
+  </script>
+
+</head>
+<body>
+  <!--<canvas width="600" height="400"></canvas>-->
+  
+  <p><a href="/libcanvas-examples/index.html">Libcanvas examples</a></p>
+
+</body>
+</html>

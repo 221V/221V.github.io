@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Looped animation</title>
+  <style>
+  //canvas{background-color: #000;}
+  
+body.chess .libcanvas-app,
+body.chess .libcanvas-app-simple {
+    border: 1px dashed green;
+    background: #333 url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgAQMAAABJtOi3AAAAAXNSR0IArs4c6QAAAAZQTFRFIiIiMzMzM69ZzAAAAAFiS0dEAIgFHUgAAAAJcEhZcwAACxMAAAsTAQCanBgAAAAHdElNRQfbDA8HExBQqfxoAAAAGXRFWHRDb21tZW50AENyZWF0ZWQgd2l0aCBHSU1QV4EOFwAAABVJREFUCNdj+P+fgYGBigRVDfv/HwDtvT/BRFwEIAAAAABJRU5ErkJggg==');
+}
+  </style>
+  <script src="atom.js"></script>
+  <script src="libcanvas.js"></script>
+
+  <script>
+  //window.declare  = atom.declare;
+  //window.Settings = atom.Settings;
+
+  //atom.patching(window);
+  //LibCanvas.extract();
+  </script>
+  
+  <script>
+   atom.dom(function(){
+
+   //var canvas  = atom.dom('canvas').first;
+   //var context = canvas.getContext('2d-libcanvas');
+   //context.fillAll( '#efebe7' );
+   
+   
+   var helper = new LibCanvas.App.Light(new LibCanvas.Size(300, 300));
+
+   var vector = helper.createVector(new LibCanvas.Shapes.Circle(150, 150, 20)).setStyle({
+    fill  : '#4c4c4c',
+    stroke: '#2d2d2d',
+    opacity: 0.5,
+    lineWidth: 2
+   });
+   
+   setTimeout(function () {
+    vector.animate({
+        fn : 'bounce-out',
+        props: {
+            'shape.radius'   : 100,
+            'style.fill'     : '#f00',
+            'style.stroke'   : '#900',
+            'style.lineWidth': 25,
+            'style.opacity'  : 0.8
+        },
+        onTick: vector.redraw,
+        onComplete: function (animation) {
+            vector.animate({
+                fn: 'sine-out',
+                time  : 800,
+                onTick: vector.redraw,
+                props : animation.initial,
+                onComplete: animation.start
+            })
+        },
+        time: 1200
+    });
+   }, 500);
+   
+   
+   
+   
+   
+   });
+  </script>
+
+</head>
+<body class="chess">
+  <!--<canvas width="600" height="400"></canvas>-->
+  
+  <p><a href="/libcanvas-examples/index.html">Libcanvas examples</a></p>
+
+</body>
+</html>

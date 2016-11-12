@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Hex</title>
+  <style>
+  canvas { background: #353; border: 1px dashed #121; }
+  .libcanvas-app, .libcanvas-app-simple {
+    border: 1px solid #666;
+    margin: 12px;
+  }
+  </style>
+  <script src="atom.js"></script>
+  <script src="libcanvas.js"></script>
+
+  <script>
+  //window.declare  = atom.declare;
+  //window.Settings = atom.Settings;
+
+  //atom.patching(window);
+  //LibCanvas.extract();
+  </script>
+</head>
+<body>
+  <!--<canvas width="800" height="400"></canvas>-->
+  
+  <p><a href="/libcanvas-examples/index.html">Libcanvas examples</a></p>
+
+  <script>
+//   atom.dom(function(){
+
+   //var canvas  = atom.dom('canvas').first;
+   //var context = canvas.getContext('2d-libcanvas');
+   //context.fillAll( '#efebe7' );
+   
+   
+   
+var Hexes = {};
+//LibCanvas.extract();
+
+atom.dom(function () {
+    new atom.ImagePreloader({
+        images: {
+            ruins1   : '30-hex-hexes.png [150:100]{0:0}',
+            ruins2   : '30-hex-hexes.png [150:100]{1:0}',
+            village1 : '30-hex-hexes.png [150:100]{2:0}',
+            village2 : '30-hex-hexes.png [150:100]{3:0}',
+            city1    : '30-hex-hexes.png [150:100]{4:0}',
+            city2    : '30-hex-hexes.png [150:100]{5:0}'
+        },
+        onReady: function (images) {
+            new Hexes.Controller(images, [
+                [ 0,  0,  0, 'city1'    ],
+                [ 0,  1, -1, 'city2'    ],
+                [ 1,  0, -1, 'ruins2'   ],
+                [ 0, -1,  1, 'city2'    ],
+                [ 1, -1,  0, 'ruins1'   ],
+                [-1,  0,  1, 'village2' ],
+                [-1,  1,  0, 'village1' ],
+                [ 1,  1, -2, 'city2'    ],
+                [ 0,  2, -2, 'village1' ],
+                [-1,  2, -1, 'village2' ],
+                [-2,  2,  0, 'village1' ],
+                [-2,  1,  1, 'city1'    ],
+                [-2,  0,  2, 'village2' ],
+                [-1, -1,  2, 'village1' ],
+                [ 0, -2,  2, 'village2' ],
+                [ 1, -2,  1, 'village1' ],
+                [ 2, -2,  0, 'city1'    ],
+                [ 2, -1, -1, 'village2' ],
+                [ 2,  0, -2, 'village1' ],
+                [-5,  0,  5, 'village1' ],
+                [-5, -1,  6, 'city1'    ],
+                [-5, -2,  7, 'village2' ],
+                [-5, -3,  8, 'city2'    ],
+                [-4,  3,  1, 'village1' ],
+                [-4,  2,  2, 'city1'    ],
+                [-4,  1,  3, 'city2'    ],
+                [-4,  0,  4, 'village2' ],
+                [-4, -1,  5, 'village1' ],
+                [-4, -2,  6, 'village2' ],
+                [-4, -3,  7, 'village1' ],
+                [-4, -4,  8, 'city1'    ],
+                [-3,  5, -2, 'village1' ],
+                [-3,  4, -1, 'city2'    ],
+                [-3,  3,  0, 'village2' ],
+                [-3,  2,  1, 'village1' ],
+                [-3,  1,  2, 'village2' ],
+                [-3,  0,  3, 'village2' ],
+                [-3, -1,  4, 'village1' ],
+                [-3, -2,  5, 'city1'    ],
+                [-3, -3,  6, 'city2'    ],
+                [-3, -4,  7, 'village1' ],
+                [-2,  5, -3, 'city1'    ],
+                [-2,  4, -2, 'village1' ],
+                [-2,  3, -1, 'village2' ],
+                [-2, -1,  3, 'city1'    ],
+                [-2, -2,  4, 'city2'    ],
+                [-2, -3,  5, 'village1' ],
+                [-2, -4,  6, 'ruins1'   ],
+                [-1,  5, -4, 'city2'    ],
+                [-1,  4, -3, 'village2' ],
+                [-1,  3, -2, 'city1'    ],
+                [-1, -2,  3, 'village1' ],
+                [-1, -3,  4, 'ruins2'   ],
+                [-1, -4,  5, 'village1' ],
+                [-1, -5,  6, 'village1' ],
+                [ 0,  4, -4, 'city1'    ],
+                [ 0,  3, -3, 'village1' ],
+                [ 0, -3,  3, 'village1' ],
+                [ 0, -4,  4, 'village2' ],
+                [ 0, -5,  5, 'village2' ],
+                [ 1,  5, -6, 'village1' ],
+                [ 1,  4, -5, 'village2' ],
+                [ 1,  3, -4, 'village1' ],
+                [ 1,  2, -3, 'village1' ],
+                [ 1, -3,  2, 'city1'    ],
+                [ 1, -4,  3, 'village2' ],
+                [ 1, -5,  4, 'village1' ],
+                [ 2,  5, -7, 'city2'    ],
+                [ 2,  4, -6, 'village1' ],
+                [ 2,  3, -5, 'village2' ],
+                [ 2,  2, -4, 'city2'    ],
+                [ 2,  1, -3, 'village1' ],
+                [ 2, -3,  1, 'village2' ],
+                [ 2, -4,  2, 'village1' ],
+                [ 2, -5,  3, 'village2' ],
+                [ 3,  5, -8, 'city1'    ],
+                [ 3,  4, -7, 'village1' ],
+                [ 3,  3, -6, 'city1'    ],
+                [ 3,  2, -5, 'city2'    ],
+                [ 3,  1, -4, 'city1'    ],
+                [ 3,  0, -3, 'village2' ],
+                [ 3, -1, -2, 'village1' ],
+                [ 3, -2, -1, 'village2' ],
+                [ 3, -3,  0, 'village1' ],
+                [ 3, -4,  1, 'village2' ],
+                [ 3, -5,  2, 'city2'    ],
+                [ 4,  4, -8, 'village1' ],
+                [ 4,  3, -7, 'village2' ],
+                [ 4,  2, -6, 'city1'    ],
+                [ 4,  1, -5, 'ruins1'   ],
+                [ 4,  0, -4, 'city1'    ],
+                [ 4, -1, -3, 'village1' ],
+                [ 4, -2, -2, 'city2'    ],
+                [ 4, -3, -1, 'village2' ],
+                [ 4, -4,  0, 'city1'    ],
+                [ 4, -5,  1, 'village1' ],
+                [ 5,  4, -9, 'city2'    ],
+                [ 5,  3, -8, 'village2' ],
+                [ 5,  2, -7, 'village2' ],
+                [ 5,  1, -6, 'city1'    ],
+                [ 5,  0, -5, 'city1'    ],
+                [ 5, -1, -4, 'village2' ],
+                [ 5, -2, -3, 'city2'    ],
+                [ 6,  3, -9, 'village1' ],
+                [ 6,  2, -8, 'village2' ],
+                [ 6,  1, -7, 'village1' ],
+                [ 6,  0, -6, 'city1'    ],
+                [ 1, -6,  5, 'village1' ],
+                [ 2, -6,  4, 'village1' ],
+                [ 3, -6,  3, 'village2' ],
+                [ 4, -6,  2, 'village1' ],
+                [ 0,  5, -5, 'village1' ],
+                [-1,  6, -5, 'village1' ],
+                [-2,  6, -4, 'village1' ],
+                [-4,  4,  0, 'village2' ],
+                [-4,  5, -1, 'village1' ]
+            ]);
+        }
+    });
+});
+
+Hexes.Controller = atom.declare({
+
+    initialize: function (images, hexes) {
+
+        this.app = new LibCanvas.App({
+            size: new LibCanvas.Size(1200, 800),
+            appendTo: 'body'
+        });
+
+        this.layer = this.app.createLayer({ intersection: 'manual' });
+
+        var projection = new LibCanvas.Engines.Hex.Projection({
+            baseLength : 74,
+            chordLength: 37,
+            hexHeight  : 98
+        });
+
+        var mouse = new LibCanvas.Mouse(this.app.container.bounds);
+
+        var sizes = projection.sizes(8);
+        hexes.forEach(function (data) {
+            sizes.add(data);
+        });
+        this.layer.dom.size = sizes.size();
+        projection.settings.set({ start: sizes.center() });
+
+        var shift = new LibCanvas.App.LayerShift(this.layer);
+        shift.setLimitShift({ from: [-252, -606], to: [64, 64] });
+
+        new LibCanvas.App.Dragger( mouse )
+            .addLayerShift( shift )
+            .start();
+
+        var mouseHandler = new LibCanvas.App.MouseHandler({
+            mouse: mouse, app: this.app,
+            search: new Hexes.FastSearch(shift, projection)
+        });
+        hexes.forEach(function (data) {
+            var type    = data.pop();
+            var center  = projection.rgbToPoint(data);
+            var polygon = projection.createPolygon(center);
+            var hex = new Hexes.Hex(this.layer, {
+                image : images.get(type),
+                center: center,
+                shape : polygon,
+                coords: data
+            });
+
+            mouseHandler.subscribe( hex );
+
+        }.bind(this));
+        
+        shift.addShift( new LibCanvas.Point(-150, -150), true );
+    }
+
+});
+
+
+Hexes.Hex = atom.declare(LibCanvas.App.Element, {
+    clicked: false,
+
+    configure: function () {
+        new LibCanvas.App.Clickable( this, this.redraw ).start();
+
+        this.rectangle = new LibCanvas.Shapes.Rectangle(
+            this.shape.points[0],
+            this.shape.points[3]
+        );
+
+        this.events.add( 'mousedown', function () {
+            this.clicked = !this.clicked;
+            this.redraw();
+        })
+    },
+
+    addShift: function (shift) {
+        this.shape.move( shift );
+        this.settings.get('center').move( shift );
+        this.previousBoundingShape.move( shift );
+        return this;
+    },
+
+    get coords () { return this.settings.get('coords') },
+    get r      () { return this.coords[0] },
+    get g      () { return this.coords[1] },
+    get b      () { return this.coords[2] },
+
+    get currentBoundingShape () {
+        return this.shape;
+    },
+
+    get overlayColor () {
+        if (!this.clicked && !this.hover) return null;
+
+          var r = this.hover   ? 64 : 0;
+          var a = this.clicked ? '0.8' : '0.6';
+
+        return 'rgba('+r+',0,0,'+a+')';
+    },
+
+    renderTo: function (ctx) {
+        ctx.drawImage({
+            image : this.settings.get('image'),
+            center: this.settings.get('center')
+        });
+        if (this.overlayColor) {
+            ctx.fill( this.shape, this.overlayColor );
+            this.drawCoords(ctx);
+        }
+    },
+
+    /** @private */
+    drawCoords: function (ctx) {
+        function draw (text, color) {
+            ctx.text({
+                text : text,
+                color: color,
+                to   : shape,
+                family: 'monospace'
+            });
+        }
+        function prepareNumber (number) {
+            return number == 0 ? ' 0' : number > 0 ? '+' + number : String(number);
+        }
+
+        var shape = this.rectangle;
+        var c = this.settings.get('coords');
+
+        draw(     '\n r: ' + prepareNumber(c[0]), '#f63' );
+        draw(   '\n\n g: ' + prepareNumber(c[1]), '#0f0' );
+        draw( '\n\n\n b: ' + prepareNumber(c[2]), '#09f' );
+    }
+});
+
+
+Hexes.FastSearch = atom.declare( LibCanvas.App.ElementsMouseSearch, {
+    // It is fast hex search. Default variant just move through all elements
+    initialize: function (shift, projection) {
+        this.projection = projection;
+        this.shift = shift;
+        this.hexes = {};
+    },
+
+    add: function (hex) {
+        atom.object.path.set( this.hexes, hex.coords.join('.'), hex );
+        return this;
+    },
+
+    remove: function (hex) {
+        atom.object.path.set( this.hexes, hex.coords.join('.'), null );
+        return this;
+    },
+
+    findByPoint: function (point) {
+        point = point.clone().move(this.shift.getShift(), true);
+        var path = this.projection.pointToRgb(point).join('.');
+        var hex  = atom.object.path.get( this.hexes, path );
+
+        return hex ? [ hex ] : [];
+    }
+});
+
+   
+   
+//   });
+  </script>
+  
+</body>
+</html>

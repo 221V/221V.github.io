@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Plain image</title>
+  <style>
+  canvas{background-color: #000;}
+  </style>
+  <script src="atom.js"></script>
+  <script src="libcanvas.js"></script>
+
+  <script>
+  //window.declare  = atom.declare;
+  //window.Settings = atom.Settings;
+
+  //atom.patching(window);
+  //LibCanvas.extract();
+  </script>
+  
+  <script>
+   atom.dom(function(){
+
+   //var canvas  = atom.dom('canvas').first;
+   //var context = canvas.getContext('2d-libcanvas');
+   //context.fillAll( '#efebe7' );
+   
+   var RotateImage = atom.declare( LibCanvas.App.Element, {
+        angle: 0,
+
+        onUpdate: function (time) {
+            this.angle += atom.math.degree(30) * time / 1000;
+            this.redraw();
+        },
+
+        renderTo: function (ctx) {
+            ctx.drawImage({
+                image : this.settings.get('image'),
+                angle : this.angle,
+                center: this.shape.center
+            });
+        }
+    });
+
+    atom.ImagePreloader.run({ logo: '23-rotatingimage-html5.png' },
+        function (images) {
+            var diam, size, helper, image;
+
+            image  = images.get('logo');
+            diam   = Math.ceil(atom.math.hypotenuse(image.width, image.height));
+            size   = new LibCanvas.Size(diam, diam);
+            helper = new LibCanvas.App.Light(size, { invoke: true });
+
+            new RotateImage(helper.layer, {
+                image: image,
+                shape: new LibCanvas.Shapes.Circle( size.x/2, size.y/2, diam / 2 )
+            });
+        });
+   
+
+   
+   });
+  </script>
+
+</head>
+<body>
+  <!--<canvas width="600" height="400"></canvas>-->
+  
+  <p><a href="/libcanvas-examples/index.html">Libcanvas examples</a></p>
+
+</body>
+</html>

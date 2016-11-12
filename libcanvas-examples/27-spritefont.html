@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Sprite font</title>
+  <style>
+  /*canvas{background-color: #000;}*/
+  body{background-color: #eee;}
+  </style>
+  <script src="atom.js"></script>
+  <script src="libcanvas.js"></script>
+
+  <script>
+  //window.declare  = atom.declare;
+  //window.Settings = atom.Settings;
+
+  //atom.patching(window);
+  //LibCanvas.extract();
+  </script>
+</head>
+<body>
+  <!--<canvas width="800" height="400"></canvas>-->
+  
+  <p><a href="/libcanvas-examples/index.html">Libcanvas examples</a></p>
+
+  <script>
+//   atom.dom(function(){
+
+   //var canvas  = atom.dom('canvas').first;
+   //var context = canvas.getContext('2d-libcanvas');
+   //context.fillAll( '#efebe7' );
+   
+atom.declare( 'Test.SpriteFont', {
+    initialize: function() {
+        atom.ImagePreloader.run({
+            font  : '27-spritefont-ubuntu-font.png',
+            first : '27-spritefont-nums.png [16:20]{0:0}',
+            second: '27-spritefont-nums.png [16:20]{1:0}'
+        }, this.run, this)
+    },
+
+    run: function(images) {
+        var font = new LibCanvas.Plugins.SpriteFont(' !";#$%&\'()*+,-./:;<>=?@[\\]^_`{|}~0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz’АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯҐІЇЄЎабвгдеёжзийклмнопрстуфхцчшщъыьэюяґіїєў');
+
+        font.make({
+            image: images.get('font'),
+            width: [4,5,7,5,10,8,11,9,5,6,6,7,8,5,5,5,5,5,5,8,8,8,6,14,5,5,5,8,7,6,5,5,5,8,8,8,8,8,8,8,8,8,8,8,9,9,9,10,8,8,9,10,5,7,9,8,13,10,11,9,11,9,7,8,10,9,13,9,8,8,8,8,7,8,8,6,8,9,5,5,8,5,12,9,8,8,8,6,6,6,9,7,10,7,7,7,5,9,9,9,8,10,8,8,11,8,10,10,9,10,13,10,11,10,9,9,8,9,11,9,10,9,13,14,10,13,9,9,14,9,8,5,5,9,9,8,9,8,6,9,8,8,10,7,9,9,8,9,11,9,8,9,8,7,7,7,10,7,9,8,12,12,8,12,8,7,11,8,6,5,5,7,7],
+            size : 16
+        }).addIcon({
+            first : images.get('first'),
+            second: images.get('second')
+        });
+
+        var canvas = LibCanvas.buffer(600, 350, true);
+
+        atom.dom(canvas).appendTo('body');
+
+        var shape = new LibCanvas.Shapes.Rectangle(50, 50, 500, 250);
+
+        canvas.ctx
+            .strokeAll( 'black' )
+            .fill( shape, 'rgba(255,0,0,0.05)' );
+
+        new LibCanvas.Plugins.SpriteFont.Render( canvas.ctx, {
+            font : font,
+            shape: shape,
+            letterSpacing: -1,
+            text : '{color=#009900}Абзац{/}.\n' +
+                'Он всегда был номером {second}, но хотел быть номером {first}.\n' +
+                ' \n' +
+                'Широкая электрификация {color=#666600}южных{/} губерний даст мощный толчок подъёму сельского хозяйства.\n' +
+                ' \n' +
+                'Жебракують філософи при ґанку церкви в Гадячі, ще й шатро їхнє п’яне знаємо.\n' +
+                ' \n' +
+                'Нанесите {first}{second}{first} урона выбранному взводу, королю или пешке. Сделайте офицера дамкой, а шестёрку - королевой.\n' +
+                ' \n' +
+                'The quick brown fox jumps over the lazy dog.'
+        });
+
+    }
+});
+atom.dom(function () {
+    new Test.SpriteFont();
+});
+   
+
+   
+//   });
+  </script>
+  
+</body>
+</html>

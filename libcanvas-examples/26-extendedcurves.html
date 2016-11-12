@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Extended curves</title>
+  <style>
+  canvas{background-color: #000;}
+  </style>
+  <script src="atom.js"></script>
+  <script src="libcanvas.js"></script>
+
+  <script>
+  //window.declare  = atom.declare;
+  //window.Settings = atom.Settings;
+
+  //atom.patching(window);
+  //LibCanvas.extract();
+  </script>
+</head>
+<body>
+  <!--<canvas width="800" height="400"></canvas>-->
+  
+  <p><a href="/libcanvas-examples/index.html">Libcanvas examples</a></p>
+
+  <p><label for="inverted">Inverted:</label><input type="checkbox" id="inverted" checked /></p>
+  
+  <script>
+//   atom.dom(function(){
+
+   //var canvas  = atom.dom('canvas').first;
+   //var context = canvas.getContext('2d-libcanvas');
+   //context.fillAll( '#efebe7' );
+   
+//   (function ($) {
+
+    var helper = new LibCanvas.App.Light(new LibCanvas.Size(600, 300));
+
+    var Curve = atom.declare(LibCanvas.App.Element, {
+        get currentBoundingShape () {
+            var width = this.settings.get('width');
+            return this.shape.getBoundingRectangle()
+                .grow( Math.ceil(Math.max(width.from, width.to)) * 2 );
+        },
+
+        renderTo: function (ctx) {
+            ctx.drawCurve(this.settings.values);
+        }
+    });
+
+    var from = new LibCanvas.Point(158, 180);
+    var to   = new LibCanvas.Point(388, 100);
+    var cpFr = new LibCanvas.Point(120,  10);
+    var cpTo = new LibCanvas.Point(320, 250);
+
+    atom.dom('#inverted').bind('change', function () {
+        curve.settings.set({ inverted: this.checked });
+        curve.redraw();
+    });
+
+    var curve = new Curve( helper.layer, {
+        shape: new LibCanvas.Shapes.Polygon(from, to, cpFr, cpTo),
+        from  : from,
+        to    : to,
+        points: [ cpFr, cpTo ],
+        inverted: true,
+        gradient:{
+            from: '#ff0',
+            to  : '#f00',
+            fn  : 'linear'
+        },
+        width:{
+            from: 30,
+            to  : 1,
+            fn  : 'sine-in'
+        }
+    });
+
+    [ from, to, cpFr, cpTo ].forEach(function (point) {
+        var vector = helper.createVector( new LibCanvas.Shapes.Circle(point, 4), { zIndex: 2 })
+            .setStyle({ fill: '#090' });
+
+        vector.draggable.start( curve.redraw );
+    });
+
+    [ new LibCanvas.Shapes.Line(from, cpFr), new LibCanvas.Shapes.Line(to, cpTo) ].forEach(function (line) {
+        var vector = helper.createVector( line, { zIndex: 1 })
+            .setStyle({ stroke: 'rgba(0,192,0,0.2)' });
+    });
+
+//})(atom.dom);
+   
+
+   
+//   });
+  </script>
+  
+</body>
+</html>

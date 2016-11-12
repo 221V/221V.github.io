@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Take color</title>
+  <style>
+  canvas{background-color: #000;}
+  
+  #atom-trace-container {
+    z-index   : 87223;
+    position  : fixed;
+    top       : 3px;
+    right     : 6px;
+    max-width : 70%;
+    max-height: 100%;
+    overflow-y: auto;
+    background: rgba(0,192,0,0.2);
+    font: 16px/24px sans-serif;
+}
+
+.atom-trace-node {
+    background : #000;
+    border     : 1px dashed #0c0;
+    color      : #0c0;
+    cursor     : pointer;
+    font-family: monospace;
+    margin     : 1px;
+    min-width  : 200px;
+    overflow   : auto;
+    padding    : 3px 12px;
+    white-space: pre;
+}
+
+.atom-trace-node-destroy {
+    background : #300;
+}
+  </style>
+  <script src="atom.js"></script>
+  <script src="libcanvas.js"></script>
+
+  <script>
+  //window.declare  = atom.declare;
+  //window.Settings = atom.Settings;
+
+  //atom.patching(window);
+  //LibCanvas.extract();
+  </script>
+  
+  <script>
+   atom.dom(function(){
+
+   //var canvas  = atom.dom('canvas').first;
+   //var context = canvas.getContext('2d-libcanvas');
+   //context.fillAll( '#efebe7' );
+   
+   var canvas = atom.dom( 'canvas' );
+   var ctx = canvas.first.getContext( '2d-libcanvas' );
+   var mouse  = new LibCanvas.Mouse( canvas );
+   var rect   = ctx.rectangle;
+   var trace = {
+    rgb: atom.trace(),
+    hex: atom.trace()
+   };
+
+    ctx.fill( rect, ctx.createRectangleGradient(rect, {
+        '0.00': 'magenta',
+        '0.30': 'cyan',
+        '0.48': 'rgba(0,255,0,0.0)',
+        '0.52': 'rgba(0,255,0,0.0)',
+        '1.00': 'rgba(255,255,0,1)'
+    }));
+
+    mouse.events.add( 'move', function () {
+        var color = new atom.Color( ctx.getPixel(mouse.point) );
+        trace.rgb.value = color.toString();
+        trace.hex.value = color.toString( 'hex' );
+    });
+   
+
+   
+   });
+  </script>
+
+</head>
+<body>
+  <canvas width="800" height="400"></canvas>
+  
+  <p><a href="/libcanvas-examples/index.html">Libcanvas examples</a></p>
+
+</body>
+</html>

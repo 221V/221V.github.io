@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Random points</title>
+  <style>
+  canvas{background-color: #000;}
+  
+  </style>
+  <script src="atom.js"></script>
+  <script src="libcanvas.js"></script>
+
+  <script>
+  //window.declare  = atom.declare;
+  //window.Settings = atom.Settings;
+
+  //atom.patching(window);
+  //LibCanvas.extract();
+  </script>
+  
+  <script>
+   atom.dom(function(){
+
+   var canvas  = atom.dom('canvas').first;
+   var context = canvas.getContext('2d-libcanvas');
+   //context.fillAll( '#efebe7' );
+   
+   
+   var rect = LibCanvas.Shapes.Rectangle({
+     from : [0, 0],
+     to   : [597, 397]
+   });
+   
+   
+   function draw_points(points){
+     atom.frame.add(function animate(){
+      context.fill(
+       new LibCanvas.Shapes.Rectangle({
+         from: rect.getRandomPoint(),
+         size: [ 3, 3 ]
+       }), 'green'
+      );
+      points--;
+      if(points == 0){atom.frame.remove(animate);console.log("It's all, folks!");}
+     });
+   }
+   
+   setTimeout(function (){
+     draw_points(500);//count
+   }, 500);
+   
+//   function draw_points(time, points){
+//     context.fill(
+//       new LibCanvas.Shapes.Rectangle({
+//         from: rect.getRandomPoint(),
+//         size: [ 5, 5 ]
+//       }), 'green'
+//     );
+     
+//     if(points > 0){
+//     setTimeout(function (){
+//       draw_points(time, points - 1);//time, count
+//     }, 500);
+//     }
+//   }
+   
+//   setTimeout(function (){
+//     draw_points(50, 200);//time, count
+//   }, 500);
+   
+   
+   });
+  </script>
+
+</head>
+<body>
+  <canvas width="600" height="400"></canvas>
+  
+  <p><a href="/libcanvas-examples/index.html">Libcanvas examples</a></p>
+
+</body>
+</html>

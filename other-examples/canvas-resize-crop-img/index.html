@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+  <meta charset="utf-8">
+  <title>Image Resizing &amp; Cropping with Canvas</title>
+  
+  <link rel="stylesheet" href="normalize.css">
+  <link rel="stylesheet" href="demo.css">
+  <link rel="stylesheet" href="component.css">
+  
+</head>
+<body>
+  
+<div class="container">
+  <div class="content">
+    <header class="codrops-header">
+      <h1>Image Resizing &amp; Cropping <br /><span>with Canvas</span></h1>
+    </header>
+    <p>
+      <label>
+        <span>Image</span><br>
+        <input class="image_forpreview_1" type="text" value="image.jpg"><br><br>
+      </label>
+      <label>
+        <span>Preview width, px</span><br>
+        <input class="preview_width_1" type="number" min="60" max="500" step="10" value="100"><br><br>
+      </label>
+      <label>
+        <span>Preview height, px</span><br>
+        <input class="preview_height_1" type="number" min="60" max="300" step="10" value="100"><br><br>
+      </label>
+    </p>
+    <div class="component">
+      <div class="overlay">
+      <div class="overlay-inner">
+      </div>
+      </div>
+      <!-- This image must be on the same domain as the demo or it will not work on a local file system -->
+      <!-- http://en.wikipedia.org/wiki/Cross-origin_resource_sharing -->
+      <img class="resize-image" src="#!" alt="image for resizing">
+    </div>
+    <p>
+    <button class="btn-crop js-crop">Create Preview<img class="icon-crop" src="crop.svg"></button>
+    </p>
+    <div class="a-tip">
+      <p><strong>Hint:</strong> hold <span>SHIFT</span> while resizing to keep the original aspect ratio.</p>
+    </div>
+    <p>Image by <a href="https://www.flickr.com/photos/janoma/4492768410">Alejandro Mallea</a></p>
+    <p><a href="https://tympanus.net/codrops/2014/10/30/resizing-cropping-images-canvas/" target="_blank">updated example from<br>https://tympanus.net/codrops/2014/10/30/resizing-cropping-images-canvas/</a></p>
+  </div><!-- /content -->
+    <!-- Related demos -->
+</div> <!-- /container -->
+<script src="jquery-2.1.1.min.js" defer></script>
+<script src="component.js" defer></script>
+
+  
+  <p>---</p>
+  <p><a href="/other-examples/index.html">Back</a></p>
+  <p><a href="/">Return to index</a></p>
+</body>
+</html>

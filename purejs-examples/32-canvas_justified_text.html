@@ -1,0 +1,260 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+  <meta charset="utf-8" />
+  <title>Canvas justified text</title>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+        background-color:white;
+      }
+      canvas{
+	    background-color:#808080;
+	  }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="578" height="350"></canvas>
+<script>
+'use strict';
+
+var canvas = document.getElementById('myCanvas');
+var ctx = canvas.getContext('2d');
+
+(function(){
+  const FILL = 0;
+  // const to indicate filltext render
+  const STROKE = 1;
+  const MEASURE = 2;
+  var renderType = FILL; // used internal to set fill or stroke text
+  var maxSpaceSize = 3; // Multiplier for max space size. If greater then no justificatoin applied
+  var minSpaceSize = 0.5; // Multiplier for minimum space size
+  var renderTextJustified = function(ctx,text,x,y,width){
+    var words, wordsWidth, count, spaces, spaceWidth, adjSpace, renderer, i, textAlign,
+        useSize, totalWidth;
+    textAlign = ctx.textAlign; // get current align settings
+    ctx.textAlign = "left";
+    wordsWidth = 0;
+    words = text.split(" ").map(word => {
+      var w = ctx.measureText(word).width;
+      wordsWidth += w;
+      return {
+        width : w,
+        word : word
+      };
+    });
+    // count = num words, spaces = number spaces, spaceWidth normal space size
+    // adjSpace new space size >= min size. useSize Resulting space size used to render
+    count = words.length;
+    spaces = count - 1;
+    spaceWidth = ctx.measureText(" ").width;
+    adjSpace = Math.max(spaceWidth * minSpaceSize, (width - wordsWidth) / spaces);
+    useSize = adjSpace > spaceWidth * maxSpaceSize ? spaceWidth : adjSpace;
+    totalWidth = wordsWidth + useSize * spaces;
+    if(renderType === MEASURE){ // if measuring return size
+      ctx.textAlign = textAlign;
+      return totalWidth;
+    }
+    renderer = renderType === FILL ? ctx.fillText.bind(ctx) : ctx.strokeText.bind(ctx); // fill or stroke
+    switch(textAlign){
+      case "right":
+        x -= totalWidth;
+        break;
+      case "end":
+        x += width - totalWidth;
+        break;
+      case "center": // intentional fall through to default
+        x -= totalWidth / 2;
+        default:
+    }
+    if(useSize === spaceWidth){ // if space size unchanged
+      renderer(text,x,y);
+    }else{
+      for(i = 0; i < count; i += 1){
+        renderer(words[i].word,x,y);
+        x += words[i].width;
+        x += useSize;
+      }
+    }
+    ctx.textAlign = textAlign;
+  }
+  // Parse vet and set settings object.
+  var justifiedTextSettings = function(settings){
+    var min,max;
+    var vetNumber = (num, defaultNum) => {
+      num = num !== null && num !== null && !isNaN(num) ? num : defaultNum;
+      if(num < 0){
+        num = defaultNum;
+      }
+      return num;
+    }
+    if(settings === undefined || settings === null){
+      return;
+    }
+    max = vetNumber(settings.maxSpaceSize, maxSpaceSize);
+    min = vetNumber(settings.minSpaceSize, minSpaceSize);
+    if(min > max){
+      return;
+    }
+    minSpaceSize = min;
+    maxSpaceSize = max;
+  }
+  // define fill text
+  var fillJustifyText = function(text, x, y, width, settings){
+    justifiedTextSettings(settings);
+    renderType = FILL;
+    renderTextJustified(this, text, x, y, width);
+  }
+  // define stroke text
+  var strokeJustifyText = function(text, x, y, width, settings){
+    justifiedTextSettings(settings);
+    renderType = STROKE;
+    renderTextJustified(this, text, x, y, width);
+  }
+  // define measure text
+  var measureJustifiedText = function(text, width, settings){
+    justifiedTextSettings(settings);
+    renderType = MEASURE;
+    return renderTextJustified(this, text, 0, 0, width);
+  }
+  // code point A
+  // set the prototypes
+  CanvasRenderingContext2D.prototype.fillJustifyText = fillJustifyText;
+  CanvasRenderingContext2D.prototype.strokeJustifyText = strokeJustifyText;
+  CanvasRenderingContext2D.prototype.measureJustifiedText = measureJustifiedText;
+
+
+  // code point B
+  // optional code if you do not wish to extend the CanvasRenderingContext2D prototype
+/* Uncomment from here to the closing comment
+  window.justifiedText = {
+    fill : function(ctx, text, x, y, width, settings){
+      justifiedTextSettings(settings);
+      renderType = FILL;
+      renderTextJustified(ctx, text, x, y, width);
+    },
+    stroke : function(ctx, text, x, y, width, settings){
+      justifiedTextSettings(settings);
+      renderType = STROKE;
+      renderTextJustified(ctx, text, x, y, width);
+    },
+    measure : function(ctx, text, width, settings){
+      justifiedTextSettings(settings);
+      renderType = MEASURE;
+      return renderTextJustified(ctx, text, 0, 0, width);
+    }
+  }
+to here*/
+
+})();
+
+
+//ctx.fillJustifyText(text, x, y, width, [settings]);
+//ctx.strokeJustifyText( text, x, y, width, [settings]);
+//ctx.measureJustifiedText( text, width, [settings]);
+
+var settings = {
+  maxSpaceSize : 6, // Multiplier for max space size.
+  minSpaceSize : 0.5 // Multiplier for minimum space size
+};
+ctx.fillStyle = "#FFF";
+ctx.fillJustifyText('1234567890', 10, 10, 20, settings);
+
+ctx.strokeStyle="#FF0";
+ctx.strokeJustifyText('777888999', 30, 30, 20, settings);
+
+
+alert(ctx.measureJustifiedText('000000000', 20, settings));
+
+
+
+
+
+
+
+var i = 0, text=[];
+text[i++] = "This text is aligned from the left of the canvas.";
+text[i++] = "This text is near the max spacing size";
+text[i++] = "This text is way too short.";
+text[i++] = "This text is too long for the space provied and will overflow#";
+
+text[i++] = "This text is aligned using 'end' and starts at x + width";
+text[i++] = "This text is near the max spacing size";
+text[i++] = "This text is way too short.";
+text[i++] = "#This text is too long for the space provied and will overflow";
+
+text[i++] = "This is aligned with 'center' and is placed from the center";
+text[i++] = "This text is near the max spacing size";
+text[i++] = "This text is way too short.";
+text[i++] = "This text is just too long for the space provied and will overflow";
+
+
+ctx.clearRect(0,0,canvas.width,canvas.height);
+ctx.font = "25px arial";
+ctx.textAlign = "center"
+var left = 20;
+var center = canvas.width / 2;
+var width = canvas.width-left*2;
+var y = 40;
+var size = 16;
+var i = 0;
+ctx.fillText("Justified text examples.",center,y);
+y+= 40;
+ctx.font = "14px arial";
+ctx.textAlign = "left"
+var ww = ctx.measureJustifiedText(text[0], width);
+var setting = {
+maxSpaceSize : 6,
+minSpaceSize : 0.5
+}
+ctx.strokeStyle = "red"
+ctx.beginPath();
+ctx.moveTo(left,y - size * 2);
+ctx.lineTo(left, y + size * 15);
+ctx.moveTo(canvas.width - left,y - size * 2);
+ctx.lineTo(canvas.width - left, y + size * 15);
+ctx.stroke();
+ctx.textAlign = "left";
+ctx.fillStyle = "red";
+ctx.fillText("< 'left' aligned",left,y - size)
+ctx.fillStyle = "black";
+ctx.fillJustifyText(text[i++], left, y, width, setting); // settings is remembered
+ctx.fillJustifyText(text[i++], left, y+=size, width);
+ctx.fillJustifyText(text[i++], left, y+=size, width);
+ctx.fillJustifyText(text[i++], left, y+=size, width);
+y += 2.3*size;
+ctx.fillStyle = "red";
+ctx.fillText("< 'end' aligned from x plus the width -------------------->",left,y - size);
+ctx.fillStyle = "black";
+ctx.textAlign = "end";
+ctx.fillJustifyText(text[i++], left, y, width);
+ctx.fillJustifyText(text[i++], left, y+=size, width);
+ctx.fillJustifyText(text[i++], left, y+=size, width);
+ctx.fillJustifyText(text[i++], left, y+=size, width);
+y += 40;
+ctx.strokeStyle = "red"
+ctx.beginPath();
+ctx.moveTo(center,y - size * 2);
+ctx.lineTo(center, y + size * 5);
+ctx.stroke();
+ctx.textAlign = "center";
+
+ctx.fillStyle = "red";
+ctx.fillText("'center' aligned",center,y - size)
+ctx.fillStyle = "black";
+ctx.fillJustifyText(text[i++], center, y, width);
+ctx.fillJustifyText(text[i++], center, y+=size, width);
+ctx.fillJustifyText(text[i++], center, y+=size, width);
+ctx.fillJustifyText(text[i++], center, y+=size, width);
+
+
+
+
+
+
+
+
+</script>
+  </body>
+</html>

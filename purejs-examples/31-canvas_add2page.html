@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+  <meta charset="utf-8" />
+  <title>Canvas add to page</title>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+        background-color:white;
+      }
+      canvas{
+	    background-color:#808080;
+	  }
+	  #canvasHtml5{border:3px solid red; }
+      #canvasJavascript{border:3px solid blue; }
+    </style>
+  </head>
+  <body>
+    <script>
+      window.onload=(function(){
+        // add a canvas element using javascript
+        var canvas=document.createElement('canvas');
+        canvas.id='canvasJavascript'
+        document.body.appendChild(canvas);
+      });
+    </script>
+    
+    <!-- add a canvas element using html -->
+    <canvas id='canvasHtml5'></canvas>
+    
+  </body>
+</html>

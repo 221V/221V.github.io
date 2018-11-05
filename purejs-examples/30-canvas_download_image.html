@@ -2,7 +2,7 @@
 <html>
   <head>
   <meta charset="utf-8" />
-  <title>Canvas rotate</title>
+  <title>Canvas download image</title>
     <style>
       body {
         margin: 0px;
@@ -15,25 +15,24 @@
   </head>
   <body>
     <canvas id="myCanvas" width="578" height="250"></canvas>
-    <button type="button" onclick="rotate();">Rotate</button>
+    <p></p>
+    <a id="download" download="myImage.jpg" href="" onclick="download_img(this);">Download to myImage.jpg</a>
     <script>
       var canvas = document.getElementById('myCanvas');
       var ctx = canvas.getContext('2d');
       
       var ox = canvas.width / 2;
       var oy = canvas.height / 2;
+      
       ctx.font = "42px serif";
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
-      ctx.fillStyle = "#FFF";
-      ctx.fillText("Hello World", ox, oy);
+      ctx.fillStyle = "#800";
+      ctx.fillRect(ox / 2, oy / 2, ox, oy);
       
-      function rotate() {
-        // convert degrees to radians with radians = (Math.PI/180)*degrees. 
-        ctx.translate(ox, oy);
-        ctx.rotate((Math.PI / 180) * 15);
-        ctx.fillText("Hello World", 0, 0);
-        ctx.translate(-ox, -oy);
+      function download_img(el) {
+        var image = canvas.toDataURL("image/jpg");
+        el.href = image;
       }
       
     </script>

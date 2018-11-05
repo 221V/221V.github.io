@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+  <meta charset="utf-8" />
+  <title>Canvas rotate</title>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="578" height="250"></canvas>
+    <button type="button" onclick="rotate();">Rotate</button>
+    <script>
+      var canvas = document.getElementById('myCanvas');
+      var ctx = canvas.getContext('2d');
+      
+      var ox = canvas.width / 2;
+      var oy = canvas.height / 2;
+      ctx.font = "42px serif";
+      ctx.textAlign = "center";
+      ctx.textBaseline = "middle";
+      ctx.fillStyle = "#000";
+      ctx.fillText("Hello World", ox, oy);
+      
+      function rotate() {
+        // convert degrees to radians with radians = (Math.PI/180)*degrees. 
+        ctx.translate(ox, oy);
+        ctx.rotate((Math.PI / 180) * 15);
+        ctx.fillText("Hello World", 0, 0);
+        ctx.translate(-ox, -oy);
+      }
+      
+    </script>
+  </body>
+</html>

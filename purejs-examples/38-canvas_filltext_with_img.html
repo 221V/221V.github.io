@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+  <meta charset="utf-8" />
+  <title>Canvas fill text with an image</title>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+        background-color:white;
+      }
+      canvas{
+	    background-color:#808080;
+	  }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="578" height="350"></canvas>
+<script>
+'use strict';
+
+var canvas = document.getElementById('myCanvas');
+var ctx = canvas.getContext('2d');
+
+function drawImageInsideText(canvas,x,y,img,text,font){
+  var c=canvas.cloneNode();
+  var ctx=c.getContext('2d');
+  ctx.font=font;
+  ctx.fillText(text,x,y);
+  ctx.globalCompositeOperation='source-atop';
+  ctx.drawImage(img,0,0);
+  canvas.getContext('2d').drawImage(c,0,0);
+}
+
+var img = new Image();
+img.onload = function(){
+  drawImageInsideText(canvas,30,150,img,'test text','italic small-caps bold 110px Helvetica, Arial, sans-serif');
+  drawImageInsideText(canvas,180,250,img,'777','italic small-caps bold 110px Helvetica, Arial, sans-serif');
+}
+img.src = '38-sun.jpg';
+
+
+
+</script>
+  </body>
+</html>

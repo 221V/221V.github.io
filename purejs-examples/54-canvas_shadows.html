@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+  <meta charset="utf-8" />
+  <title>Canvas shadows</title>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+        background-color:white;
+      }
+      canvas{
+	    background-color:#FFF;
+	    border:3px solid red;
+	  }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="578" height="350"></canvas>
+<script>
+'use strict';
+
+var canvas = document.getElementById('myCanvas');
+var ctx = canvas.getContext('2d');
+
+
+// shadowed stroke
+ctx.shadowColor='black';
+ctx.shadowBlur=6;
+ctx.strokeStyle='red';
+ctx.strokeRect(50,50,100,50);
+// darken the shadow by stroking a second time
+ctx.strokeRect(50,50,100,50);
+
+// shadowed fill
+ctx.shadowColor='black';
+ctx.shadowBlur=10;
+ctx.fillStyle='red';
+ctx.fillRect(225,50,100,50);
+// darken the shadow by stroking a second time
+ctx.fillRect(225,50,100,50);
+
+// the shadow offset rightward and downward
+ctx.shadowColor='black';
+ctx.shadowBlur=10;
+ctx.shadowOffsetX=5;
+ctx.shadowOffsetY=5;
+ctx.fillStyle='red';
+ctx.fillRect(50,175,100,50);
+
+// a wider blur (==extends further from the path)
+ctx.shadowColor='black';
+ctx.shadowBlur=35;
+ctx.fillStyle='red';
+ctx.fillRect(225,175,100,50);
+// always clean up! Turn off shadowing
+ctx.shadowColor='rgba(0,0,0,0)';
+
+
+
+</script>
+  </body>
+</html>

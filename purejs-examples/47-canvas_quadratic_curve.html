@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+  <meta charset="utf-8" />
+  <title>Canvas quadratic curve</title>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+        background-color:white;
+      }
+      canvas{
+	    background-color:#FFF;
+	    border:3px solid red;
+	  }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="578" height="350"></canvas>
+<script>
+'use strict';
+
+var canvas = document.getElementById('myCanvas');
+var ctx = canvas.getContext('2d');
+
+
+// arguments
+var startX=25;
+var startY=70;
+var controlX=75;
+var controlY=25;
+var endX=125;
+var endY=70;
+// A quadratic curve drawn using "moveTo" and "quadraticCurveTo" commands
+ctx.beginPath();
+ctx.moveTo(startX,startY);
+ctx.quadraticCurveTo(controlX,controlY,endX,endY);
+ctx.stroke();
+
+
+
+</script>
+  </body>
+</html>

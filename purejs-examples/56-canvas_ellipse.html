@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+  <meta charset="utf-8" />
+  <title>Canvas ellipse</title>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+        background-color:white;
+      }
+      canvas{
+	    background-color:#FFF;
+	    border:3px solid red;
+	  }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="578" height="350"></canvas>
+<script>
+'use strict';
+
+var canvas = document.getElementById('myCanvas');
+var ctx = canvas.getContext('2d');
+
+
+// draws an ellipse based on x,y being top-left coordinate
+function drawEllipse(x,y,width,height){
+  var PI2=Math.PI*2;
+  var ratio=height/width;
+  var radius=Math.max(width,height)/2;
+  var increment = 1 / radius;
+  var cx=x+width/2;
+  var cy=y+height/2;
+  ctx.beginPath();
+  var x = cx + radius * Math.cos(0);
+  var y = cy - ratio * radius * Math.sin(0);
+  ctx.lineTo(x,y);
+  for(var radians=increment; radians<PI2; radians+=increment){
+    var x = cx + radius * Math.cos(radians);
+    var y = cy - ratio * radius * Math.sin(radians);
+    ctx.lineTo(x,y);
+  }
+  ctx.closePath();
+  ctx.stroke();
+}
+
+
+
+// draws an ellipse based on cx,cy being ellipse's centerpoint coordinate
+function drawEllipse2(cx,cy,width,height){
+  var PI2=Math.PI*2;
+  var ratio=height/width;
+  var radius=Math.max(width,height)/2;
+  var increment = 1 / radius;
+  ctx.beginPath();
+  var x = cx + radius * Math.cos(0);
+  var y = cy - ratio * radius * Math.sin(0);
+  ctx.lineTo(x,y);
+  for(var radians=increment; radians<PI2; radians+=increment){
+    var x = cx + radius * Math.cos(radians);
+    var y = cy - ratio * radius * Math.sin(radians);
+    ctx.lineTo(x,y);
+  }
+  ctx.closePath();
+  ctx.stroke();
+}
+
+
+drawEllipse(50,50,70,40);
+drawEllipse2(200,200,50,70);
+
+
+</script>
+  </body>
+</html>

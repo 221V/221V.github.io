@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+  <meta charset="utf-8" />
+  <title>Canvas circle</title>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+        background-color:white;
+      }
+      canvas{
+	    background-color:#FFF;
+	    border:3px solid red;
+	  }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="578" height="350"></canvas>
+<script>
+'use strict';
+
+var canvas = document.getElementById('myCanvas');
+var ctx = canvas.getContext('2d');
+
+
+// arguments
+var centerX=50;
+var centerY=50;
+var radius=30;
+var startingRadianAngle=0;
+// start at 0 degrees
+var endingRadianAngle=Math.PI*2; // end at 360 degrees (==PI*2 in radians)
+// A complete circle drawn using the "arc" command
+ctx.beginPath();
+ctx.arc(centerX, centerY, radius, startingRadianAngle, endingRadianAngle);
+ctx.stroke();
+
+
+
+</script>
+  </body>
+</html>

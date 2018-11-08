@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+  <meta charset="utf-8" />
+  <title>Canvas gradient line</title>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+        background-color:white;
+      }
+      canvas{
+	    background-color:#FFF;
+	    border:3px solid red;
+	  }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="578" height="350"></canvas>
+<script>
+'use strict';
+
+var canvas = document.getElementById('myCanvas');
+var ctx = canvas.getContext('2d');
+
+
+// Create a linearGradient
+// Note: Nothing visually appears during this process
+var gradient=ctx.createLinearGradient(100,0,canvas.width-100,0);
+gradient.addColorStop(0,'red');
+gradient.addColorStop(1,'magenta');
+
+// Create a polyline path
+// Note: Nothing visually appears during this process
+var x=20;
+var y=40;
+ctx.lineCap='round';
+ctx.lineJoin='round';
+ctx.lineWidth=15;
+ctx.beginPath();
+ctx.moveTo(x,y);
+ctx.lineTo(x+30,y+50);
+ctx.lineTo(x+60,y);
+ctx.lineTo(x+90,y+50);
+ctx.lineTo(x+120,y);
+ctx.lineTo(x+150,y+50);
+ctx.lineTo(x+180,y);
+ctx.lineTo(x+210,y+50);
+ctx.lineTo(x+240,y);
+ctx.lineTo(x+270,y+50);
+ctx.lineTo(x+300,y);
+ctx.lineTo(x+330,y+50);
+ctx.lineTo(x+360,y);
+
+// Set the stroke style to be the gradient
+// Note: Nothing visually appears during this process
+ctx.strokeStyle=gradient;
+
+// stroke the path
+// FINALLY! The gradient-stroked path is visible on the canvas
+ctx.stroke();
+
+
+
+</script>
+  </body>
+</html>

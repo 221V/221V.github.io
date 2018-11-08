@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+  <meta charset="utf-8" />
+  <title>Canvas bezier curve</title>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+        background-color:white;
+      }
+      canvas{
+	    background-color:#FFF;
+	    border:3px solid red;
+	  }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="578" height="350"></canvas>
+<script>
+'use strict';
+
+var canvas = document.getElementById('myCanvas');
+var ctx = canvas.getContext('2d');
+
+
+// arguments
+var startX=25;
+var startY=50;
+var controlX1=75;
+var controlY1=10;
+var controlX2=75;
+var controlY2=90;
+var endX=125;
+var endY=50;
+// A cubic bezier curve drawn using "moveTo" and "bezierCurveTo" commands
+ctx.beginPath();
+ctx.moveTo(startX,startY);
+ctx.bezierCurveTo(controlX1,controlY1,controlX2,controlY2,endX,endY);
+ctx.stroke();
+
+
+
+</script>
+  </body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+  <meta charset="utf-8" />
+  <title>Canvas image clip</title>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+        background-color:white;
+      }
+      canvas{
+	    background-color:#FFF;
+	    border:3px solid red;
+	  }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="578" height="350"></canvas>
+<script>
+'use strict';
+
+var canvas = document.getElementById('myCanvas');
+var ctx = canvas.getContext('2d');
+
+
+var img=new Image();
+img.onload=start;
+img.src='http://i.stack.imgur.com/1CqWf.jpg'
+function start(){ // draw a triangle path
+  ctx.beginPath();
+  ctx.moveTo(75,50);
+  ctx.lineTo(125,100);
+  ctx.lineTo(25,100);
+  ctx.lineTo(75,50);
+  // clip future drawings to appear only in the triangle
+  ctx.clip();
+  // draw an image
+  ctx.drawImage(img,0,0);
+}
+
+
+</script>
+  </body>
+</html>

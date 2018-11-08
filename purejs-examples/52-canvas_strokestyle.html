@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+  <meta charset="utf-8" />
+  <title>Canvas strokeStyle</title>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+        background-color:white;
+      }
+      canvas{
+	    background-color:#FFF;
+	    border:3px solid red;
+	  }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="578" height="350"></canvas>
+<script>
+'use strict';
+
+var canvas = document.getElementById('myCanvas');
+var ctx = canvas.getContext('2d');
+
+
+
+ctx.lineWidth=15;
+// stroke using a CSS color: named, RGB, HSL, etc
+ctx.strokeStyle='red';
+drawLine(50,40,250,40);
+
+// stroke using a linear gradient
+var gradient = ctx.createLinearGradient(75,75,175,75);
+gradient.addColorStop(0,'red');
+gradient.addColorStop(1,'green');
+ctx.strokeStyle=gradient;
+drawLine(50,75,250,75);
+
+// stroke using a radial gradient
+var gradient = ctx.createRadialGradient(100,110,15,100,110,45);
+gradient.addColorStop(0,'red');
+gradient.addColorStop(1,'green');
+ctx.strokeStyle=gradient;
+ctx.lineWidth=20;
+drawLine(50,110,250,110);
+
+// stroke using a pattern
+var patternImage=new Image();
+patternImage.onload=function(){
+  var pattern = ctx.createPattern(patternImage,'repeat');
+  ctx.strokeStyle=pattern;
+  drawLine(50,150,250,150);
+}
+
+patternImage.src='http://i.stack.imgur.com/1CqWf.jpg';
+
+// draw labels by each stroke
+ctx.textBaseline='middle';
+ctx.font='14px arial';
+ctx.fillText('CSS color',265,40);
+ctx.fillText('Linear Gradient color',265,75);
+ctx.fillText('Radial Gradient color',265,110);
+ctx.fillText('Pattern color',265,150);
+
+// utility to draw a line
+function drawLine(startX,startY,endX,endY){
+  ctx.beginPath();
+  ctx.moveTo(startX,startY);
+  ctx.lineTo(endX,endY);
+  ctx.stroke();
+}
+
+
+
+</script>
+  </body>
+</html>

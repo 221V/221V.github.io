@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+  <meta charset="utf-8" />
+  <title>Canvas image pattern</title>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+        background-color:white;
+      }
+      canvas{
+	    background-color:#FFF;
+	    border:3px solid red;
+	  }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="578" height="350"></canvas>
+<script>
+'use strict';
+
+var canvas = document.getElementById('myCanvas');
+var ctx = canvas.getContext('2d');
+
+
+var patternImage=new Image();
+// IMPORTANT!
+// Always use .onload to be sure the image has fully loaded before using it in .createPattern
+patternImage.onload=function(){ // create a pattern object
+  var pattern = ctx.createPattern(patternImage,'repeat'); // set the fillstyle to that pattern
+  ctx.fillStyle=pattern; // fill a rectangle with the pattern
+  ctx.fillRect(20,20,500,320); // demo only, stroke the rect for clarity
+  ctx.strokeRect(20,20,500,320);
+}
+patternImage.src='http://i.stack.imgur.com/K9EZl.png';
+
+
+
+</script>
+  </body>
+</html>

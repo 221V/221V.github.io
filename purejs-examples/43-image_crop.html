@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+  <meta charset="utf-8" />
+  <title>Image crop</title>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+        background-color:white;
+      }
+      canvas{
+	    background-color:#FFF;
+	    border:3px solid red;
+	  }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="578" height="350"></canvas>
+<script>
+'use strict';
+
+var canvas = document.getElementById('myCanvas');
+var ctx = canvas.getContext('2d');
+
+
+function cropImage(image, croppingCoords) {
+  var cc = croppingCoords;
+  //var workCan = document.createElement("canvas"); // create a canvas
+  //workCan.width = Math.floor(cc.width); // set the canvas resolution to the cropped image size
+  //workCan.height = Math.floor(cc.height);
+  //var ctx = workCan.getContext("2d"); // get a 2D rendering interface
+  var width = Math.floor(cc.width); // set the canvas resolution to the cropped image size
+  var height = Math.floor(cc.height);
+  ctx.drawImage(image, -Math.floor(cc.x), -Math.floor(cc.y)); // draw the image offset to place it correctly on the cropped region
+  image.src = canvas.toDataURL(); // set the image source to the canvas as a data URL
+  return image;
+}
+
+var i = true;
+var image = new Image();
+image.src = "38-sun.jpg"; // load the image
+image.onload = function () { // when loaded
+  if(i == true){
+    i = false;// for exit from recursive cropping lol
+    //add original img to the DOM
+    var img2 = new Image();
+    img2.src = image.src;
+    document.body.appendChild(img2);
+    
+    cropImage(
+      this, {
+        x : this.width / 4, // crop keeping the center
+        y : this.height / 4,
+        width : this.width / 2,
+        height : this.height / 2,
+      });
+    document.body.appendChild(this); // Add the cropped image to the DOM
+  }
+};
+
+
+
+</script>
+  </body>
+</html>

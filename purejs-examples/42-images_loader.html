@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+  <meta charset="utf-8" />
+  <title>Images loader</title>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+        background-color:white;
+      }
+      canvas{
+	    background-color:#FFF;
+	    border:3px solid red;
+	  }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="578" height="350"></canvas>
+<script>
+'use strict';
+
+var canvas = document.getElementById('myCanvas');
+var ctx = canvas.getContext('2d');
+
+
+// first image
+var img1=new Image();
+img1.onload=start;
+img1.onerror=function(){alert(img1.src+' failed to load.');};
+img1.src="imageOne.png";
+
+// second image
+var img2=new Image();
+img2.onload=start;
+img1.onerror=function(){alert(img2.src+' failed to load.');};
+img2.src="imageTwo.png";
+
+
+var imgCount=2;
+
+// start is called every time an image loads
+function start(){
+  // countdown until all images are loaded
+  if(--imgCount>0){return;}
+  // All the images are now successfully loaded
+  // context.drawImage will successfully draw each one
+  ctx.drawImage(img1,0,0);
+  ctx.drawImage(img2,50,0);
+}
+
+
+
+</script>
+  </body>
+</html>

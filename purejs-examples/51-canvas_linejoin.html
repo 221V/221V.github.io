@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+  <meta charset="utf-8" />
+  <title>Canvas lineJoin</title>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+        background-color:white;
+      }
+      canvas{
+	    background-color:#FFF;
+	    border:3px solid red;
+	  }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="578" height="350"></canvas>
+<script>
+'use strict';
+
+var canvas = document.getElementById('myCanvas');
+var ctx = canvas.getContext('2d');
+
+
+ctx.lineWidth=15;
+// lineJoin: miter (default)
+ctx.lineJoin='miter';
+drawPolyline(50,30);
+// lineJoin: round
+ctx.lineJoin='round';
+drawPolyline(50,80);
+// lineJoin: bevel
+ctx.lineJoin='bevel';
+drawPolyline(50,130);
+// utility to draw polyline
+function drawPolyline(x,y){
+  ctx.beginPath();
+  ctx.moveTo(x,y);
+  ctx.lineTo(x+30,y+30);
+  ctx.lineTo(x+60,y);
+  ctx.lineTo(x+90,y+30);
+  ctx.stroke();
+}
+
+
+</script>
+  </body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+  <meta charset="utf-8" />
+  <title>Canvas lineCap</title>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+        background-color:white;
+      }
+      canvas{
+	    background-color:#FFF;
+	    border:3px solid red;
+	  }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="578" height="350"></canvas>
+<script>
+'use strict';
+
+var canvas = document.getElementById('myCanvas');
+var ctx = canvas.getContext('2d');
+
+
+
+ctx.lineWidth=15;
+// lineCap default: butt
+ctx.lineCap='butt';
+drawLine(50,40,200,40);
+// lineCap: round
+ctx.lineCap='round';
+drawLine(50,70,200,70);
+// lineCap: square
+ctx.lineCap='square';
+drawLine(50,100,200,100);
+// utility function to draw a line
+function drawLine(startX,startY,endX,endY){
+  ctx.beginPath();
+  ctx.moveTo(startX,startY);
+  ctx.lineTo(endX,endY);
+  ctx.stroke();
+}
+// Rulers to show which lineCaps extend beyond endpoints
+ctx.lineWidth=1;
+ctx.strokeStyle='red';
+drawLine(50,20,50,120);
+drawLine(200,20,200,120);
+
+
+
+</script>
+  </body>
+</html>

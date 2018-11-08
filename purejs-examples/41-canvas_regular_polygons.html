@@ -1,0 +1,58 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+  <meta charset="utf-8" />
+  <title>Canvas regular polygons</title>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+        background-color:white;
+      }
+      canvas{
+	    background-color:#FFF;
+	    border:3px solid red;
+	  }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="578" height="350"></canvas>
+<script>
+'use strict';
+
+var canvas = document.getElementById('myCanvas');
+var ctx = canvas.getContext('2d');
+
+
+function drawRegularPolygon(sideCount,radius,centerX,centerY,strokeWidth,strokeColor,fillColor,rotationRadians){
+  var angles=Math.PI*2/sideCount;
+  ctx.translate(centerX,centerY);
+  ctx.rotate(rotationRadians);
+  ctx.beginPath();
+  ctx.moveTo(radius,0);
+  for(var i=1;i<sideCount;i++){
+    ctx.rotate(angles);
+    ctx.lineTo(radius,0);
+  }
+  ctx.closePath();
+  ctx.fillStyle=fillColor;
+  ctx.strokeStyle = strokeColor;
+  ctx.lineWidth = strokeWidth;
+  ctx.stroke();
+  ctx.fill();
+  ctx.rotate(angles*-(sideCount-1));
+  ctx.rotate(-rotationRadians);
+  ctx.translate(-centerX,-centerY);
+}
+
+
+drawRegularPolygon(3,25,75,50,6,'gray','red',0);
+drawRegularPolygon(5,25,150,50,6,'gray','gold',0);
+drawRegularPolygon(6,25,225,50,6,'gray','lightblue',0);
+drawRegularPolygon(10,25,300,50,6,'gray','lightgreen',0);
+
+
+
+</script>
+  </body>
+</html>

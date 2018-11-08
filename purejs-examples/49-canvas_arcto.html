@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+  <meta charset="utf-8" />
+  <title>Canvas arcTo</title>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+        background-color:white;
+      }
+      canvas{
+	    background-color:#FFF;
+	    border:3px solid red;
+	  }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="578" height="350"></canvas>
+<script>
+'use strict';
+
+var canvas = document.getElementById('myCanvas');
+var ctx = canvas.getContext('2d');
+
+
+
+// arguments
+var pointX0=25;
+var pointY0=80;
+var pointX1=75;
+var pointY1=0;
+var pointX2=125;
+var pointY2=80;
+var radius=25;
+// A circular arc drawn using the "arcTo" command. The line is automatically drawn.
+ctx.beginPath();
+ctx.moveTo(pointX0,pointY0);
+ctx.arcTo(pointX1, pointY1, pointX2, pointY2, radius);
+ctx.stroke();
+
+
+</script>
+  </body>
+</html>

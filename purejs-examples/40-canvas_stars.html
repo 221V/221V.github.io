@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+  <meta charset="utf-8" />
+  <title>Canvas stars</title>
+    <style>
+      body {
+        margin: 0px;
+        padding: 0px;
+        background-color:white;
+      }
+      canvas{
+	    background-color:#FFF;
+	    border:3px solid red;
+	  }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="578" height="350"></canvas>
+<script>
+'use strict';
+
+var canvas = document.getElementById('myCanvas');
+var ctx = canvas.getContext('2d');
+
+
+// centerX, centerY: the center point of the star
+// points: the number of points on the exterior of the star
+// inner: the radius of the inner points of the star
+// outer: the radius of the outer points of the star
+// fill, stroke: the fill and stroke colors to apply
+// line: the linewidth of the stroke
+
+function drawStar(centerX, centerY, points, outer, inner, fill, stroke, line) {
+  // define start
+  ctx.beginPath();
+  ctx.moveTo(centerX, centerY+outer);
+  for (var i=0; i < 2*points+1; i++) {
+    var r = (i%2 == 0)? outer : inner;
+    var a = Math.PI * i/points;
+    ctx.lineTo(centerX + r*Math.sin(a), centerY + r*Math.cos(a));
+  }
+  ctx.closePath();
+  // draw
+  ctx.fillStyle=fill;
+  ctx.fill();
+  ctx.strokeStyle=stroke;
+  ctx.lineWidth=line;
+  ctx.stroke();
+}
+
+
+drawStar(75,75,5,50,25,'mediumseagreen','gray',9);
+drawStar(150,200,8,50,25,'skyblue','gray',3);
+drawStar(225,75,16,50,20,'coral','transparent',0);
+drawStar(300,200,16,50,40,'gold','gray',3);
+
+
+
+</script>
+  </body>
+</html>

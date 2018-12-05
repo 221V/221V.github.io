@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <title>Canvas animation from to</title>
+    <style>
+      body {
+        margin:0;
+        padding:0;
+        background-color:white;
+      }
+      canvas{
+        //background-color:#FFF;
+        border:1px solid red;
+      }
+    </style>
+  </head>
+  <body>
+    <p>mouse left click down at point 1 and up at point 2</p>
+    <canvas id="myCanvas" width="512" height="512"></canvas>
+<script>
+'use strict';
+
+var canvas = document.getElementById('myCanvas');
+var ctx = canvas.getContext('2d');
+
+var cw=canvas.width;
+var ch=canvas.height;
+//canvas.style.border='1px solid red';
+
+
+// canvas styles
+ctx.strokeStyle='skyblue';
+ctx.fillStyle='blue';
+
+
+// animating vars
+var pct=101;
+var startX=20;
+var startY=50;
+var endX=225;
+var endY=100;
+var dx=endX-startX;
+var dy=endY-startY;
+
+var startX2;
+var startY2;
+var endX2;
+var endY2;
+
+// start animation loop running
+requestAnimationFrame(animate);
+
+// handle windows scrolling & resizing
+function reOffset(){
+  var BB=canvas.getBoundingClientRect();
+  offsetX=BB.left;
+  offsetY=BB.top;
+}
+
+var offsetX,offsetY;
+
+reOffset();
+
+window.onscroll=function(e){ reOffset(); }
+window.onresize=function(e){ reOffset(); }
+
+// listen for mouse events
+canvas.onmousedown=(function(e){handleMouseDown(e);});
+canvas.onmouseup=(function(e){handleMouseUp(e);});
+
+function handleMouseDown(e){
+  // tell the browser we're handling this event
+  e.preventDefault();
+  e.stopPropagation();
+  // get the mouse position
+  var mouseX=parseInt(e.clientX-offsetX);
+  var mouseY=parseInt(e.clientY-offsetY);
+  // save the mouse position
+  // but don't draw anything
+  startX2 = mouseX;
+  startY2 = mouseY;
+}
+
+function handleMouseUp(e){
+  // tell the browser we're handling this event
+  e.preventDefault();
+  e.stopPropagation();
+  // get the mouse position
+  var mouseX=parseInt(e.clientX-offsetX);
+  var mouseY=parseInt(e.clientY-offsetY);
+  // save the mouse position
+  // change start points if we have pairs
+  endX2 = mouseX;
+  endY2 = mouseY;
+  if(startX2 && startY2 && endX2 && endY2){
+     startX=startX2;
+     startY=startY2;
+     endX=endX2;
+     endY=endY2;
+     dx=endX-startX;
+     dy=endY-startY;
+     startX2=false;
+     startY2=false;
+     endX2=false;
+     endY2=false;
+  }
+}
+
+
+// constantly running loop
+// will animate dot from startX,startY to endX,endY
+function animate(time){
+  // demo: rerun animation
+  if(++pct>100){pct=0;}
+  // update
+  var x=startX+dx*pct/100;
+  var y=startY+dy*pct/100;
+  // draw
+  ctx.clearRect(0,0,cw,ch);
+  ctx.beginPath();
+  ctx.moveTo(startX,startY);
+  ctx.lineTo(endX,endY);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(x,y,5,0,Math.PI*2);
+  ctx.fill()
+  // request another animation loop
+  requestAnimationFrame(animate);
+}
+
+
+
+
+</script>
+  </body>
+</html>

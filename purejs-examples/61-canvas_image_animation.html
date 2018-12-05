@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+  <meta charset="utf-8" />
+  <title>Canvas image animation</title>
+    <style>
+      body {
+        margin:0;
+        padding:0;
+        background-color:white;
+      }
+      canvas{
+        //background-color:#FFF;
+        border:1px solid red;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="512" height="512"></canvas>
+<script>
+'use strict';
+
+var canvas = document.getElementById('myCanvas');
+var ctx = canvas.getContext('2d');
+
+var cw=canvas.width;
+var ch=canvas.height;
+//canvas.style.border='1px solid red';
+
+// animation related variables
+var minX=20;// Keep the image animating
+var maxX=250;// between minX & maxX
+var x=minX;// The current X-coordinate
+var speedX=1;// The image will move at 1px per loop
+var direction=1;// The image direction: 1==righward, -1==leftward
+var y=20;// The Y-coordinate
+
+// Load a new image
+// IMPORTANT!!! You must give the image time to load by using img.onload!
+var img=new Image();
+img.onload=start;
+img.src="m.png";
+
+function start(){
+  // the image is fully loaded so start animating
+  requestAnimationFrame(animate);
+}
+
+function animate(time){
+  // clear the canvas
+  ctx.clearRect(0,0,cw,ch);
+  // draw
+  ctx.drawImage(img,x,y);
+  // update
+  x += speedX * direction;
+  
+  // keep "x" inside min & max
+  if(x<minX){ x=minX; direction*=-1; }
+  if(x>maxX){ x=maxX; direction*=-1; }
+  
+  // request another loop of animation
+  requestAnimationFrame(animate);
+}
+
+
+
+</script>
+  </body>
+</html>

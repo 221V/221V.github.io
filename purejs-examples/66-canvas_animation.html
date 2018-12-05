@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <title>Canvas animation</title>
+    <style>
+      body {
+        margin:0;
+        padding:0;
+        background-color:ivory;
+      }
+      canvas{
+        //background-color:#FFF;
+        //border:1px solid red;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="512" height="512"></canvas>
+<script>
+'use strict';
+
+var canvas = document.getElementById('myCanvas');
+var ctx = canvas.getContext('2d');
+
+canvas.style.position = "absolute"; // set the style 
+canvas.style.left     = "0px";      // position in top left
+canvas.style.top      = "0px";
+canvas.style.zIndex   = 1; 
+
+//var cw=canvas.width;
+//var ch=canvas.height;
+//canvas.style.border='1px solid red';
+
+
+var exampleRunning = true;
+var startTime;
+
+
+{
+const textToDisplay = "Animation using requestAnimationFrame and responsive full screen canvas........";
+const textStyle = "white";
+const BGStyle = "black";  // background style
+const textSpeed = 0.5;  // in pixels per millisecond
+const textHorMargin = 8;  // have the text a little outside the canvas 	
+
+ctx.font = Math.floor(canvas.height * 0.8) + "px arial"; // size the font to 80% of canvas height
+var textWidth = ctx.measureText(textToDisplay).width; // get the text width
+var totalTextSize = (canvas.width + textHorMargin * 2 + textWidth);
+ctx.textBaseline = "middle";  // not put the text in the vertical center
+ctx.textAlign = "left";  // align to the left
+var textX = canvas.width + 8;   // start with the text off screen to the right
+var textOffset    = 0;                  // how far the text has moved
+
+function reset(){
+  ctx.font = Math.floor(canvas.height * 0.8) + "px arial"; // size the font to 80% of canvas height
+  textWidth = ctx.measureText(textToDisplay).width; // get the text width
+  totalTextSize = (canvas.width + textHorMargin * 2 + textWidth);
+  textX = canvas.width + 8;  // start with the text off screen to the right
+  textOffset = 0;  // how far the text has moved
+  ctx.textBaseline = "middle";  // not put the text in the vertical center
+  ctx.textAlign = "left";  // align to the left        
+}
+
+
+function sizeCanvas(){  // resizes canvas
+  canvas.width  = window.innerWidth;  // set the resolution to fill the page
+  canvas.height = window.innerHeight; 
+  if(exampleRunning){  
+    reset();  // reset anmation 
+  }
+}
+
+
+// the resize listener
+window.addEventListener("resize", sizeCanvas);
+
+// call sizeCanvas to create and set the canvas resolution
+sizeCanvas();
+
+
+// this function is call once a frame which is approx 16.66 ms (60fps)
+function update(time){  // time is passed by requestAnimationFrame
+  if(startTime === undefined){  // get a reference for the start time if this is the first frame
+    startTime = time;
+  }
+  ctx.fillStyle = BGStyle;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);  // clear the canvas by drawing over it
+  textOffset = ((time - startTime) * textSpeed) % (totalTextSize); // move the text left 
+  ctx.fillStyle = textStyle;  // set the text style
+  ctx.fillText(textToDisplay, textX - textOffset, canvas.height / 2); // render the text
+  requestAnimationFrame(update);// all done request the next frame
+}
+
+requestAnimationFrame(update);// to start request the first frame
+};
+
+
+
+
+</script>
+  </body>
+</html>

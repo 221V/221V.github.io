@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <title>Canvas clear rectangle with gradient, composite operation</title>
+    <style>
+      body {
+        margin:0;
+        padding:0;
+        background-color:white;
+      }
+      canvas{
+        //background-color:#FFF;
+        border:1px solid red;
+      }
+    </style>
+  </head>
+  <body>
+    <!--<canvas id="myCanvas" width="512" height="512"></canvas>-->
+<script>
+'use strict';
+
+//var canvas = document.getElementById('myCanvas');
+//var ctx = canvas.getContext('2d');
+
+//var cw=canvas.width;
+//var ch=canvas.height;
+//canvas.style.border='1px solid red';
+
+
+// Rather than use clearRect which makes all pixels transparent you may want a background.
+// To clear with a gradient
+
+// create the background gradient once
+var bgGrad = ctx.createLinearGradient(0,0,0,canvas.height);
+bgGrad.addColorStop(0,"#0FF");
+bgGrad.addColorStop(1,"#08F");
+
+// Every time you need to clear the canvas
+ctx.fillStyle = bgGrad;
+ctx.fillRect(0,0,canvas.width,canvas.height);
+
+//This is about half as quick 0.008ms as clearRect 0.004ms but the 4millions of a second should not negatively impact any realtime animation.
+//(Times will vary considerably depending on device, resolution, browser, and browser configuration. Times are for comparison only)
+
+
+
+
+// Clear canvas using composite operation
+//This will clear the canvas independent of transforms but is not as fast as clearRect() .
+ctx.globalCompositeOperation = 'copy';
+//anything drawn next will clear previous content.
+
+</script>
+  </body>
+</html>

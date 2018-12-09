@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <title>Canvas collisions is point inside circle</title>
+    <style>
+      body {
+        margin:0;
+        padding:0;
+        background-color:white;
+      }
+      canvas{
+        //background-color:#FFF;
+        border:1px solid red;
+      }
+    </style>
+  </head>
+  <body>
+    <!--<canvas id="myCanvas" width="512" height="512"></canvas>-->
+<script>
+'use strict';
+
+//var canvas = document.getElementById('myCanvas');
+//var ctx = canvas.getContext('2d');
+
+//var cw=canvas.width;
+//var ch=canvas.height;
+//canvas.style.border='1px solid red';
+
+
+//Is an X,Y point inside a circle?
+
+// circle objects: {cx:,cy:,radius:,startAngle:,endAngle:}
+var circle={
+  cx:150, cy:150, // centerpoint
+  radius:100
+}
+
+// Return true if the x,y point is inside the circle
+function isPointInCircle(x,y,circle){
+  var dx=x-circle.cx;
+  var dy=y-circle.cy;
+  return(dx*dx+dy*dy < circle.radius*circle.radius);
+}
+
+
+
+</script>
+  </body>
+</html>

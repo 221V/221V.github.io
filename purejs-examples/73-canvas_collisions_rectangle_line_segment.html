@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <title>Canvas collisions rectangle and line segment</title>
+    <style>
+      body {
+        margin:0;
+        padding:0;
+        background-color:white;
+      }
+      canvas{
+        //background-color:#FFF;
+        border:1px solid red;
+      }
+    </style>
+  </head>
+  <body>
+    <!--<canvas id="myCanvas" width="512" height="512"></canvas>-->
+<script>
+'use strict';
+
+//var canvas = document.getElementById('myCanvas');
+//var ctx = canvas.getContext('2d');
+
+//var cw=canvas.width;
+//var ch=canvas.height;
+//canvas.style.border='1px solid red';
+
+
+//Are line segment and rectangle colliding?
+
+// var rect={x:,y:,width:,height:};
+// var line={x1:,y1:,x2:,y2:};
+// Get interseting point of line segment & rectangle (if any)
+function lineRectCollide(line,rect){
+  // p=line startpoint, p2=line endpoint
+  var p={x:line.x1,y:line.y1};
+  var p2={x:line.x2,y:line.y2};
+  // top rect line
+  var q={x:rect.x,y:rect.y};
+  var q2={x:rect.x+rect.width,y:rect.y};
+  if(lineSegmentsCollide(p,p2,q,q2)){ return true; }
+  // right rect line
+  var q=q2;
+  var q2={x:rect.x+rect.width,y:rect.y+rect.height};
+  if(lineSegmentsCollide(p,p2,q,q2)){ return true; }
+  // bottom rect line
+  var q=q2;
+  var q2={x:rect.x,y:rect.y+rect.height};
+  if(lineSegmentsCollide(p,p2,q,q2)){ return true; }
+  // left rect line
+  var q=q2;
+  var q2={x:rect.x,y:rect.y};
+  if(lineSegmentsCollide(p,p2,q,q2)){ return true; }
+  // not intersecting with any of the 4 rect sides
+  return(false);
+}
+
+
+// point object: {x:, y:}
+// p0 & p1 form one segment, p2 & p3 form the second segment
+// Get interseting point of 2 line segments (if any)
+// Attribution: http://paulbourke.net/geometry/pointlineplane/
+function lineSegmentsCollide(p0,p1,p2,p3) {
+  var unknownA = (p3.x-p2.x) * (p0.y-p2.y) - (p3.y-p2.y) * (p0.x-p2.x);
+  var unknownB = (p1.x-p0.x) * (p0.y-p2.y) - (p1.y-p0.y) * (p0.x-p2.x);
+  var denominator = (p3.y-p2.y) * (p1.x-p0.x) - (p3.x-p2.x) * (p1.y-p0.y);
+  // Test if Coincident
+  // If the denominator and numerator for the ua and ub are 0
+  // then the two lines are coincident.
+  if(unknownA==0 && unknownB==0 && denominator==0){return(null);}
+  // Test if Parallel
+  // If the denominator for the equations for ua and ub is 0
+  // then the two lines are parallel.
+  if(denominator == 0) return null;
+  // test if line segments are colliding
+  unknownA /= denominator;
+  unknownB /= denominator;
+  var isIntersecting=(unknownA>=0 && unknownA<=1 && unknownB>=0 && unknownB<=1);
+  return(isIntersecting);
+}
+
+
+
+
+
+</script>
+  </body>
+</html>

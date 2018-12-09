@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <title>Canvas collisions 2 circles</title>
+    <style>
+      body {
+        margin:0;
+        padding:0;
+        background-color:white;
+      }
+      canvas{
+        //background-color:#FFF;
+        border:1px solid red;
+      }
+    </style>
+  </head>
+  <body>
+    <!--<canvas id="myCanvas" width="512" height="512"></canvas>-->
+<script>
+'use strict';
+
+//var canvas = document.getElementById('myCanvas');
+//var ctx = canvas.getContext('2d');
+
+//var cw=canvas.width;
+//var ch=canvas.height;
+//canvas.style.border='1px solid red';
+
+
+//Are 2 circles colliding?
+
+// circle objects: { x:, y:, radius: }
+// return true if the 2 circles are colliding
+// c1 and c2 are circles as defined above
+function CirclesColliding(c1,c2){
+  var dx=c2.x-c1.x;
+  var dy=c2.y-c1.y;
+  var rSum=c1.radius+c2.radius;
+  return(dx*dx+dy*dy <= rSum*rSum);
+}
+
+
+
+</script>
+  </body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <title>Canvas collisions is point inside wedge</title>
+    <style>
+      body {
+        margin:0;
+        padding:0;
+        background-color:white;
+      }
+      canvas{
+        //background-color:#FFF;
+        border:1px solid red;
+      }
+    </style>
+  </head>
+  <body>
+    <!--<canvas id="myCanvas" width="512" height="512"></canvas>-->
+<script>
+'use strict';
+
+//var canvas = document.getElementById('myCanvas');
+//var ctx = canvas.getContext('2d');
+
+//var cw=canvas.width;
+//var ch=canvas.height;
+//canvas.style.border='1px solid red';
+
+
+//Is an X,Y point inside a wedge?
+
+// wedge objects: {cx:,cy:,radius:,startAngle:,endAngle:}
+var wedge={
+  cx:150, cy:150, // centerpoint
+  radius:100,
+  startAngle:0, endAngle:Math.PI
+}
+
+// Return true if the x,y point is inside the closed wedge
+function isPointInWedge(x,y,wedge){
+  var PI2=Math.PI*2;
+  var dx=x-wedge.cx;
+  var dy=y-wedge.cy;
+  var rr=wedge.radius*wedge.radius;
+  if(dx*dx+dy*dy>rr){return(false);}
+  var angle=(Math.atan2(dy,dx)+PI2)%PI2;
+  return(angle>=wedge.startAngle && angle<=wedge.endAngle);
+}
+
+
+
+
+</script>
+  </body>
+</html>

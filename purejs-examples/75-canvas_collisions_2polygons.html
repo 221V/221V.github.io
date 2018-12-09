@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <title>Canvas collisions 2 polygons (both concave and convex are allowed)</title>
+    <style>
+      body {
+        margin:0;
+        padding:0;
+        background-color:white;
+      }
+      canvas{
+        //background-color:#FFF;
+        border:1px solid red;
+      }
+    </style>
+  </head>
+  <body>
+    <!--<canvas id="myCanvas" width="512" height="512"></canvas>-->
+<script>
+'use strict';
+
+//var canvas = document.getElementById('myCanvas');
+//var ctx = canvas.getContext('2d');
+
+//var cw=canvas.width;
+//var ch=canvas.height;
+//canvas.style.border='1px solid red';
+
+
+//Are 2 polygons colliding? (both concave and convex are allowed)
+
+// polygon objects are an array of vertices forming the polygon
+// var polygon1=[{x:100,y:100},{x:150,y:150},{x:50,y:150},...];
+// The polygons can be both concave and convex
+// return true if the 2 polygons are colliding
+function polygonsCollide(p1,p2){
+  // turn vertices into line points
+  var lines1=verticesToLinePoints(p1);
+  var lines2=verticesToLinePoints(p2);
+  // test each poly1 side vs each poly2 side for intersections
+  for(i=0; i<lines1.length; i++){
+    for(j=0; j<lines2.length; j++){
+      // test if sides intersect
+      var p0=lines1[i][0];
+      var p1=lines1[i][1];
+      var p2=lines2[j][0];
+      var p3=lines2[j][1];
+      // found an intersection -- polys do collide
+      if(lineSegmentsCollide(p0,p1,p2,p3)){return(true);}
+   }
+  }
+  // none of the sides intersect
+  return(false);
+}
+
+// helper: turn vertices into line points
+function verticesToLinePoints(p){
+  // make sure polys are self-closing
+  if(!(p[0].x==p[p.length-1].x && p[0].y==p[p.length-1].y)){
+    p.push({x:p[0].x,y:p[0].y});
+  }
+  var lines=[];
+  for(var i=1;i<p.length;i++){
+    var p1=p[i-1];
+    var p2=p[i];
+    lines.push([
+      {x:p1.x, y:p1.y},
+      {x:p2.x, y:p2.y}
+    ]);
+  }
+  return(lines);
+}
+
+// helper: test line intersections
+// point object: {x:, y:}
+// p0 & p1 form one segment, p2 & p3 form the second segment
+// Get interseting point of 2 line segments (if any)
+// Attribution: http://paulbourke.net/geometry/pointlineplane/
+function lineSegmentsCollide(p0,p1,p2,p3) {
+  var unknownA = (p3.x-p2.x) * (p0.y-p2.y) - (p3.y-p2.y) * (p0.x-p2.x);
+  var unknownB = (p1.x-p0.x) * (p0.y-p2.y) - (p1.y-p0.y) * (p0.x-p2.x);
+  var denominator = (p3.y-p2.y) * (p1.x-p0.x) - (p3.x-p2.x) * (p1.y-p0.y);
+  // Test if Coincident
+  // If the denominator and numerator for the ua and ub are 0
+  // then the two lines are coincident.
+  if(unknownA==0 && unknownB==0 && denominator==0){return(null);}
+  // Test if Parallel
+  // If the denominator for the equations for ua and ub is 0
+  // then the two lines are parallel.
+  if(denominator == 0) return null;
+  // test if line segments are colliding
+  unknownA /= denominator;
+  unknownB /= denominator;
+  var isIntersecting=(unknownA>=0 && unknownA<=1 && unknownB>=0 && unknownB<=1)
+  return(isIntersecting);
+}
+
+
+
+
+
+</script>
+  </body>
+</html>

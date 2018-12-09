@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <title>Canvas collisions is point inside rectangle</title>
+    <style>
+      body {
+        margin:0;
+        padding:0;
+        background-color:white;
+      }
+      canvas{
+        //background-color:#FFF;
+        border:1px solid red;
+      }
+    </style>
+  </head>
+  <body>
+    <!--<canvas id="myCanvas" width="512" height="512"></canvas>-->
+<script>
+'use strict';
+
+//var canvas = document.getElementById('myCanvas');
+//var ctx = canvas.getContext('2d');
+
+//var cw=canvas.width;
+//var ch=canvas.height;
+//canvas.style.border='1px solid red';
+
+
+//Is an X,Y point inside a rectangle?
+
+// rectangle objects: {x:, y:, width:, height: }
+var rect={x:10, y:15, width:25, height:20}
+// Return true if the x,y point is inside the rectangle
+function isPointInRectangle(x,y,rect){
+  return(x>rect.x && x<rect.x+rect.width && y>rect.y && y<rect.y+rect.height);
+}
+
+
+
+</script>
+  </body>
+</html>

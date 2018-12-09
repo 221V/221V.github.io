@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <title>Canvas collisions 2 rectangles</title>
+    <style>
+      body {
+        margin:0;
+        padding:0;
+        background-color:white;
+      }
+      canvas{
+        //background-color:#FFF;
+        border:1px solid red;
+      }
+    </style>
+  </head>
+  <body>
+    <!--<canvas id="myCanvas" width="512" height="512"></canvas>-->
+<script>
+'use strict';
+
+//var canvas = document.getElementById('myCanvas');
+//var ctx = canvas.getContext('2d');
+
+//var cw=canvas.width;
+//var ch=canvas.height;
+//canvas.style.border='1px solid red';
+
+
+//Are 2 rectangles colliding?
+
+// rectangle objects { x:, y:, width:, height: }
+// return true if the 2 rectangles are colliding
+// r1 and r2 are rectangles as defined above
+function RectsColliding(r1,r2){
+  return !(
+    r1.x > r2.x+r2.width ||
+    r1.x+r1.width < r2.x ||
+    r1.y > r2.y+r2.height ||
+    r1.y+r1.height < r2.y
+  );
+}
+
+
+
+</script>
+  </body>
+</html>

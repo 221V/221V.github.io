@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <title>Responsive canvas animation without resize events</title>
+    <style>
+      body {
+        margin:0;
+        padding:0;
+        background-color:white;
+      }
+      canvas{
+        //background-color:#FFF;
+        //border:1px solid red;
+        position:absolute;
+        left:0;
+        top:0;
+        z-index:1;
+      }
+    </style>
+  </head>
+  <body>
+    <!--<canvas id="myCanvas" width="512" height="512"></canvas>-->
+    <canvas id="myCanvas"></canvas>
+<script>
+'use strict';
+
+var canvas = document.getElementById('myCanvas');
+var ctx = canvas.getContext('2d');
+
+var cw=canvas.width;
+var ch=canvas.height;
+
+var nextTime=0;// the next animation begins at "nextTime"
+var duration=1000;// run animation every 1000ms
+var x=20;// the X,Y where the next rect is drawn
+var y=30;
+
+// way 1 -- like smart
+/*
+var debounceTimeoutHandle;
+var Debounce_Time = 100; // in ms (1/1000th second)
+
+function animate(currentTime){
+  if(currentTime<nextTime){
+    requestAnimationFrame(animate);
+    return;
+  }
+  nextTime=currentTime+duration;
+  ctx.fillStyle='#'+Math.floor(Math.random()*16777215).toString(16);
+  ctx.fillRect(x,y,30,30);
+  if((x + 30*2) > cw){ x=20; y+=30; }else{ x+=30; }
+  if((y + 30) > ch){ return; }
+  requestAnimationFrame(animate);
+}
+
+function debouncedResize(){
+  clearTimeout(debounceTimeoutHandle);
+  debounceTimeoutHandle = setTimeout(resizeCanvas, Debounce_Time);
+}
+
+function resizeCanvas(){
+  cancelAnimationFrame(animate);
+  
+  // resize
+  canvas.width = innerWidth;
+  canvas.height = innerHeight;
+  
+  cw = canvas.width;
+  ch = canvas.height;
+  
+  //x = 20;
+  //y = 30;
+  
+  //redraw
+  requestAnimationFrame(animate);
+}
+
+window.addEventListener("resize", debouncedResize);
+
+requestAnimationFrame(animate);
+*/
+
+// way 2 -- like K.I.S.S. - Keep It Simple Stupid
+
+function animate(currentTime){
+  if(canvas.width !== innerWidth || canvas.height !== innerHeight){
+    canvas.width = innerWidth;
+    canvas.height = innerHeight;
+    //x = 20;
+    //y = 30;
+  }
+  
+  if(currentTime<nextTime){
+    requestAnimationFrame(animate);
+    return;
+  }
+  nextTime=currentTime+duration;
+  ctx.fillStyle='#'+Math.floor(Math.random()*16777215).toString(16);
+  ctx.fillRect(x,y,30,30);
+  if((x + 30*2) > cw){ x=20; y+=30; }else{ x+=30; }
+  if((y + 30) > ch){ return; }
+  requestAnimationFrame(animate);
+}
+
+requestAnimationFrame(animate);
+
+
+</script>
+  </body>
+</html>

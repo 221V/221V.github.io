@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <title>Responsive canvas mouse coordinates</title>
+    <style>
+      body {
+        margin:0;
+        padding:0;
+        background-color:white;
+      }
+      canvas{
+        //background-color:#FFF;
+        //border:1px solid red;
+        position:absolute;
+        left:0;
+        top:0;
+        z-index:1;
+      }
+    </style>
+  </head>
+  <body>
+    <!--<canvas id="myCanvas" width="512" height="512"></canvas>-->
+    <canvas id="myCanvas"></canvas>
+<script>
+'use strict';
+
+var canvas = document.getElementById('myCanvas');
+var ctx = canvas.getContext('2d');
+
+var offsetX;
+var offsetY;
+
+function sizeCanvas(){
+  canvas.width = innerWidth;
+  canvas.height = innerHeight;
+}
+
+function reOffset(){
+  var BB = canvas.getBoundingClientRect();
+  offsetX = BB.left;
+  offsetY = BB.top;
+}
+
+function handleMouseUp(e){
+  var mouseX = parseInt(e.clientX - offsetX);
+  var mouseY = parseInt(e.clientY - offsetY);
+  console.log(mouseX, mouseY);
+}
+
+sizeCanvas();
+
+window.addEventListener("resize", function(){ sizeCanvas(); reOffset(); });
+window.addEventListener("scroll", function(){ reOffset(); });
+canvas.addEventListener("mousemove", function(e){ handleMouseUp(e); });
+
+
+
+</script>
+  </body>
+</html>

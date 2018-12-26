@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <title>Responsive canvas</title>
+    <style>
+      body {
+        margin:0;
+        padding:0;
+        background-color:white;
+      }
+      canvas{
+        //background-color:#FFF;
+        //border:1px solid red;
+        position:absolute;
+        left:0;
+        top:0;
+        z-index:1;
+      }
+    </style>
+  </head>
+  <body>
+    <!--<canvas id="myCanvas" width="512" height="512"></canvas>-->
+    <canvas id="myCanvas"></canvas>
+<script>
+'use strict';
+
+var canvas = document.getElementById('myCanvas');
+var ctx = canvas.getContext('2d');
+
+function sizeCanvas(){
+  canvas.width = innerWidth;
+  canvas.height = innerHeight;
+}
+
+sizeCanvas();
+
+window.addEventListener("resize", sizeCanvas);
+
+
+
+</script>
+  </body>
+</html>

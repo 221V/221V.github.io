@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <title>Canvas inner shadow - strokes with an inner-shadow</title>
+    <style>
+      body {
+        margin:0;
+        padding:0;
+        background-color:white;
+      }
+      canvas{
+        background-color:#FFF;
+        //background-color:navy;
+        border:1px solid red;
+        //position:absolute;
+        //left:0;
+        //top:0;
+        //z-index:1;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="512" height="512"></canvas>
+    <!--<canvas id="myCanvas"></canvas>-->
+<script>
+'use strict';
+
+var canvas = document.getElementById('myCanvas');
+var ctx = canvas.getContext('2d');
+
+//var cw=canvas.width;
+//var ch=canvas.height;
+
+
+// strokes with an inner-shadow
+
+// draw an opaque shape -- here we use a rounded rectangle
+defineRoundedRect(30,30,100,75,10);
+
+// set shadowing
+ctx.shadowColor = 'black';
+ctx.shadowBlur = 10;
+
+// stroke the shadowed rounded rectangle
+ctx.lineWidth = 4;
+ctx.stroke();
+
+// set compositing to erase everything outside the stroke
+ctx.globalCompositeOperation = 'destination-in';
+ctx.fill();
+
+// always clean up -- set compositing back to default
+ctx.globalCompositeOperation = 'source-over';
+
+function defineRoundedRect(x,y,width,height,radius){
+  ctx.beginPath();
+  ctx.moveTo(x + radius, y);
+  ctx.lineTo(x + width - radius, y);
+  ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+  ctx.lineTo(x + width, y + height - radius);
+  ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+  ctx.lineTo(x + radius, y + height);
+  ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+  ctx.lineTo(x, y + radius);
+  ctx.quadraticCurveTo(x, y, x + radius, y);
+  ctx.closePath();
+}
+
+
+
+ctx.shadowColor = 'rgba(0,0,0,0)';
+
+
+</script>
+  </body>
+</html>

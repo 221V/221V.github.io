@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <title>Canvas cache shadows</title>
+    <style>
+      body {
+        margin:0;
+        padding:0;
+        background-color:white;
+      }
+      canvas{
+        background-color:#FFF;
+        //background-color:navy;
+        border:1px solid red;
+        //position:absolute;
+        //left:0;
+        //top:0;
+        //z-index:1;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="512" height="512"></canvas>
+    <!--<canvas id="myCanvas"></canvas>-->
+<script>
+'use strict';
+
+var canvas = document.getElementById('myCanvas');
+var ctx = canvas.getContext('2d');
+
+var cw=canvas.width;
+var ch=canvas.height;
+
+var img = new Image();
+img.onload = start;
+img.src = 'star.png';
+
+function start(){
+  ctx.drawImage(img, 0, 20);
+  var cached = cacheShadowedImage(img,'black',3);
+  for(var i = 0;i < 5;i++){
+    ctx.drawImage(cached, i * (img.width + 10), 80);
+  }
+}
+
+function cacheShadowedImage(img, shadowcolor, blur){
+  var canvas2 = document.createElement("canvas");
+  var ctx2 = canvas2.getContext("2d");
+  canvas2.width = img.width + blur * 2 + 2;
+  canvas2.height = img.height + blur * 2 + 2;
+  ctx2.shadowColor = shadowcolor;
+  ctx2.shadowBlur = blur;
+  ctx2.drawImage(img, blur + 1, blur + 1);
+  return(canvas2);
+}
+
+
+</script>
+  </body>
+</html>

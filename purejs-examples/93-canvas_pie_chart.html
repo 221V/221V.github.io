@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <title>Canvas pie chart</title>
+    <style>
+      body {
+        margin:0;
+        padding:0;
+        background-color:white;
+      }
+      canvas{
+        background-color:#FFF;
+        //background-color:navy;
+        border:1px solid red;
+        //position:absolute;
+        //left:0;
+        //top:0;
+        //z-index:1;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="512" height="512"></canvas>
+    <!--<canvas id="myCanvas"></canvas>-->
+<script>
+'use strict';
+
+var canvas = document.getElementById('myCanvas');
+var ctx = canvas.getContext('2d');
+
+//var cw=canvas.width;
+//var ch=canvas.height;
+
+ctx.lineWidth = 2;
+ctx.font = '14px verdana'
+
+var PI2 = Math.PI * 2;
+var myColor = ["Green", "Red", "Blue"];
+var myData = [30, 60, 10];
+var cx = 150;
+var cy = 150;
+var radius = 100;
+
+pieChart(myData, myColor);
+
+function pieChart(data, colors){
+  var total = 0;
+  for(var i = 0;i < data.length;i++){
+    total += data[i];
+  }
+  
+  var sweeps = [];
+  for(var i = 0;i < data.length;i++){
+    sweeps.push(data[i] / total * PI2);
+  }
+  
+  var accumAngle = 0;
+  for(var i = 0;i < sweeps.length;i++){
+    drawWedge(accumAngle, accumAngle + sweeps[i], colors[i], data[i]);
+    accumAngle += sweeps[i];
+  }
+}
+
+function drawWedge(startAngle, endAngle, fill, label){
+  // draw the wedge
+  ctx.beginPath();
+  ctx.moveTo(cx, cy);
+  ctx.arc(cx, cy, radius, startAngle, endAngle, false);
+  ctx.closePath();
+  ctx.fillStyle = fill;
+  ctx.strokeStyle = 'black';
+  ctx.fill();
+  ctx.stroke();
+  
+  // draw the label
+  var midAngle = startAngle + (endAngle - startAngle) / 2;
+  var labelRadius = radius * 0.65;
+  var x = cx + labelRadius * Math.cos(midAngle);
+  var y = cy + labelRadius * Math.sin(midAngle);
+  ctx.fillStyle = 'white';
+  ctx.fillText(label, x, y);
+}
+
+
+
+</script>
+  </body>
+</html>

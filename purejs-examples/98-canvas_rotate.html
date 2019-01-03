@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <title>Canvas rotate img/path around it&apos;s centerpoint</title>
+    <style>
+      body {
+        margin:0;
+        padding:0;
+        background-color:white;
+      }
+      canvas{
+        //background-color:#FFF;
+        //background-color:navy;
+        border:1px solid red;
+        //position:absolute;
+        //left:0;
+        //top:0;
+        //z-index:1;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="512" height="512"></canvas>
+    <!--<canvas id="myCanvas"></canvas>-->
+<script>
+'use strict';
+
+var canvas = document.getElementById('myCanvas');
+var ctx = canvas.getContext('2d');
+
+//var cw=canvas.width;
+//var ch=canvas.height;
+
+ctx.fillStyle='green';
+ctx.globalAlpha=0.35;
+
+var rect = { x:100, y:100, width:175, height:50 };
+
+// draw the rectangle unrotated
+ctx.fillRect(rect.x, rect.y, rect.width, rect.height);
+
+// draw the rectangle rotated by 45 degrees (==PI/4 radians)
+ctx.translate(rect.x + rect.width/2, rect.y + rect.height/2);
+ctx.rotate(Math.PI/4);
+ctx.translate(-rect.x - rect.width/2, -rect.y - rect.height/2);
+ctx.fillRect(rect.x, rect.y, rect.width, rect.height);
+
+
+</script>
+  </body>
+</html>

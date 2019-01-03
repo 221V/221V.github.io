@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <title>Canvas drawing many rotated images quickly</title>
+    <style>
+      body {
+        margin:0;
+        padding:0;
+        background-color:white;
+      }
+      canvas{
+        background-color:#FFF;
+        //background-color:navy;
+        border:1px solid red;
+        //position:absolute;
+        //left:0;
+        //top:0;
+        //z-index:1;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="512" height="512"></canvas>
+    <!--<canvas id="myCanvas"></canvas>-->
+<script>
+'use strict';
+
+var canvas = document.getElementById('myCanvas');
+var ctx = canvas.getContext('2d');
+
+//var cw=canvas.width;
+//var ch=canvas.height;
+
+function drawImageRST(image, x, y, scale, rotation){
+  ctx.setTransform(scale, 0, 0, scale, x, y);
+  ctx.rotate(rotation);
+  ctx.drawImage(image, -image.width/2, -image.height/2);
+}
+
+function drawImageRST_Alpha(image, x, y, scale, rotation, alpha){
+  ctx.setTransform(scale, 0, 0, scale, x, y);
+  ctx.rotate(rotation);
+  ctx.globalAlpha = alpha;
+  ctx.drawImage(image, -image.width/2, -image.height/2);
+}
+
+//ctx.setTransform(1, 0, 0, 1, 0, 0); // set the context transform back to the default -- after using that functions
+//ctx.globalAlpha = 1; // set alpha to default after using 2nd function
+
+
+
+
+ctx.fillStyle='green';
+ctx.globalAlpha=0.35;
+
+var img = new Image();
+img.onload = example;
+img.src = 'm.png';
+
+
+var particles = [
+  {image:img, x:50, y:50, scale:1, rot:0.5, alpha:0.9},
+  {image:img, x:130, y:50, scale:0.9, rot:0.7, alpha:0.7},
+  {image:img, x:200, y:50, scale:0.7, rot:-0.5, alpha:0.5},
+  {image:img, x:250, y:50, scale:0.5, rot:-0.7, alpha:0.3}
+];
+
+
+function example(){
+
+for(var i = 0;i < particles.length;i++){
+  var p = particles[i];
+  drawImageRST_Alpha(p.image, p.x, p.y, p.scale, p.rot, p.alpha);
+}
+ctx.globalAlpha = 1; // reset alpha after loop
+
+
+drawImageRST(img, 100, 200, 1, 0.5);
+drawImageRST(img, 200, 200, 1, -0.5);
+
+ctx.setTransform(1, 0, 0, 1, 0, 0); // reset context transform
+
+}
+
+</script>
+  </body>
+</html>

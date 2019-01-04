@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <title>Canvas transformation matrix</title>
+    <style>
+      body {
+        margin:0;
+        padding:0;
+        background-color:white;
+      }
+      canvas{
+        background-color:#FFF;
+        //background-color:navy;
+        border:1px solid red;
+        //position:absolute;
+        //left:0;
+        //top:0;
+        //z-index:1;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="712" height="512"></canvas>
+    <!--<canvas id="myCanvas"></canvas>-->
+<script>
+'use strict';
+
+var canvas = document.getElementById('myCanvas');
+var ctx = canvas.getContext('2d');
+
+var cw=canvas.width;
+var ch=canvas.height;
+
+var offsetX,offsetY;
+function reOffset(){
+  var BB=canvas.getBoundingClientRect();
+  offsetX=BB.left;
+  offsetY=BB.top;
+}
+reOffset();
+window.onscroll=function(e){ reOffset(); }
+window.onresize=function(e){ reOffset(); }
+
+
+
+
+// Transformation Matrix "Class"
+var TransformationMatrix=( function(){
+  // private
+  var self;
+  var m = [1,0,0,1,0,0];
+  var reset = function(){ var m = [1,0,0,1,0,0]; };
+  var multiply = function(mat){
+    var m0 = m[0] * mat[0] + m[2] * mat[1];
+    var m1 = m[1] * mat[0] + m[3] * mat[1];
+    var m2 = m[0] * mat[2] + m[2] * mat[3];
+    var m3 = m[1] * mat[2] + m[3] * mat[3];
+    var m4 = m[0] * mat[4] + m[2] * mat[5] + m[4];
+    var m5 = m[1] * mat[4] + m[3] * mat[5] + m[5];
+    m = [m0, m1, m2, m3, m4, m5];
+  }
+  var screenPoint = function(transformedX, transformedY){
+    // invert
+    var d = 1/(m[0] * m[3] - m[1] * m[2]);
+    var im = [ m[3] * d, -m[1] * d, -m[2] * d, m[0] * d, d * (m[2] * m[5] - m[3] * m[4]), d * (m[1] * m[4] - m[0] * m[5]) ];
+    // point
+    return({
+      x:transformedX * im[0] + transformedY * im[2] + im[4],
+      y:transformedX * im[1] + transformedY * im[3] + im[5]
+    });
+  }
+  var transformedPoint = function(screenX, screenY){
+    return({
+      x:screenX * m[0] + screenY * m[2] + m[4],
+      y:screenX * m[1] + screenY * m[3] + m[5]
+    });
+  }
+  // public
+  function TransformationMatrix(){
+    self = this;
+  }
+  // shared methods
+  TransformationMatrix.prototype.translate = function(x,y){
+    var mat = [1,0,0,1,x,y];
+    multiply(mat);
+  };
+  TransformationMatrix.prototype.rotate = function(rAngle){
+    var c = Math.cos(rAngle);
+    var s = Math.sin(rAngle);
+    var mat = [c,s,-s,c,0,0];
+    multiply(mat);
+  };
+  TransformationMatrix.prototype.scale = function(x,y){
+    var mat = [x,0,0,y,0,0];
+    multiply(mat);
+  };
+  TransformationMatrix.prototype.skew = function(radianX,radianY){
+    var mat = [1, Math.tan(radianY), Math.tan(radianX),1,0,0];
+    multiply(mat);
+  };
+  TransformationMatrix.prototype.reset = function(){
+    reset();
+  };
+  TransformationMatrix.prototype.setContextTransform = function(ctx){
+    ctx.setTransform(m[0],m[1],m[2],m[3],m[4],m[5]);
+  };
+  TransformationMatrix.prototype.resetContextTransform = function(ctx){
+    ctx.setTransform(1,0,0,1,0,0);
+  };
+  TransformationMatrix.prototype.getTransformedPoint = function(screenX,screenY){
+    return(transformedPoint(screenX,screenY));
+  };
+  TransformationMatrix.prototype.getScreenPoint = function(transformedX,transformedY){
+    return(screenPoint(transformedX,transformedY));
+  };
+  TransformationMatrix.prototype.getMatrix = function(){
+    var clone = [m[0],m[1],m[2],m[3],m[4],m[5]];
+    return(clone);
+  };
+  // return public
+  return(TransformationMatrix);
+})();
+
+
+
+
+// create rect and add a transformation matrix
+// to track it's translations, rotations & scalings
+var rect = { x:30, y:30, w:50, h:35, matrix:new TransformationMatrix() };
+//var rect = { x:30, y:200, w:50, h:35, matrix:new TransformationMatrix() };
+
+// draw the untransformed rect in black
+ctx.strokeRect(rect.x, rect.y, rect.w, rect.h);
+// demo: label
+ctx.font='11px arial';
+ctx.fillText('Untransformed Rect', rect.x, rect.y - 10);
+
+// transform the canvas & draw the transformed rect in red
+ctx.translate(100,0);
+ctx.scale(2,2);
+ctx.rotate(Math.PI/12);
+// draw the transformed rect
+//ctx.strokeStyle='red';
+//ctx.strokeRect(rect.x, rect.y, rect.w, rect.h);
+//ctx.font='6px arial';
+// demo: label
+ctx.fillText('Same Rect: Translated, rotated & scaled', rect.x, rect.y - 6);
+// reset the context to untransformed state
+ctx.setTransform(1,0,0,1,0,0);
+
+// record the transformations in the matrix
+var m = rect.matrix;
+m.translate(100,0);
+m.scale(2,2);
+m.rotate(Math.PI/12);
+
+// use the rect's saved transformation matrix to reposition, resize & redraw the rect
+ctx.strokeStyle='blue';
+drawTransformedRect(rect);
+
+// demo: instructions
+ctx.font = '14px arial';
+ctx.fillText('Demo: click inside the blue rect',170,200);
+
+// redraw a rect based on it's saved transformation matrix
+function drawTransformedRect(r){
+  // set the context transformation matrix using the rect's saved matrix
+  m.setContextTransform(ctx);
+  // draw the rect (no position or size changes needed!)
+  ctx.strokeRect(r.x, r.y, r.w, r.h);
+  // reset the context transformation to default (==untransformed)
+  m.resetContextTransform(ctx);
+}
+
+// is the point in the transformed rectangle?
+function isPointInTransformedRect(r, transformedX, transformedY){
+  var p = r.matrix.getScreenPoint(transformedX,transformedY);
+  var x = p.x;
+  var y = p.y;
+  return(x > r.x && x < r.x + r.w && y > r.y && y < r.y + r.h);
+}
+
+
+canvas.onmousedown=handleMouseDown;
+
+function handleMouseDown(e){
+  e.preventDefault();
+  e.stopPropagation();
+  
+  var mouseX = parseInt(e.clientX - offsetX);
+  var mouseY = parseInt(e.clientY - offsetY);
+  if(isPointInTransformedRect(rect,mouseX,mouseY)){
+    alert('You clicked in the transformed Rect');
+  }
+  if(isPointInTransformedRect(rect2,mouseX,mouseY)){
+    alert('You clicked in the transformed Rect 2');
+  }
+}
+
+
+// demo: redraw transformed rect without using context transformation commands
+function drawTransformedRect2(r, color){
+  var m = r.matrix;
+  var tl = m.getTransformedPoint(r.x, r.y);
+  var tr = m.getTransformedPoint(r.x + r.w, r.y);
+  var br = m.getTransformedPoint(r.x + r.w, r.y + r.h);
+  var bl = m.getTransformedPoint(r.x, r.y + r.h);
+  ctx.beginPath();
+  ctx.moveTo(tl.x,tl.y);
+  ctx.lineTo(tr.x,tr.y);
+  ctx.lineTo(br.x,br.y);
+  ctx.lineTo(bl.x,bl.y);
+  ctx.closePath();
+  ctx.strokeStyle=color;
+  ctx.stroke();
+}
+
+
+
+//var rect2 = { x:30, y:230, w:50, h:35, matrix:new TransformationMatrix() };
+var rect2 = { x:30, y:200, w:50, h:35, matrix:new TransformationMatrix() };
+
+ctx.strokeStyle='black';
+// draw the untransformed rect in black
+ctx.strokeRect(rect2.x, rect2.y, rect2.w, rect2.h);
+// demo: label
+ctx.font='11px arial';
+ctx.fillText('Untransformed Rect 2', rect2.x, rect2.y - 10);
+
+drawTransformedRect2(rect2, 'red');
+
+</script>
+  </body>
+</html>

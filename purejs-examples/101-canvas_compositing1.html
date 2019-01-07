@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <title>Canvas compositing - draw behind (under)</title>
+    <style>
+      body {
+        margin:0;
+        padding:0;
+        background-color:white;
+      }
+      canvas{
+        background-color:#FFF;
+        //background-color:navy;
+        border:1px solid red;
+        //position:absolute;
+        //left:0;
+        //top:0;
+        //z-index:1;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="712" height="512"></canvas>
+    <!--<canvas id="myCanvas"></canvas>-->
+<script>
+'use strict';
+
+var canvas = document.getElementById('myCanvas');
+var ctx = canvas.getContext('2d');
+
+var cw=canvas.width;
+var ch=canvas.height;
+
+var img = new Image();
+var img2 = new Image();
+img.onload = start1;
+img.src = 'cloud.png';
+
+function start1(){
+  img2.onload = start2;
+  img2.src = 'sun.png';
+}
+
+function start2(){
+  ctx.drawImage(img, 20, 20);
+  ctx.globalCompositeOperation = 'destination-over'; // sunny under rainy
+  ctx.drawImage(img2, 20, 40);
+}
+
+</script>
+  </body>
+</html>

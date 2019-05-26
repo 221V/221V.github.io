@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <title>Canvas inner shadows -- source-atop</title>
+    <style>
+      body {
+        margin:0;
+        padding:0;
+        background-color:white;
+      }
+      canvas{
+        background-color:#FFF;
+        //background-color:navy;
+        border:1px solid red;
+        //position:absolute;
+        //left:0;
+        //top:0;
+        //z-index:1;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="712" height="512"></canvas>
+    <!--<canvas id="myCanvas"></canvas>-->
+<script>
+'use strict';
+
+var canvas = document.getElementById('myCanvas');
+var ctx = canvas.getContext('2d');
+
+var cw=canvas.width;
+var ch=canvas.height;
+
+// gold filled rect
+ctx.fillStyle = 'gold';
+ctx.fillRect(100,100,100,75);
+
+// shadows
+ctx.shadowColor = 'black';
+ctx.shadowBlur = 10;
+
+// restrict new draw to cover existing pixels
+ctx.globalCompositeOperation = 'source-atop';
+
+// shadowed stroke
+// "source-atop" clips off the undersired outer shadow
+ctx.strokeRect(100,100,100,75);
+ctx.strokeRect(100,100,100,75);
+
+
+</script>
+  </body>
+</html>

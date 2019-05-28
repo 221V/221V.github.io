@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <title>Canvas getting pixel colors</title>
+    <style>
+      body {
+        margin:0;
+        padding:0;
+        background-color:white;
+      }
+      canvas{
+        background-color:#FFF;
+        //background-color:navy;
+        border:1px solid red;
+        //position:absolute;
+        //left:0;
+        //top:0;
+        //z-index:1;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="myCanvas" width="712" height="512"></canvas>
+    <!--<canvas id="myCanvas"></canvas>-->
+<script>
+'use strict';
+
+var canvas = document.getElementById('myCanvas');
+var ctx = canvas.getContext('2d');
+
+var cw=canvas.width;
+var ch=canvas.height;
+
+// Use getImageData to fetch the pixel colors for all or part of your canvas content.
+
+// The getImageData method returns an imageData object
+
+//The imageData object has a .data property that contains the pixel color information.
+
+//The data property is a Uint8ClampedArray containing the Red, Green, Blue & Alpha (opacity) color data for all requested pixels.
+
+
+// determine which pixels to fetch (this fetches all pixels on the canvas)
+var x=0;
+var y=0;
+var width=canvas.width;
+var height=canvas.height;
+
+// Fetch the imageData object
+var imageData = context.getImageData(x,y,width,height);
+
+// Pull the pixel color data array from the imageData object
+var pixelDataArray = imageData.data;
+
+
+// You can get position of any [x,y] pixel within data array like this:
+
+// the data[] array position for pixel [x,y]
+var n = y * canvas.width + x;
+
+
+// And then you can fetch that pixel's red, green, blue & alpha values like this:
+
+// the RGBA info for pixel [x,y]
+var red=data[n];
+var green=data[n+1];
+var blue=data[n+2];
+var alpha=data[n+3];
+
+
+
+</script>
+  </body>
+</html>

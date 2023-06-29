@@ -1,17 +1,17 @@
 <!DOCTYPE HTML>
 <html>
   <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   <title>Canvas text in paragraph</title>
     <style>
-      body {
-        margin: 0px;
-        padding: 0px;
-        background-color:white;
+      body{
+        margin: 0;
+        padding: 0;
+        background-color:#fff;
       }
       canvas{
-	    background-color:#808080;
-	  }
+        background-color:#808080;
+      }
     </style>
   </head>
   <body>
@@ -23,19 +23,19 @@ var canvas = document.getElementById('myCanvas');
 var ctx = canvas.getContext('2d');
 
 function wrapText(text, x, y, maxWidth, fontSize, fontFace){
-  var firstY=y;
+  var firstY = y;
   var words = text.split(' ');
   var line = '';
-  var lineHeight=fontSize*1.286; // a good approx for 10-18px sizes
-  ctx.font=fontSize+" "+fontFace;
-  ctx.textBaseline='top';
+  var lineHeight = fontSize * 1.286; // a good approx for 10-18px sizes
+  ctx.font = fontSize + ' ' + fontFace;
+  ctx.textBaseline = 'top';
   for(var n = 0; n < words.length; n++) {
     var testLine = line + words[n] + ' ';
     var metrics = ctx.measureText(testLine);
     var testWidth = metrics.width;
     if(testWidth > maxWidth) {
       ctx.fillText(line, x, y);
-      if(n<words.length-1){
+      if(n < words.length - 1){
         line = words[n] + ' ';
         y += lineHeight;
       }
@@ -47,8 +47,8 @@ function wrapText(text, x, y, maxWidth, fontSize, fontFace){
 }
 
 
-wrapText("Hello world!",50,50,300,'italic small-caps bold 20px','Helvetica, Arial, sans-serif'); 
-wrapText("It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).",50,100,450,'15','Helvetica, Arial, sans-serif');
+wrapText("Hello world!", 50, 50, 300, 'italic small-caps bold 20px','Helvetica, Arial, sans-serif'); 
+wrapText("It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).", 50, 100, 450, '15', 'Helvetica, Arial, sans-serif');
 
 
 </script>

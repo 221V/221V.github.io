@@ -1,106 +1,106 @@
 <!DOCTYPE HTML>
 <html>
   <head>
-  <meta charset="utf-8" />
+  <meta charset="utf-8">
   <title>Canvas text in shapes</title>
     <style>
-      body {
+      body{
         margin: 0px;
         padding: 10px;
-        background-color:white;
+        background-color:#fff;
       }
       canvas{
-	    //background-color:#808080;
-	    border: 1px solid red;
-	  }
+        //background-color:#808080;
+        border: 1px solid red;
+      }
     </style>
   </head>
   <body>
     <canvas id="myCanvas" width="400" height="400"></canvas>
-    <h4>Note: the shape must be closed and alpha>=250 inside</h4>
+    <h4>Note: the shape must be closed and alpha >= 250 inside</h4>
 <script>
 'use strict';
 
-window.onload=(function(){
-  var canvas=document.getElementById("myCanvas");
-  var ctx=canvas.getContext("2d");
-  var cw=canvas.width;
-  var ch=canvas.height;
-  var fontsize=12;
-  var fontface='verdana';
-  var lineHeight=parseInt(fontsize*1.286);
-  var text='It was the best of times, it was the worst of times, it was the age of wisdom, it was the age of foolishness, it was the epoch of belief, it was the epoch of incredulity, it was the season of Light, it was the season of Darkness, it was the spring of hope, it was the winter of despair, we had everything before us, we had nothing before us, we were all going direct to Heaven, we were all going direct the other way; in short, the period was so far like the present period, that some of its noisiest authorities insisted on its being received, for good or for evil, in the superlative degree of comparison only.';
-  var words=text.split(' ');
-  var wordWidths=[];
-  ctx.font=fontsize+'px '+fontface;
-  for(var i=0;i<words.length;i++){ wordWidths.push(ctx.measureText(words[i]).width); }
-  var spaceWidth=ctx.measureText(' ').width;
-  var wordIndex=0
-  var data=[];
+window.onload = (function(){
+  var canvas = document.getElementById("myCanvas");
+  var ctx = canvas.getContext("2d");
+  var cw = canvas.width;
+  var ch = canvas.height;
+  var fontsize = 12;
+  var fontface = 'verdana';
+  var lineHeight = parseInt(fontsize*1.286);
+  var text = 'It was the best of times, it was the worst of times, it was the age of wisdom, it was the age of foolishness, it was the epoch of belief, it was the epoch of incredulity, it was the season of Light, it was the season of Darkness, it was the spring of hope, it was the winter of despair, we had everything before us, we had nothing before us, we were all going direct to Heaven, we were all going direct the other way; in short, the period was so far like the present period, that some of its noisiest authorities insisted on its being received, for good or for evil, in the superlative degree of comparison only.';
+  var words = text.split(' ');
+  var wordWidths = [];
+  ctx.font = fontsize + 'px ' + fontface;
+  for(var i = 0; i < words.length; i++){ wordWidths.push(ctx.measureText(words[i]).width); }
+  var spaceWidth = ctx.measureText(' ').width;
+  var wordIndex = 0
+  var data = [];
   // Demo: draw Heart
   // Note: the shape can be ANY opaque drawing -- even an image
-  ctx.scale(3,3);
+  ctx.scale(3, 3);
   ctx.beginPath();
-  ctx.moveTo(75,40);
-  ctx.bezierCurveTo(75,37,70,25,50,25);
-  ctx.bezierCurveTo(20,25,20,62.5,20,62.5);
-  ctx.bezierCurveTo(20,80,40,102,75,120);
-  ctx.bezierCurveTo(110,102,130,80,130,62.5);
-  ctx.bezierCurveTo(130,62.5,130,25,100,25);
-  ctx.bezierCurveTo(85,25,75,37,75,40);
-  ctx.fillStyle='red';
+  ctx.moveTo(75, 40);
+  ctx.bezierCurveTo(75, 37, 70, 25, 50, 25);
+  ctx.bezierCurveTo(20, 25, 20, 62.5, 20, 62.5);
+  ctx.bezierCurveTo(20, 80, 40, 102, 75, 120);
+  ctx.bezierCurveTo(110, 102, 130, 80, 130, 62.5);
+  ctx.bezierCurveTo(130, 62.5, 130, 25, 100, 25);
+  ctx.bezierCurveTo(85, 25, 75, 37, 75, 40);
+  ctx.fillStyle = 'red';
   ctx.fill();
-  ctx.setTransform(1,0,0,1,0,0);
+  ctx.setTransform(1, 0, 0, 1, 0, 0);
   // fill heart with text
-  ctx.fillStyle='white';
-  var imgDataData=ctx.getImageData(0,0,cw,ch).data;
-  for(var i=0;i<imgDataData.length;i+=4){
-    data.push(imgDataData[i+3]);
+  ctx.fillStyle = 'white';
+  var imgDataData = ctx.getImageData(0, 0, cw, ch).data;
+  for(var i = 0; i < imgDataData.length; i += 4){
+    data.push(imgDataData[i + 3]);
   }
   placeWords();
   
   // draw words sequentially into next available block of available opaque pixels
   
   function placeWords(){
-    var sx=0;
-    var sy=0;
-    var y=0;
-    var wordIndex=0;
-    ctx.textBaseline='top';
-    while(y<ch && wordIndex<words.length){
-      sx=0;
-      sy=y;
-      var startingIndex=wordIndex;
-      while(sx<cw && wordIndex<words.length){
-        var x=getRect(sx,sy,lineHeight);
-        var available=x-sx;
-        var spacer=spaceWidth; // spacer=0 to have no left margin
-        var w=spacer+wordWidths[wordIndex];
-        while(available>=w){
-          ctx.fillText(words[wordIndex],spacer+sx,sy);
-          sx+=w;
-          available-=w;
-          spacer=spaceWidth;
+    var sx = 0;
+    var sy = 0;
+    var y = 0;
+    var wordIndex = 0;
+    ctx.textBaseline = 'top';
+    while(y < ch && wordIndex < words.length){
+      sx = 0;
+      sy = y;
+      var startingIndex = wordIndex;
+      while(sx < cw && wordIndex < words.length){
+        var x = getRect(sx, sy, lineHeight);
+        var available = x - sx;
+        var spacer = spaceWidth; // spacer=0 to have no left margin
+        var w = spacer + wordWidths[wordIndex];
+        while(available >= w){
+          ctx.fillText(words[wordIndex], spacer + sx, sy);
+          sx += w;
+          available -= w;
+          spacer = spaceWidth;
           wordIndex++;
-          w=spacer+wordWidths[wordIndex];
+          w = spacer + wordWidths[wordIndex];
         }
-        sx=x+1;
+        sx = x + 1;
       }
-      y=(wordIndex>startingIndex)?y+lineHeight:y+1;
+      y = (wordIndex > startingIndex) ? y + lineHeight : y + 1;
     }
   }
   // find a rectangular block of opaque pixels
-  function getRect(sx,sy,height){
-    var x=sx;
-    var y=sy;
-    var ok=true;
+  function getRect(sx, sy, height){
+    var x = sx;
+    var y = sy;
+    var ok = true;
     while(ok){
-      if(data[y*cw+x]<250){ok=false;}
+      if(data[y * cw + x] < 250){ ok = false; }
       y++;
-      if(y>=sy+height){
-        y=sy;
+      if(y >= sy + height){
+        y = sy;
         x++;
-        if(x>=cw){ok=false;}
+        if(x >= cw){ ok = false; }
       }
     }
     return(x);

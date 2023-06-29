@@ -26,7 +26,7 @@ function wrapText(text, x, y, maxWidth, fontSize, fontFace){
   var firstY = y;
   var words = text.split(' ');
   var line = '';
-  var lineHeight = fontSize * 1.286; // a good approx for 10-18px sizes
+  var lineHeight = Math.round(fontSize * 1.286); // a good approx for 10-18px sizes
   ctx.font = fontSize + ' ' + fontFace;
   ctx.textBaseline = 'top';
   for(var n = 0; n < words.length; n++) {
